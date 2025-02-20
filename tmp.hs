@@ -26,3 +26,7 @@ readDoubleIntScore n = replicateM n $ do
 -- read String Array
 getStrArray :: IO [String]
 getStrArray = words <$> getLine
+
+-- read Int
+getInt :: IO Int
+getInt = readLn :: IO Int
