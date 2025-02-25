@@ -2,19 +2,13 @@
 -- replicateM
 import Control.Monad (replicateM)
 
-solver :: Int -> String
-solver scores =
-  let (t, a) = foldl (\(t, a) (x, y) -> (t + x, a + y)) (0, 0) scores
-  in if t > a
-    then "Takahashi"
-    else if t < a
-      then "Aoki"
-      else "Draw"
+solver :: String -> String
+solver s = init s ++ "4"
 
 main :: IO ()
 main = do
-  n <- getInt
-  putStrLn $ solver n
+  s <- getStr
+  putStrLn $ solver s
 
 -- read double Int score
 readDoubleIntScore :: Int -> IO [(Int, Int)]
