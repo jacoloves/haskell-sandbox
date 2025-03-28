@@ -6,20 +6,21 @@ import Control.Monad (replicateM)
 import Data.Set (Set)
 import Data.Set qualified as Set
 
-solver :: Int -> String
-solver scores =
-  let (t, a) = foldl (\(t, a) (x, y) -> (t + x, a + y)) (0, 0) scores
-   in if t > a
-        then "Takahashi"
-        else
-          if t < a
-            then "Aoki"
-            else "Draw"
+solver :: String -> Int
+solver s = go s Set.empty 1
+  where
+    go [] _ _ = 0
+    go (x : xs) seen idx
+      | Set.size newSeen == 3 = idx
+      | otherwise = go xs newSeen (idx + 1)
+      where
+        newSeen = Set.insert x seen
 
 main :: IO ()
 main = do
-  n <- getInt
-  putStrLn $ solver n
+  _ <- getInt
+  s <- getStr
+  print $ solver s
 
 -- read double Int score
 readDoubleIntScore :: Int -> IO [(Int, Int)]
