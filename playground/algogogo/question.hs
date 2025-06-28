@@ -1,24 +1,33 @@
 import Control.Monad (replicateM)
+
 main :: IO ()
 main = do
-    abc169a
+  abc086a
+
+abc153a :: IO()
+abc153a = do
+    [h, a] <- getIntArray
+    
 
 abc086a :: IO ()
 abc086a = do
-    [a, b] <- getIntArray
-    
+  [a, b] <- getIntArray
+  let c = a * b
+  if even c
+    then putStrLn "Even"
+    else putStrLn "Odd"
 
 abc169a :: IO ()
 abc169a = do
-    [a, b] <- getIntArray
-    let c = a * b
-    print c
+  [a, b] <- getIntArray
+  let c = a * b
+  print c
 
 -- read double Int score
 readDoubleIntScore :: Int -> IO [(Int, Int)]
 readDoubleIntScore n = replicateM n $ do
-    [x, y] <- map read . words <$> getLine
-    return (x, y)
+  [x, y] <- map read . words <$> getLine
+  return (x, y)
 
 -- read String Array
 getStrArray :: IO [String]
