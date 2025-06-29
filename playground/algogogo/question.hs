@@ -2,12 +2,65 @@ import Control.Monad (replicateM)
 
 main :: IO ()
 main = do
-  abc086a
+  abc087a
 
-abc153a :: IO()
+abc064a :: IO ()
+abc064a = do
+  [r, g, b] <- getIntArray
+  let sumRGB = 100 * r + 10 * g + b
+  if sumRGB `mod` 4 == 0
+
+
+abc087a :: IO ()
+abc087a = do
+  x <- getInt
+  a <- getInt
+  b <- getInt
+  let takeCake = x - a
+  print (takeCake `mod` b)
+
+abc088a :: IO ()
+abc088a = do
+  n <- getInt
+  a <- getInt
+  let mod500 = n `mod` 500
+  if mod500 <= a
+    then putStrLn "Yes"
+    else putStrLn "No"
+
+abc118a :: IO ()
+abc118a = do
+  [a, b] <- getIntArray
+  if b `mod` a == 0
+    then print (a + b)
+    else print (b - a)
+
+abc127a :: IO ()
+abc127a = do
+  [a, b] <- getIntArray
+  if a >= 13
+    then print b
+    else
+      if a >= 6
+        then print (b `div` 2)
+        else print 0
+
+abc137a :: IO ()
+abc137a = do
+  [a, b] <- getIntArray
+  let aPb = a + b
+  let aMb = a - b
+  let aMltb = a * b
+  let abArray = [aPb, aMb, aMltb]
+  print $ maximum abArray
+
+abc153a :: IO ()
 abc153a = do
-    [h, a] <- getIntArray
-    
+  [h, a] <- getIntArray
+  let attacks = h `div` a
+  if h `mod` a == 0
+    then print attacks
+    else print (attacks + 1)
 
 abc086a :: IO ()
 abc086a = do
