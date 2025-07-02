@@ -2,14 +2,44 @@ import Control.Monad (replicateM)
 
 main :: IO ()
 main = do
-  abc087a
+  abc157a
+
+abc157a:: IO ()
+abc157a = do
+    n <- getInt
+    if even n
+        then print (n `div` 2)
+        else print (n `div` 2 + 1)
+
+abc173a:: IO ()
+abc173a = do
+    n <- getInt
+    if n `mod` 1000 == 0
+        then print 0
+        else print (1000 - (n `mod` 1000))
+
+abc125a:: IO ()
+abc125a = do
+    [a, b, t] <- getIntArray
+    let totalBiscuts = (t `div` a) * b
+    print totalBiscuts
+
+
+abc128a:: IO ()
+abc128a = do
+    [a, p] <- getIntArray
+    let peaceApple = a * 3 + p
+    let applePie = peaceApple `div` 2
+    print applePie
+
 
 abc064a :: IO ()
 abc064a = do
   [r, g, b] <- getIntArray
   let sumRGB = 100 * r + 10 * g + b
   if sumRGB `mod` 4 == 0
-
+    then putStrLn "YES"
+    else putStrLn "NO"
 
 abc087a :: IO ()
 abc087a = do
