@@ -1,8 +1,35 @@
-import Control.Monad (replicateM)
+import Control.Monad (replicateM, forM_)
 
 main :: IO ()
 main = do
-  abc157a
+  abc165a
+
+abc165a:: IO ()
+abc165a = do
+    k <- getInt
+    [a, b] <- getIntArray
+    -- for (i=a; i<=b; i++) {
+    --    if (i % k == 0) {
+    --        cout  << "OK" << endl;
+    --        return 0;
+    --   }
+    -- }
+    -- cout << "NG" << endl;
+    
+    if any (\i -> i `mod` k == 0) [a..b]
+        then putStrLn "OK"
+        else putStrLn "NG"
+    
+
+
+abc176a:: IO ()
+abc176a = do
+    [n, x, t] <- getIntArray
+    if n `mod` x == 0
+        then let tt = n `div` x
+             in print (tt * t)
+        else let tt = n `div` x + 1
+             in print (tt * t)
 
 abc157a:: IO ()
 abc157a = do
