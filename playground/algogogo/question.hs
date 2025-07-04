@@ -2,7 +2,25 @@ import Control.Monad (replicateM, forM_)
 
 main :: IO ()
 main = do
-  abc165a
+  abc162b
+
+abc162b:: IO ()
+abc162b = do
+    n <- getInt
+    
+    let result = sum[i | i <- [1..n], i `mod` 3 /= 0 && i `mod` 5 /= 0]
+    print result
+
+abc083b:: IO ()
+abc083b = do
+    [n, a, b] <- getIntArray
+
+    let result = sum [i | i <- [1..n], let digitSum = sumOfDigits i, digitSum >= a && digitSum <= b]
+    print result
+
+sumOfDigits :: Int -> Int
+sumOfDigits 0 = 0
+sumOfDigits n = n `mod` 10 + sumOfDigits (n `div` 10)
 
 abc165a:: IO ()
 abc165a = do
