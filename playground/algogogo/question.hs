@@ -2,7 +2,22 @@ import Control.Monad (replicateM, forM_)
 
 main :: IO ()
 main = do
-  abc162b
+  abc206b
+
+abc206b:: IO ()
+abc206b = do
+    n <- getInt
+
+    -- for (int i = 0; i < n; i++) {
+    --     res += i;
+    --     cnt = i
+    --     if (res >= n) {
+    --        cout << cnt << endl;
+    --        return 0;
+    --     }
+    -- }
+    let result = head [i | i <- [1..], let res = sum [0..i], res >= n]
+    print result
 
 abc162b:: IO ()
 abc162b = do
