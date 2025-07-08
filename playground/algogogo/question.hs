@@ -2,7 +2,36 @@ import Control.Monad (replicateM, forM_)
 
 main :: IO ()
 main = do
-  abc206b
+  abc200b
+
+abc200b:: IO ()
+abc200b = do
+  [n, k] <- getIntArray
+  let result = performOperations n k
+  print result
+
+performOperations :: Int -> Int -> Int
+performOperations n 0 = n
+performOperations n k
+  | n `mod` 200 == 0 = performOperations (n `div` 200) (k - 1)
+  | otherwise = performOperations (appendTwoHundred n) (k - 1)
+
+appendTwoHundred :: Int -> Int
+appendTwoHundred n = read (show n ++ "200")
+
+
+abc165b:: IO ()
+abc165b = do
+  x <- getInt
+  let cnt = findYear 100 x 0
+  print cnt
+
+findYear :: Int -> Int -> Int -> Int
+findYear current target years
+  | current >= target = years
+  | otherwise = findYear newAmount target (years + 1)
+  where
+    newAmount = current + (current `div` 100)
 
 abc206b:: IO ()
 abc206b = do
