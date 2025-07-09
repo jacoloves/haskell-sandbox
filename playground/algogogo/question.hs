@@ -2,7 +2,38 @@ import Control.Monad (replicateM, forM_)
 
 main :: IO ()
 main = do
-  abc200b
+  abc208b
+
+abc208b:: IO ()
+abc208b = do
+  p <- getInt
+  let factorials = map factorial [10, 9..1]
+  let result = greedyCoins p factorials 0
+  print result
+
+factorial :: Int -> Int
+factorial n = product [1..n]
+
+greedyCoins :: Int -> [Int] -> Int -> Int
+greedyCoins 0 _ count = count
+greedyCoins _ [] count = count
+greedyCoins remaining (coin:coins) count
+  | remaining >= coin =
+      let useCoins = min 100 (remaining `div` coin)
+      in greedyCoins (remaining - useCoins * coin) coins (count + useCoins)
+  | otherwise = greedyCoins remaining coins count 
+
+abc164b:: IO ()
+abc164b = do
+  [a, b, c, d] <- getIntArray
+
+  let turnsToWinA = (c + b - 1) `div` b
+  let turnsToWinB = (a + d - 1) `div` d
+
+  if turnsToWinA <= turnsToWinB
+    then putStrLn "Yes"
+    else putStrLn "No"
+
 
 abc200b:: IO ()
 abc200b = do
