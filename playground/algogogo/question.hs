@@ -1,8 +1,33 @@
 import Control.Monad (replicateM, forM_)
+import Data.List (sort, nub)
 
 main :: IO ()
 main = do
-  abc208b
+  abc158c
+
+abc158c:: IO ()
+abc158c = do
+  [a, b] <- getIntArray
+  let result = findTaxFreePrice a b
+  print result
+
+findTaxFreePrice :: Int -> Int -> Int
+findTaxFreePrice a b =
+  let candidates = [x | x <- [1..2500],
+                       (x * 8) `div` 100 == a && 
+                       (x * 10) `div` 100 == b]
+  in if null candidates then -1 else head candidates
+
+abc093b:: IO ()
+abc093b = do
+  [a, b, k] <- getIntArray
+  
+  let smallSide = [a .. min b (a + k - 1)]
+  let largeSide = [max a (b - k + 1) .. b]
+
+  let result = sort $ nub $ smallSide ++ largeSide
+
+  mapM_ print result
 
 abc208b:: IO ()
 abc208b = do
