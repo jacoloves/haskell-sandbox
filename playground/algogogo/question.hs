@@ -3,7 +3,19 @@ import Data.List (sort, nub)
 
 main :: IO ()
 main = do
-  abc158c
+  abc068b
+
+abc068b:: IO ()
+abc068b = do
+  n <- getInt
+  let result = findMaxPowerOfTwo n 1
+  print result
+
+findMaxPowerOfTwo :: Int -> Int -> Int
+findMaxPowerOfTwo n current
+  | current * 2 > n = current
+  | otherwise = findMaxPowerOfTwo n (current * 2)
+
 
 abc158c:: IO ()
 abc158c = do
