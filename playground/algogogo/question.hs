@@ -3,7 +3,18 @@ import Data.List (sort, nub)
 
 main :: IO ()
 main = do
-  abc068b
+  abc090b
+
+abc090b:: IO ()
+abc090b = do
+  [a, b] <- getIntArray
+  let palindromes = [i | i <- [a..b], isPalindrome i]
+  print (length palindromes)
+
+isPalindrome :: Int -> Bool
+isPalindrome n =
+  let s = show n
+  in s == reverse s
 
 abc068b:: IO ()
 abc068b = do
