@@ -3,7 +3,22 @@ import Data.List (sort, nub)
 
 main :: IO ()
 main = do
-  abc090b
+  abc220b
+
+abc220b:: IO ()
+abc220b = do
+  k <- getInt
+  [aStr, bStr] <- getStrArray
+
+  let a = fromBaseK k aStr
+  let b = fromBaseK k bStr
+
+  print (a * b)
+
+fromBaseK :: Int -> String -> Int
+fromBaseK k str = foldl (\acc digit -> acc * k + digitToInt digit) 0 str
+  where
+    digitToInt c = read [c]
 
 abc090b:: IO ()
 abc090b = do
