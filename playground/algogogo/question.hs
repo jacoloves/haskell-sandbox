@@ -3,7 +3,20 @@ import Data.List (sort, nub)
 
 main :: IO ()
 main = do
-  abc220b
+  abc081b
+
+abc081b :: IO ()
+abc081b = do
+  n <- getInt
+  arr <- getIntArray
+
+  let minDivisions = minimum $ map countDivisions arr
+  print minDivisions
+
+countDivisions :: Int -> Int
+countDivisions n
+  | even n = 1 + countDivisions (n `div` 2)
+  | otherwise = 0
 
 abc220b:: IO ()
 abc220b = do
