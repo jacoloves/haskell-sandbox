@@ -3,8 +3,22 @@ import Data.List (sort, nub)
 
 main :: IO ()
 main = do
-  abc081b
+  abc088b
 
+abc088b :: IO ()
+abc088b = do
+  n <- getInt
+  arr <- getIntArray
+
+  let sortedCards - reverse $ sort arr
+  let indexed = zip [0..] sortedCards
+
+  let aliceScore = sum [card | (i, card) <- indexed, even i]
+  let bodScore = sum [card | (i, card) <- indexed, odd i]
+
+  print (aliceScore - bodScore)
+  
+  
 abc081b :: IO ()
 abc081b = do
   n <- getInt
