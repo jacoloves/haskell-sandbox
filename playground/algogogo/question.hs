@@ -3,14 +3,22 @@ import Data.List (sort, nub)
 
 main :: IO ()
 main = do
-  abc088b
+  abc174b
+  
+abc174b :: IO ()
+abc174b = do
+  [n, d] <- getIntArray
+  points <- replicateM n getIntArray
+
+  let inRange = length $ filter (\[x, y] -> x * x + y * y <= d * d) points
+  print inRange
 
 abc088b :: IO ()
 abc088b = do
   n <- getInt
   arr <- getIntArray
 
-  let sortedCards - reverse $ sort arr
+  let sortedCards = reverse $ sort arr
   let indexed = zip [0..] sortedCards
 
   let aliceScore = sum [card | (i, card) <- indexed, even i]
