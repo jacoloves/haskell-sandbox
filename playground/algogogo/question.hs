@@ -3,7 +3,21 @@ import Data.List (nub, sort)
 
 main :: IO ()
 main = do
-  abc130b
+  abc105b
+
+abc105b :: IO ()
+abc105b = do
+  [n, x] <- getIntArray
+  materials <- replicateM n getIntArray
+  let flatMaterials = concat materials
+
+  let totalForOne = sum flatMaterials
+  let remaining = x - totalForOne
+  let minMaterial = minimum flatMaterials
+  let additionalDonuts = remaining `div` minMaterial
+  let totalDounuts = n + additionalDonuts
+
+  print totalDounuts
 
 abc130b :: IO ()
 abc130b = do
