@@ -1,10 +1,19 @@
-import Control.Monad (replicateM, forM_)
-import Data.List (sort, nub)
+import Control.Monad (forM_, replicateM)
+import Data.List (nub, sort)
 
 main :: IO ()
 main = do
-  abc174b
-  
+  abc130b
+
+abc130b :: IO ()
+abc130b = do
+  [n, x] <- getIntArray
+  ls <- getIntArray
+
+  let positions = scanl (+) 0 ls
+  let countInRange = length $ filter (<= x) positions
+  print countInRange
+
 abc174b :: IO ()
 abc174b = do
   [n, d] <- getIntArray
@@ -19,14 +28,13 @@ abc088b = do
   arr <- getIntArray
 
   let sortedCards = reverse $ sort arr
-  let indexed = zip [0..] sortedCards
+  let indexed = zip [0 ..] sortedCards
 
   let aliceScore = sum [card | (i, card) <- indexed, even i]
   let bodScore = sum [card | (i, card) <- indexed, odd i]
 
   print (aliceScore - bodScore)
-  
-  
+
 abc081b :: IO ()
 abc081b = do
   n <- getInt
@@ -40,7 +48,7 @@ countDivisions n
   | even n = 1 + countDivisions (n `div` 2)
   | otherwise = 0
 
-abc220b:: IO ()
+abc220b :: IO ()
 abc220b = do
   k <- getInt
   [aStr, bStr] <- getStrArray
@@ -55,18 +63,18 @@ fromBaseK k str = foldl (\acc digit -> acc * k + digitToInt digit) 0 str
   where
     digitToInt c = read [c]
 
-abc090b:: IO ()
+abc090b :: IO ()
 abc090b = do
   [a, b] <- getIntArray
-  let palindromes = [i | i <- [a..b], isPalindrome i]
+  let palindromes = [i | i <- [a .. b], isPalindrome i]
   print (length palindromes)
 
 isPalindrome :: Int -> Bool
 isPalindrome n =
   let s = show n
-  in s == reverse s
+   in s == reverse s
 
-abc068b:: IO ()
+abc068b :: IO ()
 abc068b = do
   n <- getInt
   let result = findMaxPowerOfTwo n 1
@@ -77,8 +85,7 @@ findMaxPowerOfTwo n current
   | current * 2 > n = current
   | otherwise = findMaxPowerOfTwo n (current * 2)
 
-
-abc158c:: IO ()
+abc158c :: IO ()
 abc158c = do
   [a, b] <- getIntArray
   let result = findTaxFreePrice a b
@@ -86,15 +93,16 @@ abc158c = do
 
 findTaxFreePrice :: Int -> Int -> Int
 findTaxFreePrice a b =
-  let candidates = [x | x <- [1..2500],
-                       (x * 8) `div` 100 == a && 
-                       (x * 10) `div` 100 == b]
-  in if null candidates then -1 else head candidates
+  let candidates =
+        [ x | x <- [1 .. 2500], (x * 8) `div` 100 == a
+                                  && (x * 10) `div` 100 == b
+        ]
+   in if null candidates then -1 else head candidates
 
-abc093b:: IO ()
+abc093b :: IO ()
 abc093b = do
   [a, b, k] <- getIntArray
-  
+
   let smallSide = [a .. min b (a + k - 1)]
   let largeSide = [max a (b - k + 1) .. b]
 
@@ -102,26 +110,26 @@ abc093b = do
 
   mapM_ print result
 
-abc208b:: IO ()
+abc208b :: IO ()
 abc208b = do
   p <- getInt
-  let factorials = map factorial [10, 9..1]
+  let factorials = map factorial [10, 9 .. 1]
   let result = greedyCoins p factorials 0
   print result
 
 factorial :: Int -> Int
-factorial n = product [1..n]
+factorial n = product [1 .. n]
 
 greedyCoins :: Int -> [Int] -> Int -> Int
 greedyCoins 0 _ count = count
 greedyCoins _ [] count = count
-greedyCoins remaining (coin:coins) count
+greedyCoins remaining (coin : coins) count
   | remaining >= coin =
       let useCoins = min 100 (remaining `div` coin)
-      in greedyCoins (remaining - useCoins * coin) coins (count + useCoins)
-  | otherwise = greedyCoins remaining coins count 
+       in greedyCoins (remaining - useCoins * coin) coins (count + useCoins)
+  | otherwise = greedyCoins remaining coins count
 
-abc164b:: IO ()
+abc164b :: IO ()
 abc164b = do
   [a, b, c, d] <- getIntArray
 
@@ -132,8 +140,7 @@ abc164b = do
     then putStrLn "Yes"
     else putStrLn "No"
 
-
-abc200b:: IO ()
+abc200b :: IO ()
 abc200b = do
   [n, k] <- getIntArray
   let result = performOperations n k
@@ -148,8 +155,7 @@ performOperations n k
 appendTwoHundred :: Int -> Int
 appendTwoHundred n = read (show n ++ "200")
 
-
-abc165b:: IO ()
+abc165b :: IO ()
 abc165b = do
   x <- getInt
   let cnt = findYear 100 x 0
@@ -162,94 +168,92 @@ findYear current target years
   where
     newAmount = current + (current `div` 100)
 
-abc206b:: IO ()
+abc206b :: IO ()
 abc206b = do
-    n <- getInt
+  n <- getInt
 
-    -- for (int i = 0; i < n; i++) {
-    --     res += i;
-    --     cnt = i
-    --     if (res >= n) {
-    --        cout << cnt << endl;
-    --        return 0;
-    --     }
-    -- }
-    let result = head [i | i <- [1..], let res = sum [0..i], res >= n]
-    print result
+  -- for (int i = 0; i < n; i++) {
+  --     res += i;
+  --     cnt = i
+  --     if (res >= n) {
+  --        cout << cnt << endl;
+  --        return 0;
+  --     }
+  -- }
+  let result = head [i | i <- [1 ..], let res = sum [0 .. i], res >= n]
+  print result
 
-abc162b:: IO ()
+abc162b :: IO ()
 abc162b = do
-    n <- getInt
-    
-    let result = sum[i | i <- [1..n], i `mod` 3 /= 0 && i `mod` 5 /= 0]
-    print result
+  n <- getInt
 
-abc083b:: IO ()
+  let result = sum [i | i <- [1 .. n], i `mod` 3 /= 0 && i `mod` 5 /= 0]
+  print result
+
+abc083b :: IO ()
 abc083b = do
-    [n, a, b] <- getIntArray
+  [n, a, b] <- getIntArray
 
-    let result = sum [i | i <- [1..n], let digitSum = sumOfDigits i, digitSum >= a && digitSum <= b]
-    print result
+  let result = sum [i | i <- [1 .. n], let digitSum = sumOfDigits i, digitSum >= a && digitSum <= b]
+  print result
 
 sumOfDigits :: Int -> Int
 sumOfDigits 0 = 0
 sumOfDigits n = n `mod` 10 + sumOfDigits (n `div` 10)
 
-abc165a:: IO ()
+abc165a :: IO ()
 abc165a = do
-    k <- getInt
-    [a, b] <- getIntArray
-    -- for (i=a; i<=b; i++) {
-    --    if (i % k == 0) {
-    --        cout  << "OK" << endl;
-    --        return 0;
-    --   }
-    -- }
-    -- cout << "NG" << endl;
-    
-    if any (\i -> i `mod` k == 0) [a..b]
-        then putStrLn "OK"
-        else putStrLn "NG"
-    
+  k <- getInt
+  [a, b] <- getIntArray
+  -- for (i=a; i<=b; i++) {
+  --    if (i % k == 0) {
+  --        cout  << "OK" << endl;
+  --        return 0;
+  --   }
+  -- }
+  -- cout << "NG" << endl;
 
+  if any (\i -> i `mod` k == 0) [a .. b]
+    then putStrLn "OK"
+    else putStrLn "NG"
 
-abc176a:: IO ()
+abc176a :: IO ()
 abc176a = do
-    [n, x, t] <- getIntArray
-    if n `mod` x == 0
-        then let tt = n `div` x
-             in print (tt * t)
-        else let tt = n `div` x + 1
-             in print (tt * t)
+  [n, x, t] <- getIntArray
+  if n `mod` x == 0
+    then
+      let tt = n `div` x
+       in print (tt * t)
+    else
+      let tt = n `div` x + 1
+       in print (tt * t)
 
-abc157a:: IO ()
+abc157a :: IO ()
 abc157a = do
-    n <- getInt
-    if even n
-        then print (n `div` 2)
-        else print (n `div` 2 + 1)
+  n <- getInt
+  if even n
+    then print (n `div` 2)
+    else print (n `div` 2 + 1)
 
-abc173a:: IO ()
+abc173a :: IO ()
 abc173a = do
-    n <- getInt
-    if n `mod` 1000 == 0
-        then print 0
-        else print (1000 - (n `mod` 1000))
+  n <- getInt
+  if n `mod` 1000 == 0
+    then print 0
+    else print (1000 - (n `mod` 1000))
 
-abc125a:: IO ()
+abc125a :: IO ()
 abc125a = do
-    [a, b, t] <- getIntArray
-    let totalBiscuts = (t `div` a) * b
-    print totalBiscuts
+  [a, b, t] <- getIntArray
+  let totalBiscuts = (t `div` a) * b
+  print totalBiscuts
 
-
-abc128a:: IO ()
+abc128a :: IO ()
 abc128a = do
-    [a, p] <- getIntArray
-    let peaceApple = a * 3 + p
-    let applePie = peaceApple `div` 2
-    print applePie
-
+  [a, p] <- getIntArray
+  let peaceApple = a * 3 + p
+  let applePie = peaceApple `div` 2
+  print applePie
 
 abc064a :: IO ()
 abc064a = do
