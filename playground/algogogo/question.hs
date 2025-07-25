@@ -1,12 +1,45 @@
 import Control.Monad (forM_, replicateM)
-import Data.List (nub, sort)
+import Data.List (nub, sort, sortBy)
+import Data.Function (on)
 
 main :: IO ()
 main = do
-  abc105b
+  abc124b
 
-abc105b :: IO ()
-abc105b = do
+abc201b :: IO ()
+abc201b = do
+  n <- getInt
+  mountains <- replicateM n $ do
+    line <- getLine
+    let parts = words line
+    let name = head parts
+    let height = read (parts !! 1) :: Int
+    return (name, height)
+
+  let sortedMountains = sortBy (flip compare `on` snd) mountains
+
+  let secondHighest = fst (sortedMountains !! 1)
+  putStrLn secondHighest
+
+countSeaViewHotes :: [Int] -> Int
+countSeaViewHotes [] = 0
+countSeaViewHotes (h:hs) = 1 + go h hs
+  where
+    go _ [] = 0
+    go maxSoFar (x:xs)
+      | x >= maxSoFar = 1 + go x xs
+      | otherwise = go maxSoFar xs
+
+abc124b :: IO ()
+abc124b = do
+  n <- getInt
+  heights <- getIntArray
+
+  let res = countSeaViewHotes heights
+  print res
+
+abc095b :: IO ()
+abc095b = do
   [n, x] <- getIntArray
   materials <- replicateM n getIntArray
   let flatMaterials = concat materials
