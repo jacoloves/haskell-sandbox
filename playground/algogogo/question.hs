@@ -1,10 +1,28 @@
 import Control.Monad (forM_, replicateM)
-import Data.List (nub, sort, sortBy)
 import Data.Function (on)
+import Data.List (minimumBy, nub, sort, sortBy)
 
 main :: IO ()
 main = do
-  abc124b
+  abc113b
+
+abc113b :: IO ()
+abc113b = do
+  n <- getInt
+  [t, a] <- getIntArray
+  heights <- getIntArray
+  let result = findBestLocation (fromIntegral t) (fromIntegral a) heights
+  print result
+
+findBestLocation :: Double -> Double -> [Int] -> Int
+findBestLocation t a heights =
+  let temperatures = map (calculateTemperarue t) heights
+      differences = map (abs . subtract a) temperatures
+      indexedDifferences = zip [1 ..] differences
+   in fst $ minimumBy (compare `on` snd) indexedDifferences
+
+calculateTemperarue :: Double -> Int -> Double
+calculateTemperarue t height = t - fromIntegral height * 0.006
 
 abc201b :: IO ()
 abc201b = do
@@ -23,12 +41,12 @@ abc201b = do
 
 countSeaViewHotes :: [Int] -> Int
 countSeaViewHotes [] = 0
-countSeaViewHotes (h:hs) = 1 + go h hs
-  where
-    go _ [] = 0
-    go maxSoFar (x:xs)
-      | x >= maxSoFar = 1 + go x xs
-      | otherwise = go maxSoFar xs
+countSeaViewHotes (h : hs) = 1 + go h hs
+ where
+  go _ [] = 0
+  go maxSoFar (x : xs)
+    | x >= maxSoFar = 1 + go x xs
+    | otherwise = go maxSoFar xs
 
 abc124b :: IO ()
 abc124b = do
@@ -107,8 +125,8 @@ abc220b = do
 
 fromBaseK :: Int -> String -> Int
 fromBaseK k str = foldl (\acc digit -> acc * k + digitToInt digit) 0 str
-  where
-    digitToInt c = read [c]
+ where
+  digitToInt c = read [c]
 
 abc090b :: IO ()
 abc090b = do
@@ -212,8 +230,8 @@ findYear :: Int -> Int -> Int -> Int
 findYear current target years
   | current >= target = years
   | otherwise = findYear newAmount target (years + 1)
-  where
-    newAmount = current + (current `div` 100)
+ where
+  newAmount = current + (current `div` 100)
 
 abc206b :: IO ()
 abc206b = do
