@@ -4,7 +4,17 @@ import Data.List (minimumBy, nub, sort, sortBy)
 
 main :: IO ()
 main = do
-  abc205b
+  abc067b
+
+abc067b :: IO ()
+abc067b = do
+  [n, k] <- getIntArray
+  lengths <- getIntArray
+  let res = maxSnakeLength k lengths
+  print res
+
+maxSnakeLength :: Int -> [Int] -> Int
+maxSnakeLength k lengths = sum $ take k $ sortBy (flip compare) lengths
 
 abc205b :: IO ()
 abc205b = do
