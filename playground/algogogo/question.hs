@@ -4,7 +4,18 @@ import Data.List (minimumBy, nub, sort, sortBy)
 
 main :: IO ()
 main = do
-  abc113b
+  abc205b
+
+abc205b :: IO ()
+abc205b = do
+  n <- getInt
+  a <- getIntArray
+  if isPermutation n a
+    then putStrLn "Yes"
+    else putStrLn "No"
+
+isPermutation :: Int -> [Int] -> Bool
+isPermutation n a = sort a == [1 .. n]
 
 abc113b :: IO ()
 abc113b = do
