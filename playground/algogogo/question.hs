@@ -4,7 +4,23 @@ import Data.List (minimumBy, nub, sort, sortBy)
 
 main :: IO ()
 main = do
-  abc067b
+  abc132c
+
+abc132c :: IO ()
+abc132c = do
+  n <- getInt
+  difficulties <- getIntArray
+  let sortedDifficulties = sort difficulties
+  let halfN = n `div` 2
+  let lowerHalf = take halfN sortedDifficulties
+  let upperHalf = drop halfN sortedDifficulties
+  let maxLower = maximum lowerHalf
+  let minUpper = minimum upperHalf
+  let result =
+        if maxLower < minUpper
+          then minUpper - maxLower
+          else 0
+  print result
 
 abc067b :: IO ()
 abc067b = do
