@@ -4,7 +4,26 @@ import Data.List (minimumBy, nub, sort, sortBy)
 
 main :: IO ()
 main = do
-  abc132c
+  abc115c
+
+abc115c :: IO ()
+abc115c = do
+  [n, k] <- getIntArray
+  heights <- replicateM n getInt
+  let sortedHeights = sort heights
+  let minDiff = findMinDifference sortedHeights k
+
+  print minDiff
+
+findMinDifference :: [Int] -> Int -> Int
+findMinDifference heights k = minimum $ map calculateDiff (slidingWindow heights k)
+ where
+  calculateDiff window = last window - head window
+
+slidingWindow :: [a] -> Int -> [[a]]
+slidingWindow xs n
+  | length xs < n = []
+  | otherwise = take n xs : slidingWindow (tail xs) n
 
 abc132c :: IO ()
 abc132c = do
