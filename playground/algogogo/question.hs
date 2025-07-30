@@ -16,14 +16,7 @@ abc115c = do
   print minDiff
 
 findMinDifference :: [Int] -> Int -> Int
-findMinDifference heights k = minimum $ map calculateDiff (slidingWindow heights k)
- where
-  calculateDiff window = last window - head window
-
-slidingWindow :: [a] -> Int -> [[a]]
-slidingWindow xs n
-  | length xs < n = []
-  | otherwise = take n xs : slidingWindow (tail xs) n
+findMinDifference heights k = minimum $ zipWith (-) (drop (k - 1) heights) heights
 
 abc132c :: IO ()
 abc132c = do
