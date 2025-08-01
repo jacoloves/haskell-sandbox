@@ -4,7 +4,31 @@ import Data.List (minimumBy, nub, sort, sortBy)
 
 main :: IO ()
 main = do
-  abc115c
+  abc121c
+
+abc121c :: IO ()
+abc121c = do
+  [n, m] <- getIntArray
+  shops <- replicateM n $ do
+    [a, b] <- getIntArray
+    return (a, b)
+
+  let res = minCostToBuyDrinks m shops
+  print res
+
+minCostToBuyDrinks :: Int -> [(Int, Int)] -> Int
+minCostToBuyDrinks targetCount shops =
+  let sortedShops = sortBy (compare `on` fst) shops
+   in buyGreedily targetCount sortedShops
+
+buyGreedily :: Int -> [(Int, Int)] -> Int
+buyGreedily 0 _ = 0
+buyGreedily _ [] = 0
+buyGreedily remaining ((price, stock) : rest) =
+  let buyCount = min remaining stock
+      cost = price * buyCount
+      newRemaining = remaining - buyCount
+   in cost + buyGreedily newRemaining rest
 
 abc115c :: IO ()
 abc115c = do
