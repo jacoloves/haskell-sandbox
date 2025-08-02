@@ -1,10 +1,62 @@
 import Control.Monad (forM_, replicateM)
 import Data.Function (on)
 import Data.List (minimumBy, nub, sort, sortBy)
+import Data.Map qualified as Map
+import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  abc121c
+  abc113c
+
+abc113c :: IO ()
+abc113c = do
+  [n, m] <- getIntArray
+  cities <- replicateM m $ do
+    [p, y] <- getIntArray
+    return (p, y)
+
+  let res = generateCityIds cities
+  mapM_ putStrLn res
+
+generateCityIds :: [(Int, Int)] -> [String]
+generateCityIds cities =
+  let
+    indexedCities = zip [0 ..] cities
+
+    prefectureGroups = groupByPrefecture indexedCities
+
+    cityOrders = Map.fromList $ concatMap assignOrders (Map.toList prefectureGroups)
+
+    cityIds = map (generateId cityOrders) indexedCities
+   in
+    cityIds
+
+groupByPrefecture :: [(Int, (Int, Int))] -> Map.Map Int [(Int, (Int, Int))]
+groupByPrefecture cities =
+  foldr
+    ( \city@(_, (prefecture, _)) acc ->
+        Map.insertWith (++) prefecture [city] acc
+    )
+    Map.empty
+    cities
+
+assignOrders :: (Int, [(Int, (Int, Int))]) -> [(Int, (Int, Int))]
+assignOrders (prefecture, citiesInPrefecture) =
+  let
+    sortedCities = sortBy (compare `on` (\(_, (_, year)) -> year)) citiesInPrefecture
+    orderedCities = zip [1 ..] sortedCities
+   in
+    map
+      ( \(order, (originalIndex, (pref, year))) ->
+          (originalIndex, (pref, order))
+      )
+      orderedCities
+
+generateId :: Map.Map Int (Int, Int) -> (Int, (Int, Int)) -> String
+generateId orderMap (originalIndex, (prefecture, year)) =
+  case Map.lookup originalIndex orderMap of
+    Just (pref, order) -> printf "%06d%06d" pref order
+    Nothing -> error "City not found in order map"
 
 abc121c :: IO ()
 abc121c = do
