@@ -7,7 +7,18 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  abc104b
+  abc215a
+
+abc215a :: IO ()
+abc215a = do
+  s <- getStr
+  if judgeHelloWorld s
+    then putStrLn "AC"
+    else putStrLn "WA"
+
+judgeHelloWorld :: String -> Bool
+judgeHelloWorld s =
+  "Hello,World!" == s
 
 abc104b :: IO ()
 abc104b = do
