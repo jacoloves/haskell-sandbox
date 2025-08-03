@@ -1,4 +1,5 @@
 import Control.Monad (forM_, replicateM)
+import Data.Char (isLower, isUpper)
 import Data.Function (on)
 import Data.List (minimumBy, nub, sort, sortBy)
 import Data.Map qualified as Map
@@ -6,7 +7,46 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  abc113c
+  abc104b
+
+abc104b :: IO ()
+abc104b = do
+  s <- getStr
+  if isValidString s
+    then putStrLn "AC"
+    else putStrLn "WA"
+
+isValidString :: String -> Bool
+isValidString s =
+  let len = length s
+   in isFirstCharA s
+        && hasExactlyOneCInRange s
+        && areOtherCharsLowercase s
+
+isFirstCharA :: String -> Bool
+isFirstCharA [] = False
+isFirstCharA (x : _) = x == 'A'
+
+hasExactlyOneCInRange :: String -> Bool
+hasExactlyOneCInRange s =
+  let len = length s
+   in if len < 4
+        then False
+        else
+          let startIndex = 2
+              endIndex = len - 2
+              rangeChars = take (endIndex - startIndex + 1) (drop startIndex s)
+              cCount = length $ filter (== 'C') rangeChars
+           in cCount == 1
+
+areOtherCharsLowercase :: String -> Bool
+areOtherCharsLowercase s =
+  let len = length s
+      otherChars = drop 1 s
+      isValidChar i c
+        | i >= 2 && i <= len - 2 && c == 'C' = True
+        | otherwise = isLower c
+   in all (\(i, c) -> isValidChar i c) (zip [1 ..] otherChars)
 
 abc113c :: IO ()
 abc113c = do
