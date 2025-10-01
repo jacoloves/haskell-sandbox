@@ -1,5 +1,5 @@
 import Control.Monad (forM_, replicateM)
-import Data.Char (isLower, isUpper)
+import Data.Char (isLower, isUpper, isDigit)
 import Data.Function (on)
 import Data.List (minimumBy, nub, sort, sortBy)
 import Data.Map qualified as Map
@@ -7,7 +7,25 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  abc215a
+  abc084b
+
+abc084b :: IO ()
+abc084b = do
+  [a, b] <- getIntArray 
+  s <- getStr
+  if isValidPostalCode a b s
+    then putStrLn "Yes"
+    else putStrLn "No"
+
+isValidPostalCode :: Int -> Int -> String -> Bool
+isValidPostalCode a b s =
+  let hyphenPos = a
+      (prefix, rest) = splitAt hyphenPos s
+      (hyphen, suffix) = splitAt 1 rest
+  in length s == a + b + 1 &&
+     all isDigit prefix &&
+     hyphen == "-" &&
+     all isDigit suffix
 
 abc215a :: IO ()
 abc215a = do
