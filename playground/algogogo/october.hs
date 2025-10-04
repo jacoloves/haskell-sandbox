@@ -7,7 +7,40 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  abc418a
+  abc416a
+
+abc416a :: IO ()
+abc416a = do
+  [n, l, r] <- getIntArray
+  s <- getStr
+  let ans = checkVacation l r s
+  putStrLn ans
+
+checkVacation :: Int -> Int -> String -> String
+checkVacation l r s =
+  let substring = extractRange l r s
+   in if all (== 'o') substring
+        then "Yes"
+        else "No"
+
+extractRange :: Int -> Int -> String -> String
+extractRange l r s =
+  let start = l - 1
+      count = r - l + 1
+   in take count (drop start s)
+
+abc417a :: IO ()
+abc417a = do
+  [n, a, b] <- getIntArray
+  s <- getStr
+  let ans = removeEnds a b s
+  putStrLn ans
+
+removeEnds :: Int -> Int -> String -> String
+removeEnds a b s =
+  let afterDropFront = drop a s
+      lengthToTake = length s - a - b
+   in take lengthToTake afterDropFront
 
 abc418a :: IO ()
 abc418a = do
