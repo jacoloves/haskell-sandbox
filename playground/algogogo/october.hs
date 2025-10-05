@@ -9,6 +9,10 @@ main :: IO ()
 main = do
   abc416a
 
+abc415a :: IO ()
+abc415a = do
+  
+
 abc416a :: IO ()
 abc416a = do
   [n, l, r] <- getIntArray
