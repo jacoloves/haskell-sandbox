@@ -11,7 +11,16 @@ main = do
 
 abc415a :: IO ()
 abc415a = do
-  
+  n <- getInt
+  a <- getIntArray
+  x <- getInt
+  let res = checkContains a x
+  putStrLn res
+
+checkContains :: [Int] -> Int -> String
+checkContains a x
+  | x `elem` a = "Yes"
+  | otherwise = "No"
 
 abc416a :: IO ()
 abc416a = do
