@@ -7,7 +7,46 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  abc416a
+  abc412a
+
+abc412a :: IO ()
+abc412a = do
+  n <- getInt
+  pairs <- readDoubleIntScore n
+  let res = filterPair pairs
+  print res
+
+filterPair :: [(Int, Int)] -> Int
+filterPair pairs = length (filter comparePair pairs)
+
+comparePair :: (Int, Int) -> Bool
+comparePair (x, y) = x < y
+
+abc413a :: IO ()
+abc413a = do
+  [n, m] <- getIntArray
+  a <- getIntArray
+  let sumA = sum a
+  let res = judgeSumA sumA m
+  putStrLn res
+
+judgeSumA :: Int -> Int -> String
+judgeSumA sumA m
+  | sumA <= m = "Yes"
+  | otherwise = "No"
+
+abc414a :: IO ()
+abc414a = do
+  [n, l, r] <- getIntArray
+  pairs <- readDoubleIntScore n
+  let res = countFullViewers l r pairs
+  print res
+
+countFullViewers :: Int -> Int -> [(Int, Int)] -> Int
+countFullViewers l r pairs = length (filter (canWatchFull l r) pairs)
+
+canWatchFull :: Int -> Int -> (Int, Int) -> Bool
+canWatchFull l r (x, y) = x <= l && r <= y
 
 abc415a :: IO ()
 abc415a = do
