@@ -7,7 +7,72 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  abc412a
+  abc408a
+
+abc408a :: IO ()
+abc408a = do
+  [n, s] <- getIntArray
+  t <- getIntArray
+  let ans = staysAwake s t
+  putStrLn ans
+
+staysAwake :: Int -> [Int] -> String
+staysAwake s t
+  | all (<= s) intervals = "Yes"
+  | otherwise = "No"
+ where
+  intervals = getIntervals t
+
+getIntervals :: [Int] -> [Int]
+getIntervals t = zipWith (-) t (0 : t)
+
+abc409a :: IO ()
+abc409a = do
+  n <- getInt
+  t <- getStr
+  a <- getStr
+  let ans = hasConflict t a
+  putStrLn ans
+
+hasConflict :: String -> String -> String
+hasConflict t a
+  | any bothWant (zip t a) = "Yes"
+  | otherwise = "No"
+
+bothWant :: (Char, Char) -> Bool
+bothWant (t, a) = t == 'o' && a == 'o'
+
+abc410a :: IO ()
+abc410a = do
+  n <- getInt
+  a <- getIntArray
+  k <- getInt
+  let ans = judgeAarray a k
+  print ans
+
+judgeAarray :: [Int] -> Int -> Int
+judgeAarray a k = length (filter (== True) [ax >= k | ax <- a])
+
+abc411a :: IO ()
+abc411a = do
+  p <- getStr
+  l <- getInt
+  let res = countWhereVer p l
+  putStrLn res
+
+countStringJudge :: String -> Int -> String
+countStringJudge p l =
+  let pLength = length p
+   in if pLength >= l
+        then "Yes"
+        else "No"
+
+countWhereVer :: String -> Int -> String
+countWhereVer p l
+  | pLen >= l = "Yes"
+  | otherwise = "No"
+ where
+  pLen = length p
 
 abc412a :: IO ()
 abc412a = do
