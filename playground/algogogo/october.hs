@@ -7,7 +7,40 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  abc408a
+  abc405a
+
+abc405a :: IO ()
+abc405a = do
+  [r, x] <- getIntArray
+  let ans = isItRated r x
+  putStrLn ans
+
+isItRated :: Int -> Int -> String
+isItRated r x
+  | x == 1 && (1600 <= r && r <= 2999) = "Yes"
+  | x == 2 && (1200 <= r && r <= 2399) = "Yes"
+  | otherwise = "No"
+
+abc406a :: IO ()
+abc406a = do
+  [a, b, c, d] <- getIntArray
+  let ans = notAcceptable a b c d
+  putStrLn ans
+
+notAcceptable :: Int -> Int -> Int -> Int -> String
+notAcceptable a b c d
+  | a > c = "Yes"
+  | a >= c && b >= d = "Yes"
+  | otherwise = "No"
+
+abc407a :: IO ()
+abc407a = do
+  [a, b] <- getIntArray
+  let ans = approximateInteger a b
+  print ans
+
+approximateInteger :: Int -> Int -> Int
+approximateInteger a b = round (fromIntegral a / fromIntegral b)
 
 abc408a :: IO ()
 abc408a = do
