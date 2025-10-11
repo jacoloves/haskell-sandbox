@@ -7,7 +7,26 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  abc405a
+  abc403a
+
+abc403a :: IO ()
+abc403a = do
+  n <- getInt
+  a <- getIntArray
+  let ans = sumOddPositions a
+  print ans
+
+sumOddPositions :: [Int] -> Int
+sumOddPositions xs = sum [x | (i, x) <- zip [1 ..] xs, odd i]
+
+abc404a :: IO ()
+abc404a = do
+  s <- getStr
+  let ans = findNotFound s
+  putStrLn [ans]
+
+findNotFound :: String -> Char
+findNotFound s = head [c | c <- ['a' .. 'z'], c `notElem` s]
 
 abc405a :: IO ()
 abc405a = do
