@@ -7,7 +7,43 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  abc403a
+  abc399a
+
+abc400a :: IO ()
+abc40oa = do
+  
+
+abc399a :: IO ()
+abc399a = do
+  n <- getInt
+  s <- getStr
+  t <- getStr
+  let ans = n - hamingCompare s t
+  print ans
+
+hamingCompare :: String -> String -> Int
+hamingCompare s t =
+  length [1 | (c1, c2) <- zip s t, c1 == c2]
+
+abc401a :: IO ()
+abc401a = do
+  s <- getInt
+  let ans = judgeLimit401A s
+  putStrLn ans
+
+judgeLimit401A :: Int -> String
+judgeLimit401A s
+  | 200 <= s && s <= 299 = "Success"
+  | otherwise = "Failure"
+
+abc402a :: IO ()
+abc402a = do
+  s <- getStr
+  let ans = judgeUpper s
+  putStrLn ans
+
+judgeUpper :: String -> String
+judgeUpper = filter isUpper
 
 abc403a :: IO ()
 abc403a = do
