@@ -1,17 +1,61 @@
 import Control.Monad (forM_, replicateM)
 import Data.Char (isDigit, isLower, isUpper)
 import Data.Function (on)
-import Data.List (isSuffixOf, minimumBy, nub, sort, sortBy)
+import Data.List (group, isSuffixOf, minimumBy, nub, sort, sortBy)
 import Data.Map qualified as Map
 import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  abc399a
+  abc396a
+
+abc396a :: IO ()
+abc396a = do
+  n <- getInt
+  a <- getIntArray
+  let ans = hasTripleConsecutive a
+  putStrLn ans
+
+hasTripleConsecutive :: [Int] -> String
+hasTripleConsecutive xs
+  | any (\g -> length g >= 3) (group xs) = "Yes"
+  | otherwise = "No"
+
+abc397a :: IO ()
+abc397a = do
+  x <- getFloat
+  let ans = thermometer x
+  print ans
+
+thermometer :: Float -> Int
+thermometer x
+  | x >= 38.0 = 1
+  | x >= 37.5 && x < 38.0 = 2
+  | otherwise = 3
+
+abc398a :: IO ()
+abc398a = do
+  n <- getInt
+  let ans = buildPalindrome n
+  putStrLn ans
+
+buildPalindrome :: Int -> String
+buildPalindrome n
+  | odd n = replicate leftCount '-' ++ "=" ++ replicate leftCount '-'
+  | otherwise = replicate leftCount '-' ++ "==" ++ replicate leftCount '-'
+ where
+  leftCount = (n - if odd n then 1 else 2) `div` 2
 
 abc400a :: IO ()
-abc40oa = do
-  
+abc400a = do
+  a <- getInt
+  let ans = abcParty a
+  print ans
+
+abcParty :: Int -> Int
+abcParty a
+  | 400 `mod` a == 0 = 400 `div` a
+  | otherwise = -1
 
 abc399a :: IO ()
 abc399a = do
@@ -322,6 +366,10 @@ f2 i = (-1) ^ i * i ^ 3
 hello :: IO ()
 hello = do
   print "hello"
+
+-- read Float
+getFloat :: IO Float
+getFloat = readLn :: IO Float
 
 -- readt String NLines
 getNLines :: Int -> IO [String]
