@@ -7,10 +7,25 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  abc394a
+  abc395aEx
 
-abc394a :: IO ()
-abc394a = do
+abc395aEx :: IO ()
+abc395aEx = do
+  n <- getInt
+  a <- getIntArray
+  let ans = strictlyInc a
+  putStrLn ans
+
+strictlyInc :: [Int] -> String
+strictlyInc a
+  | isStrictlyIncreasing a = "Yes"
+  | otherwise = "No"
+
+isStrictlyIncreasing :: [Int] -> Bool
+isStrictlyIncreasing a = all (uncurry (<)) (zip a (tail a))
+
+abc3xxa :: IO ()
+abc3xxa = do
   n <- getInt
   s <- getNLines n
   let ans = canEatAll s
