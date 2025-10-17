@@ -7,7 +7,41 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  abc396a
+  abc394a
+
+abc394a :: IO ()
+abc394a = do
+  n <- getInt
+  s <- getNLines n
+  let ans = canEatAll s
+  putStrLn ans
+
+canEatAll :: [String] -> String
+canEatAll s
+  | hasBadConsecutive s = "No"
+  | otherwise = "Yes"
+
+hasBadConsecutive :: [String] -> Bool
+hasBadConsecutive s = any isBadPair (zip [0 ..] (pairs s))
+ where
+  n = length s
+  isBadPair (i, (d1, d2)) = d1 == "sweet" && d2 == "sweet" && i < n - 2
+
+pairs :: [a] -> [(a, a)]
+pairs xs = zip xs (tail xs)
+
+abc395a :: IO ()
+abc395a = do
+  y <- getInt
+  let ans = leapYear y
+  print ans
+
+leapYear :: Int -> Int
+leapYear y
+  | y `mod` 4 == 0 && y `mod` 100 /= 0 = 366
+  | y `mod` 100 == 0 && y `mod` 400 /= 0 = 365
+  | y `mod` 400 == 0 = 366
+  | otherwise = 365
 
 abc396a :: IO ()
 abc396a = do
