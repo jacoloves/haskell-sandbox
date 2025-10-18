@@ -7,7 +7,37 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  abc395aEx
+  abc394a
+
+abc394a :: IO ()
+abc394a = do
+  s <- getStr
+  let ans = filter (== '2') s
+  putStrLn ans
+
+abc426a :: IO ()
+abc426a = do
+  [x, y] <- getStrArray
+  let ans = osVersions x y
+  putStrLn ans
+
+osVersions :: String -> String -> String
+osVersions x y
+  | x == y = "Yes"
+  | y == "Ocelot" = "Yes"
+  | x == "Lynx" && y == "Serval" = "Yes"
+  | otherwise = "No"
+
+abc427a :: IO ()
+abc427a = do
+  s <- getStr
+  let ans = removeMiddle s
+  putStrLn ans
+
+removeMiddle :: String -> String
+removeMiddle s = take mid s ++ drop (mid + 1) s
+ where
+  mid = length s `div` 2
 
 abc395aEx :: IO ()
 abc395aEx = do
