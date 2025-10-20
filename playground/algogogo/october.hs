@@ -7,7 +7,24 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  abc394a
+  abc428a
+
+abc428a :: IO ()
+abc428a = do
+  [s, a, b, x] <- getIntArray
+  let ans = calculateDistance s a b x
+  print ans
+
+calculateDistance :: Int -> Int -> Int -> Int -> Int
+calculateDistance s a b x = fullCyclesDistance + remainderDistance
+ where
+  cycle = a + b
+  fullCycles = x `div` cycle
+  remainder = x `mod` cycle
+
+  fullCyclesDistance = fullCycles * a * s
+  runningTimeInRemainder = min remainder a
+  remainderDistance = runningTimeInRemainder * s
 
 abc394a :: IO ()
 abc394a = do
