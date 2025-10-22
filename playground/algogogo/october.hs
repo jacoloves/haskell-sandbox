@@ -7,7 +7,20 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  abc428a
+  abc393a
+
+abc393a :: IO ()
+abc393a = do
+  [s1, s2] <- getStrArray
+  let ans = poisonousOys s1 s2
+  print ans
+
+poisonousOys :: String -> String -> Int
+poisonousOys s1 s2
+  | s1 == "sick" && s2 == "sick" = 1
+  | s1 == "sick" && s2 == "fine" = 2
+  | s1 == "fine" && s2 == "sick" = 3
+  | otherwise = 4
 
 abc428a :: IO ()
 abc428a = do
