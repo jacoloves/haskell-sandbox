@@ -7,7 +7,20 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  abc393a
+  abc392a
+
+abc392a :: IO ()
+abc392a = do
+  [aa, ab, ac] <- getIntArray
+  let ans = shuffeldEq aa ab ac
+  putStrLn ans
+
+shuffeldEq :: Int -> Int -> Int -> String
+shuffeldEq aa ab ac
+  | aa * ab == ac = "Yes"
+  | aa * ac == ab = "Yes"
+  | ab * ac == aa = "Yes"
+  | otherwise = "No"
 
 abc393a :: IO ()
 abc393a = do
