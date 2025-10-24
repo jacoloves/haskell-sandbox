@@ -7,7 +7,24 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  abc392a
+  abc391a
+
+abc391a :: IO ()
+abc391a = do
+  d <- getStr
+  let ans = luckyDirection d
+  putStrLn ans
+
+luckyDirection :: String -> String
+luckyDirection d
+  | d == "N" = "S"
+  | d == "S" = "N"
+  | d == "E" = "W"
+  | d == "W" = "E"
+  | d == "NE" = "SW"
+  | d == "SW" = "NE"
+  | d == "NW" = "SE"
+  | d == "SE" = "NW"
 
 abc392a :: IO ()
 abc392a = do
