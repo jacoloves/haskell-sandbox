@@ -7,7 +7,21 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  abc391a
+  abc429a
+
+abc429a :: IO ()
+abc429a = do
+  [n, m] <- getIntArray
+  mapM_ putStrLn (generateLines n m)
+
+generateLines :: Int -> Int -> [String]
+generateLines n m = [getMessage i m | i <- [1 .. n]]
+
+getMessage :: Int -> Int -> String
+getMessage i m
+  | i <= m = "OK"
+  | otherwise = "Too Many Requests"
+
 
 abc391a :: IO ()
 abc391a = do
