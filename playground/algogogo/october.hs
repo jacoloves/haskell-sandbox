@@ -7,7 +7,38 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  abc429a
+  abc429c
+
+abc429c :: IO ()
+abc429c = do
+  n <- getInt
+  a <- getIntArray
+  let ans = countValidTriples a
+  print ans
+
+countValidTriples :: [Int] -> Int
+countValidTriples a = length [() | i <- [0..n-3], j <- [i+1..n-2], k <- [j+1..n-1], 
+                                    hasExactlyTwoDistict (a!!i) (a!!j) (a!!k)]
+  where
+    n = length a
+
+hasExactlyTwoDistict :: Int -> Int -> Int -> Bool
+hasExactlyTwoDistict x y z = length (nub [x, y, z]) == 2
+
+abc429b :: IO ()
+abc429b = do
+  [n, m] <- getIntArray
+  a <- getIntArray
+  let ans = canMakeSum a m
+  putStrLn ans
+
+canMakeSum :: [Int] -> Int -> String
+canMakeSum a m
+  | toRemove `elem` a = "Yes"
+  | otherwise = "No"
+  where
+    total = sum a
+    toRemove = total - m
 
 abc429a :: IO ()
 abc429a = do
