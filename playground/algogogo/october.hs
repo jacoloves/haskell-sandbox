@@ -2,6 +2,7 @@ import Control.Monad (forM_, replicateM)
 import Data.Char (isDigit, isLower, isUpper)
 import Data.Function (on)
 import Data.List (group, isSuffixOf, minimumBy, nub, sort, sortBy)
+import Data.Array (Array, listArray, (!))
 import Data.Map qualified as Map
 import Text.Printf (printf)
 
@@ -13,8 +14,34 @@ abc429c :: IO ()
 abc429c = do
   n <- getInt
   a <- getIntArray
-  let ans = countValidTriples a
+  let ans = countValidTriplesAdv a
   print ans
+
+countValidTriplesAdv :: [Int] -> Int
+countValidTriplesAdv a = allTriples - allSame - allDifferent
+  where
+    n = length a
+    arr = listArray (0, n-1) a :: Array Int Int
+
+    allTriples = n * (n - 1) * (n - 2) `div` 6
+
+    valueCounts = Map.fromListWith (+) [(x, 1) | x <- a]
+    allSame = sum [c * (c - 1) * (c - 2) `div` 6 | c <- Map.elems valueCounts, c >= 3]
+
+    leftCounts = scanl updateMap Map.empty a
+    rightCounts = scanr updateMap Map.empty a
+
+    updateMap m x  = Map.insertWith (+) x 1 m
+
+    allDifferent = sum [calcDiff j | j <- [0..n-1]]
+
+    calcDiff j = leftDiff * rightDiff
+      where
+        val = arr ! j
+        leftMap = leftCounts !! j
+        rightMap = rightCounts !! (j + 1)
+        leftDiff = sum [cnt | (v, cnt) <- Map.toList leftMap, v /= val]
+        rightDiff = sum [cnt | (v, cnt) <- Map.toList rightMap, v /= val]
 
 countValidTriples :: [Int] -> Int
 countValidTriples a = length [() | i <- [0..n-3], j <- [i+1..n-2], k <- [j+1..n-1], 
