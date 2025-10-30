@@ -8,40 +8,60 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  abc429c
+  abc428b
+
+abc428b :: IO ()
+abc428b = do
+  [n, k] <- getIntArray
+  s <- getStr
+  let (maxCount, substrings) = findMostFrequentSubstring k s
+  print maxCount
+  putStrLn (unwords substrings)
+
+findMostFrequentSubstring :: Int -> String -> (Int, [String])
+findMostFrequentSubstring k s = (maxCount, mostFrequent)
+  where
+    substrings = [take k (drop i s) | i <- [0..length s - k]]
+
+    counts = Map.fromListWith (+) [(sub, 1) | sub <- substrings]
+
+    maxCount = maximum (Map.elems counts)
+
+    mostFrequent = sort [sub | (sub, cnt) <- Map.toList counts, cnt == maxCount]
 
 abc429c :: IO ()
 abc429c = do
-  n <- getInt
-  a <- getIntArray
-  let ans = countValidTriplesAdv a
-  print ans
+  putStrLn "Not yet implemented"
+  -- n <- getInt
+  -- a <- getIntArray
+  -- let ans = countValidTriplesAdv a
+  -- print ans
 
-countValidTriplesAdv :: [Int] -> Int
-countValidTriplesAdv a = allTriples - allSame - allDifferent
-  where
-    n = length a
-    arr = listArray (0, n-1) a :: Array Int Int
+-- countValidTriplesAdv :: [Int] -> Int
+-- countValidTriplesAdv a = allTriples - allSame - allDifferent
+--   where
+--     n = length a
+--     arr = listArray (0, n-1) a :: Array Int Int
 
-    allTriples = n * (n - 1) * (n - 2) `div` 6
+--     allTriples = n * (n - 1) * (n - 2) `div` 6
 
-    valueCounts = Map.fromListWith (+) [(x, 1) | x <- a]
-    allSame = sum [c * (c - 1) * (c - 2) `div` 6 | c <- Map.elems valueCounts, c >= 3]
+--     valueCounts = Map.fromListWith (+) [(x, 1) | x <- a]
+--     allSame = sum [c * (c - 1) * (c - 2) `div` 6 | c <- Map.elems valueCounts, c >= 3]
 
-    leftCounts = scanl updateMap Map.empty a
-    rightCounts = scanr updateMap Map.empty a
+--     leftCounts = scanl updateMap Map.empty a
+--     rightCounts = scanr updateMap Map.empty a
 
-    updateMap m x  = Map.insertWith (+) x 1 m
+--     updateMap m x  = Map.insertWith (+) x 1 m
 
-    allDifferent = sum [calcDiff j | j <- [0..n-1]]
+--     allDifferent = sum [calcDiff j | j <- [0..n-1]]
 
-    calcDiff j = leftDiff * rightDiff
-      where
-        val = arr ! j
-        leftMap = leftCounts !! j
-        rightMap = rightCounts !! (j + 1)
-        leftDiff = sum [cnt | (v, cnt) <- Map.toList leftMap, v /= val]
-        rightDiff = sum [cnt | (v, cnt) <- Map.toList rightMap, v /= val]
+--     calcDiff j = leftDiff * rightDiff
+--       where
+--         val = arr ! j
+--         leftMap = leftCounts !! j
+--         rightMap = rightCounts !! (j + 1)
+--         leftDiff = sum [cnt | (v, cnt) <- Map.toList leftMap, v /= val]
+--         rightDiff = sum [cnt | (v, cnt) <- Map.toList rightMap, v /= val]
 
 countValidTriples :: [Int] -> Int
 countValidTriples a = length [() | i <- [0..n-3], j <- [i+1..n-2], k <- [j+1..n-1], 
