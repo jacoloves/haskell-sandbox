@@ -1,14 +1,52 @@
 import Control.Monad (forM_, replicateM)
+import Data.Array (Array, listArray, (!))
 import Data.Char (isDigit, isLower, isUpper)
 import Data.Function (on)
 import Data.List (group, isSuffixOf, minimumBy, nub, sort, sortBy)
-import Data.Array (Array, listArray, (!))
 import Data.Map qualified as Map
 import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  abc428b
+  abc428c
+
+abc428c :: IO ()
+abc428c = do
+  q <- getInt
+  processQueriesIO q []
+  where
+    processQueriesIO 0 _ = return ()
+    processQueriesIO n balanceStack = do
+      input <- words <$> getLine
+      let (newBalanceStack, isGood) = case input of
+            ["1", "("] ->
+              let newBalance = getBalance balanceStack + 1
+               in (newBalance : balanceStack, False)
+            ["1", ")"] ->
+              let currentBalance = getBalance balanceStack
+                  newBalance = currentBalance - 1
+               in if newBalance >= 0
+                    then (newBalance : balanceStack, newBalance == 0)
+                    else (newBalance : balanceStack, False)
+            ["2"] -> case balanceStack of
+              [] -> ([], True)
+              (_ : rest) -> (rest, getBalance rest == 0)
+            _ -> (balanceStack, False)
+      putStrLn (if isGood then "Yes" else "No")
+      processQueriesIO (n - 1) newBalanceStack
+
+    getBalance [] = 0
+    getBalance (b : _) = b
+
+parseQuery :: IO Query
+parseQuery = do
+  input <- words <$> getLine
+  case input of
+    ["1", c] -> return $ Add (head c)
+    ["2"] -> return Remove
+    _ -> error "Invalid query"
+
+data Query = Add Char | Remove deriving (Show)
 
 abc428b :: IO ()
 abc428b = do
@@ -21,7 +59,7 @@ abc428b = do
 findMostFrequentSubstring :: Int -> String -> (Int, [String])
 findMostFrequentSubstring k s = (maxCount, mostFrequent)
   where
-    substrings = [take k (drop i s) | i <- [0..length s - k]]
+    substrings = [take k (drop i s) | i <- [0 .. length s - k]]
 
     counts = Map.fromListWith (+) [(sub, 1) | sub <- substrings]
 
@@ -32,10 +70,11 @@ findMostFrequentSubstring k s = (maxCount, mostFrequent)
 abc429c :: IO ()
 abc429c = do
   putStrLn "Not yet implemented"
-  -- n <- getInt
-  -- a <- getIntArray
-  -- let ans = countValidTriplesAdv a
-  -- print ans
+
+-- n <- getInt
+-- a <- getIntArray
+-- let ans = countValidTriplesAdv a
+-- print ans
 
 -- countValidTriplesAdv :: [Int] -> Int
 -- countValidTriplesAdv a = allTriples - allSame - allDifferent
@@ -64,8 +103,10 @@ abc429c = do
 --         rightDiff = sum [cnt | (v, cnt) <- Map.toList rightMap, v /= val]
 
 countValidTriples :: [Int] -> Int
-countValidTriples a = length [() | i <- [0..n-3], j <- [i+1..n-2], k <- [j+1..n-1], 
-                                    hasExactlyTwoDistict (a!!i) (a!!j) (a!!k)]
+countValidTriples a =
+  length
+    [ () | i <- [0 .. n - 3], j <- [i + 1 .. n - 2], k <- [j + 1 .. n - 1], hasExactlyTwoDistict (a !! i) (a !! j) (a !! k)
+    ]
   where
     n = length a
 
@@ -99,7 +140,6 @@ getMessage :: Int -> Int -> String
 getMessage i m
   | i <= m = "OK"
   | otherwise = "Too Many Requests"
-
 
 abc391a :: IO ()
 abc391a = do
@@ -152,14 +192,14 @@ abc428a = do
 
 calculateDistance :: Int -> Int -> Int -> Int -> Int
 calculateDistance s a b x = fullCyclesDistance + remainderDistance
- where
-  cycle = a + b
-  fullCycles = x `div` cycle
-  remainder = x `mod` cycle
+  where
+    cycle = a + b
+    fullCycles = x `div` cycle
+    remainder = x `mod` cycle
 
-  fullCyclesDistance = fullCycles * a * s
-  runningTimeInRemainder = min remainder a
-  remainderDistance = runningTimeInRemainder * s
+    fullCyclesDistance = fullCycles * a * s
+    runningTimeInRemainder = min remainder a
+    remainderDistance = runningTimeInRemainder * s
 
 abc394a :: IO ()
 abc394a = do
@@ -188,8 +228,8 @@ abc427a = do
 
 removeMiddle :: String -> String
 removeMiddle s = take mid s ++ drop (mid + 1) s
- where
-  mid = length s `div` 2
+  where
+    mid = length s `div` 2
 
 abc395aEx :: IO ()
 abc395aEx = do
@@ -220,9 +260,9 @@ canEatAll s
 
 hasBadConsecutive :: [String] -> Bool
 hasBadConsecutive s = any isBadPair (zip [0 ..] (pairs s))
- where
-  n = length s
-  isBadPair (i, (d1, d2)) = d1 == "sweet" && d2 == "sweet" && i < n - 2
+  where
+    n = length s
+    isBadPair (i, (d1, d2)) = d1 == "sweet" && d2 == "sweet" && i < n - 2
 
 pairs :: [a] -> [(a, a)]
 pairs xs = zip xs (tail xs)
@@ -274,8 +314,8 @@ buildPalindrome :: Int -> String
 buildPalindrome n
   | odd n = replicate leftCount '-' ++ "=" ++ replicate leftCount '-'
   | otherwise = replicate leftCount '-' ++ "==" ++ replicate leftCount '-'
- where
-  leftCount = (n - if odd n then 1 else 2) `div` 2
+  where
+    leftCount = (n - if odd n then 1 else 2) `div` 2
 
 abc400a :: IO ()
 abc400a = do
@@ -383,8 +423,8 @@ staysAwake :: Int -> [Int] -> String
 staysAwake s t
   | all (<= s) intervals = "Yes"
   | otherwise = "No"
- where
-  intervals = getIntervals t
+  where
+    intervals = getIntervals t
 
 getIntervals :: [Int] -> [Int]
 getIntervals t = zipWith (-) t (0 : t)
@@ -434,8 +474,8 @@ countWhereVer :: String -> Int -> String
 countWhereVer p l
   | pLen >= l = "Yes"
   | otherwise = "No"
- where
-  pLen = length p
+  where
+    pLen = length p
 
 abc412a :: IO ()
 abc412a = do
