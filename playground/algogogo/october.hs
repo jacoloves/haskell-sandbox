@@ -77,6 +77,7 @@ abc429c = do
 -- print ans
 
 -- countValidTriplesAdv :: [Int] -> Int
+
 -- countValidTriplesAdv a = allTriples - allSame - allDifferent
 --   where
 --     n = length a
