@@ -4,11 +4,31 @@ import Data.Char (isDigit, isLower, isUpper)
 import Data.Function (on)
 import Data.List (group, isSuffixOf, minimumBy, nub, sort, sortBy)
 import Data.Map qualified as Map
+import Data.Set qualified as Set
 import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  abc430a
+  abc430b
+
+abc430b :: IO ()
+abc430b = do
+  [n, m] <- getIntArray
+  grid <- getNLines n
+  let ans = countDistinctSubgrids n m grid
+  print ans
+
+countDistinctSubgrids :: Int -> Int -> [String] -> Int
+countDistinctSubgrids n m grid = Set.size (Set.fromList allSubgrids)
+  where
+    positions = [(i, j) | i <- [0 .. n - m], j <- [0 .. n - m]]
+    allSubgrids = [extractSubgrid i j m grid | (i, j) <- positions]
+
+extractSubgrid :: Int -> Int -> Int -> [String] -> [[Char]]
+extractSubgrid startRow startCol size grid =
+  [ take size (drop startCol row)
+    | row <- take size (drop startRow grid)
+  ]
 
 abc430a :: IO ()
 abc430a = do
