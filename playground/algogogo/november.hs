@@ -1,5 +1,5 @@
 import Control.Monad (forM_, replicateM)
-import Data.Array (Array, listArray, (!))
+import Data.Array (Array, listArray, (!), bounds)
 import Data.Char (isDigit, isLower, isUpper)
 import Data.Function (on)
 import Data.List (group, isSuffixOf, minimumBy, nub, sort, sortBy)
@@ -9,7 +9,41 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  abc430b
+  abc430c 
+
+abc430c :: IO ()
+abc430c = do
+  [n, a, b] <- getIntArray
+  s <- getStr
+  let ans = countValidRanges n a b s
+  print ans
+
+countValidRanges :: Int -> Int -> Int -> String -> Int
+countValidRanges n minA maxB s = sum [countForLeft l | l <- [1..n]]
+  where
+    cumA = listArray (0, n) $ 0 : scanl1 (+) [if c == 'a' then 1 else 0 | c <- s]
+    cumB = listArray (0, n) $ 0 : scanl1 (+) [if c == 'b' then 1 else 0 | c <- s]
+
+    countA l r = cumA ! r - cumA ! (l - 1)
+    countB l r = cumB ! r - cumB ! (l - 1)
+
+    findMinR l = bsearch l n (\r -> countA l r >= minA)
+    findMaxR l = bsearch l n (\r -> countB l r >= maxB)
+
+    bsearch l r check = go l r
+      where
+        go left right
+          | left > right = n + 1
+          | left == right = if check left then left else n + 1
+          | check mid = go left mid
+          | otherwise = go (mid + 1) right
+          where
+            mid = (left + right) `div` 2
+
+    countForLeft l =
+      let r1 = findMinR l
+          r2 = findMaxR l
+      in max 0 (r2 - r1)
 
 abc430b :: IO ()
 abc430b = do
