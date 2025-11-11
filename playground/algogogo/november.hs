@@ -1,5 +1,5 @@
 import Control.Monad (forM_, replicateM)
-import Data.Array (Array, listArray, (!), bounds)
+import Data.Array (Array, bounds, listArray, (!))
 import Data.Char (isDigit, isLower, isUpper)
 import Data.Function (on)
 import Data.List (group, isSuffixOf, minimumBy, nub, sort, sortBy)
@@ -9,7 +9,18 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  abc430c 
+  abc431a
+
+abc431a :: IO ()
+abc431a = do
+  [h, b] <- getIntArray
+  let ans = robotBalance h b
+  print ans
+
+robotBalance :: Int -> Int -> Int
+robotBalance h b
+  | h >= b = h - b
+  | otherwise = 0
 
 abc430c :: IO ()
 abc430c = do
@@ -19,7 +30,7 @@ abc430c = do
   print ans
 
 countValidRanges :: Int -> Int -> Int -> String -> Int
-countValidRanges n minA maxB s = sum [countForLeft l | l <- [1..n]]
+countValidRanges n minA maxB s = sum [countForLeft l | l <- [1 .. n]]
   where
     cumA = listArray (0, n) $ 0 : scanl1 (+) [if c == 'a' then 1 else 0 | c <- s]
     cumB = listArray (0, n) $ 0 : scanl1 (+) [if c == 'b' then 1 else 0 | c <- s]
@@ -43,7 +54,7 @@ countValidRanges n minA maxB s = sum [countForLeft l | l <- [1..n]]
     countForLeft l =
       let r1 = findMinR l
           r2 = findMaxR l
-      in max 0 (r2 - r1)
+       in max 0 (r2 - r1)
 
 abc430b :: IO ()
 abc430b = do
