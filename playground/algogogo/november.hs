@@ -9,7 +9,35 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  abc431a
+  abc431b
+
+abc431b :: IO()
+abc431b = do
+  x <- getInt
+  n <- getInt
+  weights <- getIntArray
+  q <- getInt
+  queries <- replicateM q getInt
+  let results = processQueries x weights queries
+  mapM_ print results
+
+processQueries :: Int -> [Int] -> [Int] -> [Int]
+processQueries initialWeight weights queries =
+  reverse $ thd $ foldl processOne (Set.empty, initialWeight, []) queries
+  where
+    -- 部品の重さをMapに(1-indexed)
+    weightMap = Map.fromList $ zip [1..] weights
+
+    thd (_, _, x) = x
+
+    -- 各クエリを処理（取り付け状態, 現在の重さ, 結界リスト)
+    processOne (attached, currentWeight, results) partId =
+      let partWeight = weightMap Map.! partId
+          (newAttached, newWeight) =
+            if Set.member partId attached
+            then (Set.delete partId attached, currentWeight - partWeight) -- 取り外す
+            else (Set.insert partId attached, currentWeight + partWeight) -- 取り付ける
+      in (newAttached, newWeight, newWeight : results)
 
 abc431a :: IO ()
 abc431a = do
