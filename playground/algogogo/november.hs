@@ -9,7 +9,36 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  abc431b
+  abc431c
+
+abc431c :: IO()
+abc431c = do
+  [n, m, k] <- getIntArray
+  heads <- sort <$> getIntArray
+  bodies <- sort <$> getIntArray
+
+  let result = canMakeRobots k heads bodies
+
+  putStrLn $ if result then "Yes" else "No"
+
+-- K体のロボットを作れるか判定する関数
+canMakeRobots :: Int -> [Int] -> [Int] -> Bool
+canMakeRobots k heads bodies =
+  -- 最も軽い頭K個を取り出す
+  let lightestHeads = take k heads
+      -- 各頭に対して体を割り当てられるか試す
+  in matchHeadsWithBodies lightestHeads bodies == k
+
+-- 頭パーツのリストに体パーツを割り当て、成功した個数を返す
+matchHeadsWithBodies :: [Int] -> [Int] -> Int
+matchHeadsWithBodies [] _ = 0
+matchHeadsWithBodies _ [] = 0
+matchHeadsWithBodies (h:hs) bodies =
+  -- 現在の頭 h に対して使える体を探す
+  case dropWhile (< h) bodies of
+    [] -> 0
+    (b:bs) -> 1 + matchHeadsWithBodies hs bs
+
 
 abc431b :: IO()
 abc431b = do
