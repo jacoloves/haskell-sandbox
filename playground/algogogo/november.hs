@@ -9,9 +9,20 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  abc431c
+  abc139b
 
-abc431c :: IO()
+abc139b :: IO ()
+abc139b = do
+  [a, b] <- getIntArray
+
+  -- 天井関数: (x + y - 1) `div` y は　　[x / y] と同じ
+  let numerator = b - 1
+      denominator = a - 1
+      result = (numerator + denominator - 1) `div` denominator
+
+  print result
+
+abc431c :: IO ()
 abc431c = do
   [n, m, k] <- getIntArray
   heads <- sort <$> getIntArray
@@ -26,21 +37,20 @@ canMakeRobots :: Int -> [Int] -> [Int] -> Bool
 canMakeRobots k heads bodies =
   -- 最も軽い頭K個を取り出す
   let lightestHeads = take k heads
-      -- 各頭に対して体を割り当てられるか試す
-  in matchHeadsWithBodies lightestHeads bodies == k
+   in -- 各頭に対して体を割り当てられるか試す
+      matchHeadsWithBodies lightestHeads bodies == k
 
 -- 頭パーツのリストに体パーツを割り当て、成功した個数を返す
 matchHeadsWithBodies :: [Int] -> [Int] -> Int
 matchHeadsWithBodies [] _ = 0
 matchHeadsWithBodies _ [] = 0
-matchHeadsWithBodies (h:hs) bodies =
+matchHeadsWithBodies (h : hs) bodies =
   -- 現在の頭 h に対して使える体を探す
   case dropWhile (< h) bodies of
     [] -> 0
-    (b:bs) -> 1 + matchHeadsWithBodies hs bs
+    (b : bs) -> 1 + matchHeadsWithBodies hs bs
 
-
-abc431b :: IO()
+abc431b :: IO ()
 abc431b = do
   x <- getInt
   n <- getInt
@@ -55,7 +65,7 @@ processQueries initialWeight weights queries =
   reverse $ thd $ foldl processOne (Set.empty, initialWeight, []) queries
   where
     -- 部品の重さをMapに(1-indexed)
-    weightMap = Map.fromList $ zip [1..] weights
+    weightMap = Map.fromList $ zip [1 ..] weights
 
     thd (_, _, x) = x
 
@@ -64,9 +74,9 @@ processQueries initialWeight weights queries =
       let partWeight = weightMap Map.! partId
           (newAttached, newWeight) =
             if Set.member partId attached
-            then (Set.delete partId attached, currentWeight - partWeight) -- 取り外す
-            else (Set.insert partId attached, currentWeight + partWeight) -- 取り付ける
-      in (newAttached, newWeight, newWeight : results)
+              then (Set.delete partId attached, currentWeight - partWeight) -- 取り外す
+              else (Set.insert partId attached, currentWeight + partWeight) -- 取り付ける
+       in (newAttached, newWeight, newWeight : results)
 
 abc431a :: IO ()
 abc431a = do
