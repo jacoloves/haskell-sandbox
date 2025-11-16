@@ -9,7 +9,44 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  abc139b
+  cf2016qb
+
+cf2016qb :: IO ()
+cf2016qb = do
+  [n, a, b] <- getIntArray
+
+  s <- getStr
+
+  let ans = simulateQualification a b s 0 0
+  mapM_ putStrLn ans
+
+-- a: internal, b: external, s: list, total: passed count, overseas: overseas count
+simulateQualification :: Int -> Int -> String -> Int -> Int -> [String]
+simulateQualification _ _ [] _ _ = []
+simulateQualification a b (c : cs) total overseas
+  | c == 'c' = "No" : simulateQualification a b cs total overseas
+  | total >= a + b = "No" : simulateQualification a b cs total overseas
+  | c == 'a' = "Yes" : simulateQualification a b cs (total + 1) overseas
+  | c == 'b' && overseas < b = "Yes" : simulateQualification a b cs (total + 1) (overseas + 1)
+  | otherwise = "No" : simulateQualification a b cs total overseas
+
+abc156c :: IO ()
+abc156c = do
+  n <- getInt
+  x <- getIntArray
+
+  let minPos = minimum x
+      maxPos = maximum x
+
+  let costs = [calcTotalCost p x | p <- [minPos .. maxPos]]
+
+  print $ minimum costs
+
+-- 座標pで集会を開いた時の体力総和を計算
+calcTotalCost :: Int -> [Int] -> Int
+calcTotalCost p x = sum [square (xi - p) | xi <- x]
+  where
+    square n = n * n
 
 abc139b :: IO ()
 abc139b = do
