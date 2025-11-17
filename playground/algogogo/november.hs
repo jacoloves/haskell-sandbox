@@ -9,7 +9,32 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  cf2016qb
+  abc121b
+
+abc121b :: IO ()
+abc121b = do
+  [n, m, c] <- getIntArray
+  b <- getIntArray
+  a <- replicateM n getIntArray
+
+  let ans = length $ filter (isCorrect b c) a
+  print ans
+
+isCorrect :: [Int] -> Int -> [Int] -> Bool
+isCorrect b c a = dotProduct a b + c > 0
+
+dotProduct :: [Int] -> [Int] -> Int
+dotProduct a b = sum $ zipWith (*) a b
+
+mitsuisumitomo2019pcb :: IO ()
+mitsuisumitomo2019pcb = do
+  n <- getInt
+
+  let candidates = [i | i <- [1 .. n], floor (fromIntegral i * 1.08) == n]
+
+  case candidates of
+    (i : _) -> print i -- リストの先頭要素を出力 要はリストが空でない
+    [] -> putStrLn ":(" -- リストが空の場合
 
 cf2016qb :: IO ()
 cf2016qb = do
