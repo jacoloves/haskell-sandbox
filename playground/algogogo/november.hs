@@ -9,7 +9,20 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  abc121b
+  panasonicpc2020
+
+
+panasonicpc2020 :: IO ()
+panasonicpc2020 = do
+  [h, w] <- getIntArray
+
+  if h == 1 || w == 1
+    then print 1
+    else do
+      let total = h * w
+          reachable = (total + 1) `div` 2
+      print reachable
+
 
 abc121b :: IO ()
 abc121b = do
