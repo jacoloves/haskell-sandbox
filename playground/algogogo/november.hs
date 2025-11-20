@@ -9,7 +9,19 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  abc157b
+  training001
+
+training001 :: IO ()
+training001 = do
+  [a, b] <- words <$> getLine
+  let concatenated = read (a ++ b) :: Int
+  let isSquare = isPerfectSquare concatenated
+  putStrLn $ if isSquare then "Yes" else "No"
+
+isPerfectSquare :: Int -> Bool
+isPerfectSquare n =
+  let sqrtN = floor (sqrt (fromIntegral n))
+   in sqrtN * sqrtN == n
 
 abc157b :: IO ()
 abc157b = do
@@ -26,32 +38,31 @@ abc157b = do
   putStrLn $ if isBingo then "Yes" else "No"
 
 checkBingo :: [[Int]] -> [Int] -> Bool
-checkBingo card calledNumbers =any (allMarked card calledNumbers) bingoLines
+checkBingo card calledNumbers = any (allMarked card calledNumbers) bingoLines
 
 bingoLines :: [[(Int, Int)]]
 bingoLines =
   -- rows
-  [ [(0,0), (0,1), (0,2)]
-  , [(1,0), (1,1), (1,2)]
-  , [(2,0), (2,1), (2,2)]
-  -- columns
-  , [(0,0), (1,0), (2,0)]
-  , [(0,1), (1,1), (2,1)]
-  , [(0,2), (1,2), (2,2)]
-  -- diagonals
-  , [(0,0), (1,1), (2,2)]
-  , [(0,2), (1,1), (2,0)]
+  [ [(0, 0), (0, 1), (0, 2)],
+    [(1, 0), (1, 1), (1, 2)],
+    [(2, 0), (2, 1), (2, 2)],
+    -- columns
+    [(0, 0), (1, 0), (2, 0)],
+    [(0, 1), (1, 1), (2, 1)],
+    [(0, 2), (1, 2), (2, 2)],
+    -- diagonals
+    [(0, 0), (1, 1), (2, 2)],
+    [(0, 2), (1, 1), (2, 0)]
   ]
 
-allMarked :: [[Int]] -> [Int] ->[(Int, Int)] -> Bool
+allMarked :: [[Int]] -> [Int] -> [(Int, Int)] -> Bool
 allMarked card calledNumbers positions =
   all (\(r, c) -> isMarked card calledNumbers r c) positions
 
 isMarked :: [[Int]] -> [Int] -> Int -> Int -> Bool
 isMarked card calledNumbers r c =
   let value = card !! r !! c
-  in value `elem` calledNumbers
-
+   in value `elem` calledNumbers
 
 panasonicpc2020 :: IO ()
 panasonicpc2020 = do
@@ -63,7 +74,6 @@ panasonicpc2020 = do
       let total = h * w
           reachable = (total + 1) `div` 2
       print reachable
-
 
 abc121b :: IO ()
 abc121b = do
