@@ -9,7 +9,48 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  panasonicpc2020
+  abc157b
+
+abc157b :: IO ()
+abc157b = do
+  r1 <- getIntArray
+  r2 <- getIntArray
+  r3 <- getIntArray
+  let card = [r1, r2, r3]
+
+  n <- getInt
+  calledNumbers <- replicateM n getInt
+
+  let isBingo = checkBingo card calledNumbers
+
+  putStrLn $ if isBingo then "Yes" else "No"
+
+checkBingo :: [[Int]] -> [Int] -> Bool
+checkBingo card calledNumbers =any (allMarked card calledNumbers) bingoLines
+
+bingoLines :: [[(Int, Int)]]
+bingoLines =
+  -- rows
+  [ [(0,0), (0,1), (0,2)]
+  , [(1,0), (1,1), (1,2)]
+  , [(2,0), (2,1), (2,2)]
+  -- columns
+  , [(0,0), (1,0), (2,0)]
+  , [(0,1), (1,1), (2,1)]
+  , [(0,2), (1,2), (2,2)]
+  -- diagonals
+  , [(0,0), (1,1), (2,2)]
+  , [(0,2), (1,1), (2,0)]
+  ]
+
+allMarked :: [[Int]] -> [Int] ->[(Int, Int)] -> Bool
+allMarked card calledNumbers positions =
+  all (\(r, c) -> isMarked card calledNumbers r c) positions
+
+isMarked :: [[Int]] -> [Int] -> Int -> Int -> Bool
+isMarked card calledNumbers r c =
+  let value = card !! r !! c
+  in value `elem` calledNumbers
 
 
 panasonicpc2020 :: IO ()
