@@ -9,7 +9,17 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  training001
+  training002
+
+training002 :: IO ()
+training002 = do
+  n <- getInt
+  k <- getInt
+  pos <- getIntArray
+
+  let totalDistance = sum [2 * min x (k - x) | x <- pos]
+
+  print totalDistance
 
 training001 :: IO ()
 training001 = do
