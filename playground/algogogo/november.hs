@@ -9,7 +9,20 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  training002
+  training003
+
+training003 :: IO ()
+training003 = do
+  n <- getInt
+
+  cards <- getIntArray
+
+  let sortedCards = sortBy (flip compare) cards
+
+  let aliceScore = sum [sortedCards !! i | i <- [0, 2 .. n - 1]]
+      bobScore = sum [sortedCards !! i | i <- [1, 3 .. n - 1]]
+
+  print $ aliceScore - bobScore
 
 training002 :: IO ()
 training002 = do
