@@ -9,7 +9,20 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  training003
+  training004
+
+training004 :: IO ()
+training004 = do
+  n <- getInt
+  let ans = findMaxPowerOf2 n
+  print ans
+
+findMaxPowerOf2 :: Int -> Int
+findMaxPowerOf2 n = go 1
+  where
+    go current
+      | current * 2 <= n = go (current * 2)
+      | otherwise = current
 
 training003 :: IO ()
 training003 = do
