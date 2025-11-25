@@ -9,7 +9,21 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  training004
+  training005
+
+training005 :: IO ()
+training005 = do
+  [k, n] <- getIntArray
+  houses <- getIntArray
+  let gaps = calculateGaps k houses
+      maxGap = maximum gaps
+  print $ k - maxGap
+
+calculateGaps :: Int -> [Int] -> [Int]
+calculateGaps k houses =
+  let adjacentGaps = zipWith (-) (tail houses) houses
+      wrapAroundGap = k - last houses + head houses
+   in adjacentGaps ++ [wrapAroundGap]
 
 training004 :: IO ()
 training004 = do
