@@ -9,7 +9,23 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  training005
+  training006
+
+training006 :: IO ()
+training006 = do
+  [a, b, c] <- getIntArray
+  let ans = simulate a b c 0
+  print ans
+
+simulate :: Int -> Int -> Int -> Int -> Int
+simulate a b c cnt
+  | odd a || odd b || odd c = cnt
+  | a == b && b == c = -1
+  | otherwise =
+      let a' = (b + c) `div` 2
+          b' = (a + c) `div` 2
+          c' = (a + b) `div` 2
+       in simulate a' b' c' (cnt + 1)
 
 training005 :: IO ()
 training005 = do
