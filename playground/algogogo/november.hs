@@ -9,7 +9,13 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  training006
+  training007
+
+training007 :: IO ()
+training007 = do
+  [n, k] <- getIntArray
+  let r = n `mod` k
+  print $ min r (k - r)
 
 training006 :: IO ()
 training006 = do
