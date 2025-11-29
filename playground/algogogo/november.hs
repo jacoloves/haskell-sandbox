@@ -9,7 +9,19 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  training007
+  training008
+
+training008 :: IO ()
+training008 = do
+  n <- getInt
+
+  difficulties <- sort <$> getIntArray
+
+  let mid = n `div` 2
+      abcMax = difficulties !! (mid - 1)
+      arcMin = difficulties !! mid
+
+  print $ arcMin - abcMax
 
 training007 :: IO ()
 training007 = do
