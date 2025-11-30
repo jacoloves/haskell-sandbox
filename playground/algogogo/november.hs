@@ -9,7 +9,27 @@ import Text.Printf (printf)
 
 main :: IO ()
 main = do
-  training008
+  training010
+
+training010 :: IO ()
+training010 = do
+  n <- getInt
+  values <- sort <$> getIntArray
+  let ans = combineAll $ map fromIntegral values
+  print ans
+
+combineAll :: [Double] -> Double
+combineAll [x] = x
+combineAll (x : y : xs) = combineAll ((x + y) / 2 : xs)
+
+training009 :: IO ()
+training009 = do
+  n <- getInt
+  arrivals <- getIntArray
+  let pairs = zip [1 .. n] arrivals
+  let sorted = sortBy (compare `on` snd) pairs
+  let order = map fst sorted
+  putStrLn $ unwords $ map show order
 
 training008 :: IO ()
 training008 = do
