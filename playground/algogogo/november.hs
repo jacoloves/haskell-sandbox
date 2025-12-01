@@ -5,7 +5,6 @@ import Data.Function (on)
 import Data.List (group, isSuffixOf, minimumBy, nub, sort, sortBy)
 import Data.Map qualified as Map
 import Data.Set qualified as Set
-import Text.Printf (printf)
 
 main :: IO ()
 main = do
