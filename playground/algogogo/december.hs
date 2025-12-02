@@ -8,7 +8,22 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training012
+  training013
+
+training013 :: IO ()
+training013 = do
+  s <- getInt
+  let ans = findCycle s
+  print ans
+
+findCycle :: Int -> Int
+findCycle s = go s Set.empty 1
+  where
+    go current seen index
+      | current `Set.member` seen = index
+      | otherwise = go (f current) (Set.insert current seen) (index + 1)
+
+    f n = if even n then n `div` 2 else 3 * n + 1
 
 training012 :: IO ()
 training012 = do
