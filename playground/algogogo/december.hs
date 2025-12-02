@@ -8,7 +8,17 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training011
+  training012
+
+training012 :: IO ()
+training012 = do
+  [n, m, x] <- getIntArray
+  tollGates <- getIntArray
+
+  let leftCost = length $ filter (< x) tollGates
+      rightCost = length $ filter (> x) tollGates
+
+  print $ min leftCost rightCost
 
 training011 :: IO ()
 training011 = do
