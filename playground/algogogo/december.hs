@@ -8,7 +8,22 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training013
+  training014
+
+training014 :: IO ()
+training014 = do
+  x <- getInt
+  let ans = head [n | n <- [x ..], isPrime n]
+  print ans
+
+isPrime :: Int -> Bool
+isPrime n
+  | n < 2 = False
+  | n == 2 = True
+  | even n = False
+  | otherwise = all (\d -> n `mod` d /= 0) [3, 5 .. limit]
+  where
+    limit = floor $ sqrt $ fromIntegral n
 
 training013 :: IO ()
 training013 = do
