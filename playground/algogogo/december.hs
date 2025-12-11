@@ -8,7 +8,19 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training015
+  training016
+
+training016 :: IO ()
+training016 = do
+  n <- getInt
+  [d, x] <- getIntArray
+  periods <- replicateM n getInt
+
+  let ans = sum [countChocolates d a | a <- periods]
+  print $ ans + x
+
+countChocolates :: Int -> Int -> Int
+countChocolates d a = (d - 1) `div` a + 1
 
 training015 :: IO ()
 training015 = do
@@ -19,13 +31,13 @@ training015 = do
 
 maxHappyChildren :: Int -> [Int] -> Int
 maxHappyChildren x candies = go x candies 0
- where
-  go remaining [] count = count
-  go remaining (c : cs) count
-    | remaining < c = count
-    | remaining == c = count + 1
-    | null cs = count
-    | otherwise = go (remaining - c) cs (count + 1)
+  where
+    go remaining [] count = count
+    go remaining (c : cs) count
+      | remaining < c = count
+      | remaining == c = count + 1
+      | null cs = count
+      | otherwise = go (remaining - c) cs (count + 1)
 
 training014 :: IO ()
 training014 = do
@@ -39,8 +51,8 @@ isPrime n
   | n == 2 = True
   | even n = False
   | otherwise = all (\d -> n `mod` d /= 0) [3, 5 .. limit]
- where
-  limit = floor $ sqrt $ fromIntegral n
+  where
+    limit = floor $ sqrt $ fromIntegral n
 
 training013 :: IO ()
 training013 = do
@@ -50,12 +62,12 @@ training013 = do
 
 findCycle :: Int -> Int
 findCycle s = go s Set.empty 1
- where
-  go current seen index
-    | current `Set.member` seen = index
-    | otherwise = go (f current) (Set.insert current seen) (index + 1)
+  where
+    go current seen index
+      | current `Set.member` seen = index
+      | otherwise = go (f current) (Set.insert current seen) (index + 1)
 
-  f n = if even n then n `div` 2 else 3 * n + 1
+    f n = if even n then n `div` 2 else 3 * n + 1
 
 training012 :: IO ()
 training012 = do
@@ -75,14 +87,14 @@ training011 = do
 
 findAllACGTLengths :: String -> [Int]
 findAllACGTLengths s = go s 0
- where
-  go [] currentLen = [currentLen | currentLen > 0]
-  go (c : cs) currentLen
-    | isACGT c = go cs (currentLen + 1)
-    | currentLen > 0 = currentLen : go cs 0
-    | otherwise = go cs 0
+  where
+    go [] currentLen = [currentLen | currentLen > 0]
+    go (c : cs) currentLen
+      | isACGT c = go cs (currentLen + 1)
+      | currentLen > 0 = currentLen : go cs 0
+      | otherwise = go cs 0
 
-  isACGT c = c `elem` "ACGT"
+    isACGT c = c `elem` "ACGT"
 
 -- read Float
 getFloat :: IO Float
