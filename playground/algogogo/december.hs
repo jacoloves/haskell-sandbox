@@ -1,4 +1,4 @@
-import Control.Monad (forM_, replicateM)
+import Control.Monad (foldM, forM_, replicateM)
 import Data.Array (Array, bounds, listArray, (!))
 import Data.Char (isDigit, isLower, isUpper)
 import Data.Function (on)
@@ -8,7 +8,32 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training017
+  training017Adv
+
+training017Adv :: IO ()
+training017Adv = do
+  [a, b, m] <- getIntArray
+  refri <- getIntArray
+  microw <- getIntArray
+
+  let refArray = listArray (1, a) refri
+      micArray = listArray (1, b) microw
+      minRef = minimum refri
+      minMic = minimum microw
+
+  let noCoupon = minRef + minMic
+
+  minWithCoupon <-
+    foldM
+      ( \acc _ -> do
+          [x, y, c] <- getIntArray
+          let price = refArray ! x + micArray ! y - c
+          return $ min acc price
+      )
+      noCoupon
+      [1 .. m]
+
+  print minWithCoupon
 
 training017 :: IO ()
 training017 = do
