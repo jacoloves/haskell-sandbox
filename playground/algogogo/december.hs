@@ -2,13 +2,35 @@ import Control.Monad (foldM, forM_, replicateM)
 import Data.Array (Array, bounds, listArray, (!))
 import Data.Char (isDigit, isLower, isUpper)
 import Data.Function (on)
-import Data.List (group, isSuffixOf, minimumBy, nub, sort, sortBy)
+import Data.List (elemIndex, group, isSuffixOf, minimumBy, nub, permutations, sort, sortBy)
 import Data.Map qualified as Map
+import Data.Maybe (fromJust)
 import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training017Adv
+  training019
+
+training019 :: IO ()
+training019 = do
+  h <- getInt
+  print $ countAttacks h 0
+ where
+  countAttacks 0 acc = acc
+  countAttacks h acc = countAttacks (h `div` 2) (2 * acc + 1)
+
+training018 :: IO ()
+training018 = do
+  n <- getInt
+  p <- getIntArray
+  q <- getIntArray
+
+  let allPerms = sort $ permutations [1 .. n]
+
+  let indexP = fromJust $ elemIndex p allPerms
+      indexQ = fromJust $ elemIndex q allPerms
+
+  print $ abs (indexP - indexQ)
 
 training017Adv :: IO ()
 training017Adv = do
