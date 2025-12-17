@@ -9,7 +9,19 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training019
+  training020
+
+training020 :: IO ()
+training020 = do
+  [n, a, b] <- getIntArray
+  let cycle = a + b
+  let fullCycles = n `div` cycle
+  let remainder = n `mod` cycle
+  let blueInFullCycles = fullCycles * a
+      blueInRemainder = min remainder a
+      totalBlue = blueInFullCycles + blueInRemainder
+
+  print totalBlue
 
 training019 :: IO ()
 training019 = do
