@@ -9,7 +9,23 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training020
+  training021
+
+training021 :: IO ()
+training021 = do
+  n <- getInt
+  numbers <- getIntArray
+
+  let counts = map countDivisions numbers
+
+  print $ minimum counts
+
+countDivisions :: Int -> Int
+countDivisions n = go n 0
+ where
+  go num count
+    | odd num = count
+    | otherwise = go (num `div` 2) (count + 1)
 
 training020 :: IO ()
 training020 = do
