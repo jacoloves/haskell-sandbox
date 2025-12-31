@@ -9,7 +9,15 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training021
+  training022
+
+training022 :: IO ()
+training022 = do
+  s <- getStr
+  let threeDigits = [take 3 (drop i s) | i <- [0 .. length s - 3]]
+  let differences = [abs (753 - read digits) | digits <- threeDigits]
+
+  print $ minimum differences
 
 training021 :: IO ()
 training021 = do
