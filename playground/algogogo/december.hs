@@ -9,7 +9,13 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training023
+  training024
+
+training024 :: IO ()
+training024 = do
+  s <- getStr
+  let u = Set.size $ Set.fromList s
+  putStrLn $ if length s == u then "yes" else "no"
 
 training023 :: IO ()
 training023 = do
