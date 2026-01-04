@@ -9,7 +9,19 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training024
+  training025
+
+training025 :: IO ()
+training025 = do
+  n <- getInt
+  s <- getStr
+
+  let v = scanl step 0 s
+      step x 'I' = x + 1
+      step x 'D' = x - 1
+      step x _ = x
+
+  print $ maximum v
 
 training024 :: IO ()
 training024 = do
