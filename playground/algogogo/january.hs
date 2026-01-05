@@ -11,6 +11,19 @@ main :: IO ()
 main = do
   training027
 
+training028 :: IO ()
+training028 = do
+  a <- getInt
+  b <- getInt
+  c <- getInt
+  x <- getInt
+
+  let cnt =
+        length
+          [(i, j, k) | i <- [0 .. a], j <- [0 .. b], k <- [0 .. c], 500 * i + 100 * j + 50 * k == x]
+
+  print cnt
+
 training027 :: IO ()
 training027 = do
   [a, b] <- getIntArray
