@@ -9,7 +9,16 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training027
+  training029
+
+training029 :: IO ()
+training029 = do
+  s <- getStr
+  let allChars = ['a' .. 'z']
+  let miss = filter (`notElem` s) allChars
+  putStrLn $ case miss of
+    (c : _) -> [c]
+    [] -> "None"
 
 training028 :: IO ()
 training028 = do
