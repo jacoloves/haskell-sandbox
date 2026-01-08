@@ -9,7 +9,20 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training029
+  training030
+
+training030 :: IO ()
+training030 = do
+  [n, m] <- getIntArray
+  gates <- replicateM m $ do
+    [l, r] <- getIntArray
+    return (l, r)
+
+  let leftMost = maximum $ map fst gates
+  let rightMost = minimum $ map snd gates
+  let ans = max 0 (rightMost - leftMost + 1)
+
+  print ans
 
 training029 :: IO ()
 training029 = do
