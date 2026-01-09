@@ -9,7 +9,23 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training030
+  training031
+
+training031 :: IO ()
+training031 = do
+  [n, k, q] <- getIntArray
+
+  answers <- replicateM q getInt
+
+  let correctCounts = Map.fromListWith (+) [(a, 1) | a <- answers]
+
+  let threshold = q - k
+
+  forM_ [1 .. n] $ \i -> do
+    let count = Map.findWithDefault 0 i correctCounts
+    if count > threshold
+      then putStrLn "Yes"
+      else putStrLn "No"
 
 training030 :: IO ()
 training030 = do
