@@ -9,7 +9,19 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training031
+  training032
+
+training032 :: IO ()
+training032 = do
+  times <- replicateM 5 getInt
+
+  let totalTime = sum times
+
+  let roundups = map (\t -> (10 - (t `mod` 10)) `mod` 10) times
+
+  let ans = totalTime + sum roundups - minimum roundups
+
+  print ans
 
 training031 :: IO ()
 training031 = do
