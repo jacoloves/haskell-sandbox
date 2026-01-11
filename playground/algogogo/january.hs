@@ -9,7 +9,21 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training032Adv
+  training033
+
+training033 :: IO ()
+training033 = do
+  n <- getInt
+  as <- replicateM n getInt
+
+  let sorted = sortBy (flip compare) as
+  let max1 = head sorted
+  let max2 = head (tail sorted)
+
+  forM_ as $ \a -> do
+    if a == max1
+      then print max2
+      else print max1
 
 training032Adv :: IO ()
 training032Adv = do
