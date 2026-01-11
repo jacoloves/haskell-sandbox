@@ -9,7 +9,25 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training032
+  training032Adv
+
+training032Adv :: IO ()
+training032Adv = do
+  times <- replicateM 5 getInt
+
+  let allPerms = permutations times
+  let allTimes = map calculateTime allPerms
+
+  print $ minimum allTimes
+
+calculateTime :: [Int] -> Int
+calculateTime dishes = go 0 dishes
+ where
+  go currentTime [] = currentTime
+  go currentTime (dish : rest) =
+    let nextOrderTime = ((currentTime + 9) `div` 10) * 10
+        deliveryTime = nextOrderTime + dish
+     in go deliveryTime rest
 
 training032 :: IO ()
 training032 = do
