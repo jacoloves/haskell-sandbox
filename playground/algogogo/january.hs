@@ -9,7 +9,16 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training033
+  training034
+
+training034 :: IO ()
+training034 = do
+  [a, b] <- getIntArray
+  let result
+        | a <= 0 && b >= 0 = "Zero"
+        | a > 0 = "Positive"
+        | otherwise = if even (b - a + 1) then "Positive" else "Negative"
+  putStrLn result
 
 training033 :: IO ()
 training033 = do
@@ -36,12 +45,12 @@ training032Adv = do
 
 calculateTime :: [Int] -> Int
 calculateTime dishes = go 0 dishes
- where
-  go currentTime [] = currentTime
-  go currentTime (dish : rest) =
-    let nextOrderTime = ((currentTime + 9) `div` 10) * 10
-        deliveryTime = nextOrderTime + dish
-     in go deliveryTime rest
+  where
+    go currentTime [] = currentTime
+    go currentTime (dish : rest) =
+      let nextOrderTime = ((currentTime + 9) `div` 10) * 10
+          deliveryTime = nextOrderTime + dish
+       in go deliveryTime rest
 
 training032 :: IO ()
 training032 = do
