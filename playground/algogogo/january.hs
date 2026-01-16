@@ -9,7 +9,22 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training034
+  training035
+
+training035 :: IO ()
+training035 = do
+  n <- getInt
+  ps <- getIntArray
+  let cnt = training035F ps
+  print cnt
+
+training035F :: [Int] -> Int
+training035F [] = 0
+training035F (p : ps) = fst $ foldl step (1, p) ps
+  where
+    step (count, minVal) x
+      | x <= minVal = (count + 1, x)
+      | otherwise = (count, minVal)
 
 training034 :: IO ()
 training034 = do
