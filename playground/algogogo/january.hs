@@ -9,7 +9,16 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training035
+  training036
+
+training036 :: IO ()
+training036 = do
+  [n, m] <- getIntArray
+  preferences <- replicateM n $ do
+    (_ : foods) <- getIntArray
+    return (Set.fromList foods)
+  let common = foldl1 Set.intersection preferences
+  print $ Set.size common
 
 training035 :: IO ()
 training035 = do
