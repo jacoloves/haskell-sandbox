@@ -9,7 +9,14 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training036
+  training037
+
+training037 :: IO ()
+training037 = do
+  w <- getStr
+  let counts = map length $ group $ sort w
+  let isBeautiful = all even counts
+  putStrLn $ if isBeautiful then "Yes" else "No"
 
 training036 :: IO ()
 training036 = do
