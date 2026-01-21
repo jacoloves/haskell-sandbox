@@ -9,7 +9,20 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training037
+  training038
+
+training038 :: IO ()
+training038 = do
+  s <- getStr
+  let n = length s
+  let p1 = take n $ cycle "01"
+  let p2 = take n $ cycle "10"
+  let cnt1 = countDiff s p1
+  let cnt2 = countDiff s p2
+  print $ min cnt1 cnt2
+
+countDiff :: String -> String -> Int
+countDiff s1 s2 = length $ filter not $ zipWith (==) s1 s2
 
 training037 :: IO ()
 training037 = do
