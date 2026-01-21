@@ -9,7 +9,18 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training038
+  training039
+
+training039 :: IO ()
+training039 = do
+  [a, b] <- getIntArray
+  let palindromes = filter isPalindrome [a .. b]
+  print $ length palindromes
+
+isPalindrome :: Int -> Bool
+isPalindrome n = s == reverse s
+  where
+    s = show n
 
 training038 :: IO ()
 training038 = do
