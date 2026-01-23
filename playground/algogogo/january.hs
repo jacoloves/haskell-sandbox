@@ -9,7 +9,15 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training040
+  training041
+
+training041 :: IO ()
+training041 = do
+  n <- getInt
+  print $ lucas !! n
+
+lucas :: [Integer]
+lucas = 2 : 1 : zipWith (+) lucas (tail lucas)
 
 training040 :: IO ()
 training040 = do
@@ -27,8 +35,8 @@ training039 = do
 
 isPalindrome :: Int -> Bool
 isPalindrome n = s == reverse s
-  where
-    s = show n
+ where
+  s = show n
 
 training038 :: IO ()
 training038 = do
@@ -69,10 +77,10 @@ training035 = do
 training035F :: [Int] -> Int
 training035F [] = 0
 training035F (p : ps) = fst $ foldl step (1, p) ps
-  where
-    step (count, minVal) x
-      | x <= minVal = (count + 1, x)
-      | otherwise = (count, minVal)
+ where
+  step (count, minVal) x
+    | x <= minVal = (count + 1, x)
+    | otherwise = (count, minVal)
 
 training034 :: IO ()
 training034 = do
@@ -108,12 +116,12 @@ training032Adv = do
 
 calculateTime :: [Int] -> Int
 calculateTime dishes = go 0 dishes
-  where
-    go currentTime [] = currentTime
-    go currentTime (dish : rest) =
-      let nextOrderTime = ((currentTime + 9) `div` 10) * 10
-          deliveryTime = nextOrderTime + dish
-       in go deliveryTime rest
+ where
+  go currentTime [] = currentTime
+  go currentTime (dish : rest) =
+    let nextOrderTime = ((currentTime + 9) `div` 10) * 10
+        deliveryTime = nextOrderTime + dish
+     in go deliveryTime rest
 
 training032 :: IO ()
 training032 = do
