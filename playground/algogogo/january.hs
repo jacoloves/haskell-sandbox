@@ -9,7 +9,15 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training039
+  training040
+
+training040 :: IO ()
+training040 = do
+  [a, b, c, k] <- getIntArray
+  let d = if even k then a - b else b - a
+  if abs d > 10 ^ 18
+    then putStrLn "Unfair"
+    else print d
 
 training039 :: IO ()
 training039 = do
