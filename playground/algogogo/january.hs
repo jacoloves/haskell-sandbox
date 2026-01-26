@@ -9,7 +9,16 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training041
+  training042
+
+training042 :: IO ()
+training042 = do
+  [h, w] <- getIntArray
+  rows <- getNLines h
+  let border = replicate (w + 2) '#'
+  putStrLn border
+  mapM_ (\row -> putStrLn $ '#' : row ++ "#") rows
+  putStrLn border
 
 training041 :: IO ()
 training041 = do
@@ -35,8 +44,8 @@ training039 = do
 
 isPalindrome :: Int -> Bool
 isPalindrome n = s == reverse s
- where
-  s = show n
+  where
+    s = show n
 
 training038 :: IO ()
 training038 = do
@@ -77,10 +86,10 @@ training035 = do
 training035F :: [Int] -> Int
 training035F [] = 0
 training035F (p : ps) = fst $ foldl step (1, p) ps
- where
-  step (count, minVal) x
-    | x <= minVal = (count + 1, x)
-    | otherwise = (count, minVal)
+  where
+    step (count, minVal) x
+      | x <= minVal = (count + 1, x)
+      | otherwise = (count, minVal)
 
 training034 :: IO ()
 training034 = do
@@ -116,12 +125,12 @@ training032Adv = do
 
 calculateTime :: [Int] -> Int
 calculateTime dishes = go 0 dishes
- where
-  go currentTime [] = currentTime
-  go currentTime (dish : rest) =
-    let nextOrderTime = ((currentTime + 9) `div` 10) * 10
-        deliveryTime = nextOrderTime + dish
-     in go deliveryTime rest
+  where
+    go currentTime [] = currentTime
+    go currentTime (dish : rest) =
+      let nextOrderTime = ((currentTime + 9) `div` 10) * 10
+          deliveryTime = nextOrderTime + dish
+       in go deliveryTime rest
 
 training032 :: IO ()
 training032 = do
