@@ -9,7 +9,26 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training042
+  trainging043adv
+
+trainging043adv :: IO ()
+trainging043adv = do
+  a <- readLn :: IO Integer
+  b <- readLn :: IO Integer
+  putStrLn $ case compare a b of
+    GT -> "GREATER"
+    LT -> "LESS"
+    EQ -> "EQUAL"
+
+training043 :: IO ()
+training043 = do
+  a <- getInt
+  b <- getInt
+  let ans
+        | a > b = "GREATER"
+        | a < b = "LESS"
+        | otherwise = "EQUAL"
+  putStrLn ans
 
 training042 :: IO ()
 training042 = do
