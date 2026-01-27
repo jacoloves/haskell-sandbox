@@ -9,7 +9,16 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  trainging043adv
+  training044
+
+training044 :: IO ()
+training044 = do
+  [n, a, b] <- getIntArray
+  let ans = filter (\x -> let s = digitSum x in a <= s && s <= b) [1 .. n]
+  print $ sum ans
+
+digitSum :: Int -> Int
+digitSum n = sum $ map (\c -> read [c]) $ show n
 
 trainging043adv :: IO ()
 trainging043adv = do
