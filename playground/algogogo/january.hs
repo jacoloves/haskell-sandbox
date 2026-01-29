@@ -9,7 +9,19 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training045
+  training046
+
+training046 :: IO ()
+training046 = do
+  [n, m] <- getIntArray
+  edges <- replicateM m $ do
+    [a, b] <- getIntArray
+    return (a, b)
+  let degrees = [countDegree city edges | city <- [1 .. n]]
+  mapM_ print degrees
+
+countDegree :: Int -> [(Int, Int)] -> Int
+countDegree city edges = length $ filter (\(a, b) -> a == city || b == city) edges
 
 training045 :: IO ()
 training045 = do
