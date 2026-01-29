@@ -9,7 +9,16 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training044
+  training045
+
+training045 :: IO ()
+training045 = do
+  n <- getInt
+  bs <- getIntArray
+  let a1 = head bs
+  let an = last bs
+  let middle = zipWith min bs (tail bs)
+  print $ a1 + sum middle + an
 
 training044 :: IO ()
 training044 = do
