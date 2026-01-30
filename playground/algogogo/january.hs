@@ -9,7 +9,15 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training046
+  training047
+
+training047 :: IO ()
+training047 = do
+  n <- getInt
+  words <- getNLines n
+  let isUnique = length words == length (nub words)
+  let isChained = all (\(w1, w2) -> last w1 == head w2) (zip words (tail words))
+  putStrLn $ if isUnique && isChained then "Yes" else "No"
 
 training046 :: IO ()
 training046 = do
@@ -93,8 +101,8 @@ training039 = do
 
 isPalindrome :: Int -> Bool
 isPalindrome n = s == reverse s
-  where
-    s = show n
+ where
+  s = show n
 
 training038 :: IO ()
 training038 = do
@@ -135,10 +143,10 @@ training035 = do
 training035F :: [Int] -> Int
 training035F [] = 0
 training035F (p : ps) = fst $ foldl step (1, p) ps
-  where
-    step (count, minVal) x
-      | x <= minVal = (count + 1, x)
-      | otherwise = (count, minVal)
+ where
+  step (count, minVal) x
+    | x <= minVal = (count + 1, x)
+    | otherwise = (count, minVal)
 
 training034 :: IO ()
 training034 = do
@@ -174,12 +182,12 @@ training032Adv = do
 
 calculateTime :: [Int] -> Int
 calculateTime dishes = go 0 dishes
-  where
-    go currentTime [] = currentTime
-    go currentTime (dish : rest) =
-      let nextOrderTime = ((currentTime + 9) `div` 10) * 10
-          deliveryTime = nextOrderTime + dish
-       in go deliveryTime rest
+ where
+  go currentTime [] = currentTime
+  go currentTime (dish : rest) =
+    let nextOrderTime = ((currentTime + 9) `div` 10) * 10
+        deliveryTime = nextOrderTime + dish
+     in go deliveryTime rest
 
 training032 :: IO ()
 training032 = do
