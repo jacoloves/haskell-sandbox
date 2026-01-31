@@ -9,7 +9,27 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training047
+  training048
+
+training048 :: IO ()
+training048 = do
+  [n, d] <- getIntArray
+  points <- replicateM n getIntArray
+  let pairs = [(i, j) | i <- [0 .. n - 2], j <- [i + 1 .. n - 1]]
+  let validPairs = filter (isIntegerDistance points) pairs
+  print $ length validPairs
+
+isIntegerDistance :: [[Int]] -> (Int, Int) -> Bool
+isIntegerDistance points (i, j) = isPerfectSquare distSquared
+ where
+  p1 = points !! i
+  p2 = points !! j
+  distSquared = sum $ zipWith (\a b -> (a - b) ^ 2) p1 p2
+
+isPerfectSquare :: Int -> Bool
+isPerfectSquare n = sqrtN * sqrtN == n
+ where
+  sqrtN = floor $ sqrt $ fromIntegral n
 
 training047 :: IO ()
 training047 = do
