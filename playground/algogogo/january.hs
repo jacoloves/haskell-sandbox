@@ -5,11 +5,23 @@ import Data.Function (on)
 import Data.List (elemIndex, group, isSuffixOf, minimumBy, nub, permutations, sort, sortBy)
 import Data.Map qualified as Map
 import Data.Maybe (fromJust)
+import Data.Ord (comparing)
 import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training050
+  training051
+
+training051 :: IO ()
+training051 = do
+  n <- getInt
+  [t, a] <- getIntArray
+  hs <- getIntArray
+  let tmps = map (\h -> fromIntegral t - fromIntegral h * 0.006) hs
+  let diffs = map (\tmp -> abs (tmp - fromIntegral a)) tmps
+  let indexed = zip [1 ..] diffs
+  let (idx, _) = minimumBy (comparing snd) indexed
+  print idx
 
 training050 :: IO ()
 training050 = do
