@@ -9,7 +9,15 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training049
+  training050
+
+training050 :: IO ()
+training050 = do
+  [a, b] <- getIntArray
+  let candidates = [x | x <- [1 .. 10000], x * 8 `div` 100 == a, x * 10 `div` 100 == b]
+  case candidates of
+    [] -> print (-1)
+    (x : _) -> print x
 
 training049 :: IO ()
 training049 = do
