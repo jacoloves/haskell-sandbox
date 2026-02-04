@@ -10,7 +10,23 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training051
+  training052
+
+training052 :: IO ()
+training052 = do
+  s <- getStr
+  let isValid = checkConditions s
+  putStrLn $ if isValid then "AC" else "WA"
+
+checkConditions :: String -> Bool
+checkConditions s
+  | length s < 4 = False
+  | head s /= 'A' = False
+  | otherwise =
+      let middle = drop 2 $ init s
+          cCount = length $ filter (== 'C') middle
+          allLowers = all isLower $ filter (/= 'A') $ filter (/= 'C') s
+       in cCount == 1 && allLowers
 
 training051 :: IO ()
 training051 = do
