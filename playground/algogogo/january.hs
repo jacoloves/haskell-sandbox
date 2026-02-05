@@ -10,7 +10,22 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training052
+  training053
+
+training053 :: IO ()
+training053 = do
+  n <- getInt
+  ts <- getIntArray
+  m <- getInt
+  drinks <- replicateM m $ do
+    [p, x] <- getIntArray
+    return (p, x)
+
+  let baseTime = sum ts
+  forM_ drinks $ \(p, x) -> do
+    let originalTime = ts !! (p - 1)
+    let newTime = baseTime - originalTime + x
+    print newTime
 
 training052 :: IO ()
 training052 = do
