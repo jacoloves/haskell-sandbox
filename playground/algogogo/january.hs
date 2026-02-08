@@ -10,7 +10,13 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training054
+  training055
+
+training055 :: IO ()
+training055 = do
+  [h, w] <- getIntArray
+  rows <- getNLines h
+  mapM_ (\row -> putStrLn row >> putStrLn row) rows
 
 training054 :: IO ()
 training054 = do
