@@ -10,7 +10,24 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training055
+  training056
+
+training056 :: IO ()
+training056 = do
+  n <- getInt
+  as <- getIntArray
+  let result = solve as
+  print result
+
+solve :: [Int] -> Int
+solve as
+  | null kept = -1
+  | otherwise = length as - length kept
+  where
+    kept = foldl step [] as
+    step acc x
+      | x == length acc + 1 = acc ++ [x]
+      | otherwise = acc
 
 training055 :: IO ()
 training055 = do
@@ -97,15 +114,15 @@ training048 = do
 
 isIntegerDistance :: [[Int]] -> (Int, Int) -> Bool
 isIntegerDistance points (i, j) = isPerfectSquare distSquared
- where
-  p1 = points !! i
-  p2 = points !! j
-  distSquared = sum $ zipWith (\a b -> (a - b) ^ 2) p1 p2
+  where
+    p1 = points !! i
+    p2 = points !! j
+    distSquared = sum $ zipWith (\a b -> (a - b) ^ 2) p1 p2
 
 isPerfectSquare :: Int -> Bool
 isPerfectSquare n = sqrtN * sqrtN == n
- where
-  sqrtN = floor $ sqrt $ fromIntegral n
+  where
+    sqrtN = floor $ sqrt $ fromIntegral n
 
 training047 :: IO ()
 training047 = do
@@ -197,8 +214,8 @@ training039 = do
 
 isPalindrome :: Int -> Bool
 isPalindrome n = s == reverse s
- where
-  s = show n
+  where
+    s = show n
 
 training038 :: IO ()
 training038 = do
@@ -239,10 +256,10 @@ training035 = do
 training035F :: [Int] -> Int
 training035F [] = 0
 training035F (p : ps) = fst $ foldl step (1, p) ps
- where
-  step (count, minVal) x
-    | x <= minVal = (count + 1, x)
-    | otherwise = (count, minVal)
+  where
+    step (count, minVal) x
+      | x <= minVal = (count + 1, x)
+      | otherwise = (count, minVal)
 
 training034 :: IO ()
 training034 = do
@@ -278,12 +295,12 @@ training032Adv = do
 
 calculateTime :: [Int] -> Int
 calculateTime dishes = go 0 dishes
- where
-  go currentTime [] = currentTime
-  go currentTime (dish : rest) =
-    let nextOrderTime = ((currentTime + 9) `div` 10) * 10
-        deliveryTime = nextOrderTime + dish
-     in go deliveryTime rest
+  where
+    go currentTime [] = currentTime
+    go currentTime (dish : rest) =
+      let nextOrderTime = ((currentTime + 9) `div` 10) * 10
+          deliveryTime = nextOrderTime + dish
+       in go deliveryTime rest
 
 training032 :: IO ()
 training032 = do
