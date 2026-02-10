@@ -16,8 +16,18 @@ training056 :: IO ()
 training056 = do
   n <- getInt
   as <- getIntArray
-  let result = solve as
+  let result = solveAdv as
   print result
+
+solveAdv :: [Int] -> Int
+solveAdv as
+  | count == 0 = -1
+  | otherwise = length as - count
+  where
+    count = foldl step 0 as
+    step acc x
+      | x == acc + 1 = acc + 1
+      | otherwise = acc
 
 solve :: [Int] -> Int
 solve as
