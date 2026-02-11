@@ -12,8 +12,8 @@ main :: IO ()
 main = do
   training056
 
-training056 :: IO ()
-training056 = do
+training057 :: IO ()
+training057 = do
   o <- getStr
   e <- getStr
   let pass = interleave o e
@@ -24,6 +24,33 @@ interleave [] [] = []
 interleave (x : xs) [] = [x]
 interleave (x : xs) (y : ys) = x : y : interleave xs ys
 interleave [] _ = []
+
+training056 :: IO ()
+training056 = do
+  n <- getInt
+  as <- getIntArray
+  let result = solveAdv as
+  print result
+
+solveAdv :: [Int] -> Int
+solveAdv as
+  | count == 0 = -1
+  | otherwise = length as - count
+ where
+  count = foldl step 0 as
+  step acc x
+    | x == acc + 1 = acc + 1
+    | otherwise = acc
+
+solve :: [Int] -> Int
+solve as
+  | null kept = -1
+  | otherwise = length as - length kept
+ where
+  kept = foldl step [] as
+  step acc x
+    | x == length acc + 1 = acc ++ [x]
+    | otherwise = acc
 
 training055 :: IO ()
 training055 = do
