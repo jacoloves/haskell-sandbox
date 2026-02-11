@@ -10,7 +10,20 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training055
+  training056
+
+training056 :: IO ()
+training056 = do
+  o <- getStr
+  e <- getStr
+  let pass = interleave o e
+  putStrLn pass
+
+interleave :: String -> String -> String
+interleave [] [] = []
+interleave (x : xs) [] = [x]
+interleave (x : xs) (y : ys) = x : y : interleave xs ys
+interleave [] _ = []
 
 training055 :: IO ()
 training055 = do
