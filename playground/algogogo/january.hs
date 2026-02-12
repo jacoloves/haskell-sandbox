@@ -10,7 +10,14 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training056
+  training058
+
+training058 :: IO ()
+training058 = do
+  s <- getStr
+  let firstA = fromJust $ elemIndex 'A' s
+  let lastZ = length s - 1 - (fromJust $ elemIndex 'Z' $ reverse s)
+  print $ lastZ - firstA + 1
 
 training057 :: IO ()
 training057 = do
