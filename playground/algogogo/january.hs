@@ -10,7 +10,24 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training060
+  training061
+
+training061 :: IO ()
+training061 = do
+  n <- getInt
+  restaurants <- replicateM n $ do
+    line <- words <$> getLine
+    let city = head line
+    let score = read (line !! 1) :: Int
+    return (city, score)
+  let indexed = zip [1 ..] restaurants
+  let sorted = sortBy compareRestaurant indexed
+  mapM_ (print . fst) sorted
+
+compareRestaurant :: (Int, (String, Int)) -> (Int, (String, Int)) -> Ordering
+compareRestaurant (_, (city1, score1)) (_, (city2, score2))
+  | city1 /= city2 = compare city1 city2
+  | otherwise = compare score2 score1
 
 training060 :: IO ()
 training060 = do
