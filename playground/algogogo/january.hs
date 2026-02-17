@@ -16,7 +16,26 @@ main = do
 training062 :: IO ()
 training062 = do
   s <- getStr
-  print $ solve062 s
+  print $ solve062Adv s
+
+solve062Adv :: String -> Int
+solve062Adv s = go 0 0 0
+  where
+    n = length s
+    arr = listArray (0, n - 1) s :: Array Int Char
+
+    go pos count lastLen
+      | pos >= n = count
+      | canCut 1 = go (pos + 1) (count + 1) 1
+      | pos + 1 < n && canCut 2 = go (pos + 2) (count + 1) 2
+      | otherwise = go (pos + 1) count (lastLen + 1)
+      where
+        canCut len
+          | lastLen /= len = True
+          | lastLen == 0 = True
+          | otherwise = not (isSame len)
+
+        isSame len = all (\i -> arr ! (pos + i) == arr ! (pos - len + i)) [0 .. len - 1]
 
 solve062 :: String -> Int
 solve062 s = go 0 0 ""
