@@ -11,7 +11,13 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training063
+  training064
+
+training064 :: IO ()
+training064 = do
+  [n, l] <- getIntArray
+  strings <- getNLines n
+  putStrLn $ concat $ sort strings
 
 training063 :: IO ()
 training063 = do
