@@ -11,7 +11,14 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training062
+  training063
+
+training063 :: IO ()
+training063 = do
+  x <- getInt
+  let n = x `div` 100
+  let result = 100 * n <= x && x <= 105 * n
+  putStrLn $ if result then "1" else "0"
 
 training062 :: IO ()
 training062 = do
