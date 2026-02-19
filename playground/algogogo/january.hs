@@ -11,7 +11,13 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training064
+  training065
+
+training065 :: IO ()
+training065 = do
+  x <- getInt
+  let ps = [b ^ p | b <- [1 .. 31], p <- [2 .. 10], b ^ p <= x]
+  print $ maximum (1 : ps)
 
 training064 :: IO ()
 training064 = do
