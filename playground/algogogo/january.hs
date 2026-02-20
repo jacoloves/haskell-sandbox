@@ -1,7 +1,7 @@
 import Control.Monad (foldM, forM_, replicateM)
 import Data.Array (Array, bounds, listArray, (!))
 import Data.Binary.Get (remaining)
-import Data.Char (isDigit, isLower, isUpper)
+import Data.Char (digitToInt, isDigit, isLower, isUpper)
 import Data.Function (on)
 import Data.List (elemIndex, group, isSuffixOf, minimumBy, nub, permutations, sort, sortBy)
 import Data.Map qualified as Map
@@ -11,7 +11,28 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training065
+  training066
+
+training066 :: IO ()
+training066 = do
+  n <- getInt
+  let nStr = show n
+  let candidates = n : [makeCandidate nStr i | i <- [0 .. length nStr - 1]]
+  print $ maximum $ map calcDigitSum candidates
+
+calcDigitSum :: Int -> Int
+calcDigitSum n = sum [fromEnum c - fromEnum '0' | c <- show n]
+
+makeCandidate :: String -> Int -> Int
+makeCandidate str i
+  | digit == '0' = -1
+  | i == 0 && digit == '1' = read (replicate (length str - 1) '9') :: Int
+  | otherwise = read (before ++ [pred digit] ++ replicate (length after) '9') :: Int
+ where
+  (before, digit : after) = splitAt i str
+
+digitSum2 :: String -> Int
+digitSum2 str = sum $ map (\c -> fromEnum c - fromEnum '0') str
 
 training065 :: IO ()
 training065 = do
@@ -39,32 +60,32 @@ training062 = do
 
 solve062Adv :: String -> Int
 solve062Adv s = go 0 0 0
-  where
-    n = length s
-    arr = listArray (0, n - 1) s :: Array Int Char
+ where
+  n = length s
+  arr = listArray (0, n - 1) s :: Array Int Char
 
-    go pos count lastLen
-      | pos >= n = count
-      | canCut 1 = go (pos + 1) (count + 1) 1
-      | pos + 1 < n && canCut 2 = go (pos + 2) (count + 1) 2
-      | otherwise = go (pos + 1) count (lastLen + 1)
-      where
-        canCut len
-          | lastLen /= len = True
-          | lastLen == 0 = True
-          | otherwise = not (isSame len)
+  go pos count lastLen
+    | pos >= n = count
+    | canCut 1 = go (pos + 1) (count + 1) 1
+    | pos + 1 < n && canCut 2 = go (pos + 2) (count + 1) 2
+    | otherwise = go (pos + 1) count (lastLen + 1)
+   where
+    canCut len
+      | lastLen /= len = True
+      | lastLen == 0 = True
+      | otherwise = not (isSame len)
 
-        isSame len = all (\i -> arr ! (pos + i) == arr ! (pos - len + i)) [0 .. len - 1]
+    isSame len = all (\i -> arr ! (pos + i) == arr ! (pos - len + i)) [0 .. len - 1]
 
 solve062 :: String -> Int
 solve062 s = go 0 0 ""
-  where
-    n = length s
-    go pos count lastPart
-      | pos >= n = count
-      | pos + 1 <= n && take 1 (drop pos s) /= lastPart = go (pos + 1) (count + 1) (take 1 (drop pos s))
-      | pos + 2 <= n && take 2 (drop pos s) /= lastPart = go (pos + 2) (count + 1) (take 2 (drop pos s))
-      | otherwise = go (pos + 1) count (lastPart ++ take 1 (drop pos s))
+ where
+  n = length s
+  go pos count lastPart
+    | pos >= n = count
+    | pos + 1 <= n && take 1 (drop pos s) /= lastPart = go (pos + 1) (count + 1) (take 1 (drop pos s))
+    | pos + 2 <= n && take 2 (drop pos s) /= lastPart = go (pos + 2) (count + 1) (take 2 (drop pos s))
+    | otherwise = go (pos + 1) count (lastPart ++ take 1 (drop pos s))
 
 training061 :: IO ()
 training061 = do
@@ -133,21 +154,21 @@ solveAdv :: [Int] -> Int
 solveAdv as
   | count == 0 = -1
   | otherwise = length as - count
-  where
-    count = foldl step 0 as
-    step acc x
-      | x == acc + 1 = acc + 1
-      | otherwise = acc
+ where
+  count = foldl step 0 as
+  step acc x
+    | x == acc + 1 = acc + 1
+    | otherwise = acc
 
 solve :: [Int] -> Int
 solve as
   | null kept = -1
   | otherwise = length as - length kept
-  where
-    kept = foldl step [] as
-    step acc x
-      | x == length acc + 1 = acc ++ [x]
-      | otherwise = acc
+ where
+  kept = foldl step [] as
+  step acc x
+    | x == length acc + 1 = acc ++ [x]
+    | otherwise = acc
 
 training055 :: IO ()
 training055 = do
@@ -234,15 +255,15 @@ training048 = do
 
 isIntegerDistance :: [[Int]] -> (Int, Int) -> Bool
 isIntegerDistance points (i, j) = isPerfectSquare distSquared
-  where
-    p1 = points !! i
-    p2 = points !! j
-    distSquared = sum $ zipWith (\a b -> (a - b) ^ 2) p1 p2
+ where
+  p1 = points !! i
+  p2 = points !! j
+  distSquared = sum $ zipWith (\a b -> (a - b) ^ 2) p1 p2
 
 isPerfectSquare :: Int -> Bool
 isPerfectSquare n = sqrtN * sqrtN == n
-  where
-    sqrtN = floor $ sqrt $ fromIntegral n
+ where
+  sqrtN = floor $ sqrt $ fromIntegral n
 
 training047 :: IO ()
 training047 = do
@@ -334,8 +355,8 @@ training039 = do
 
 isPalindrome :: Int -> Bool
 isPalindrome n = s == reverse s
-  where
-    s = show n
+ where
+  s = show n
 
 training038 :: IO ()
 training038 = do
@@ -376,10 +397,10 @@ training035 = do
 training035F :: [Int] -> Int
 training035F [] = 0
 training035F (p : ps) = fst $ foldl step (1, p) ps
-  where
-    step (count, minVal) x
-      | x <= minVal = (count + 1, x)
-      | otherwise = (count, minVal)
+ where
+  step (count, minVal) x
+    | x <= minVal = (count + 1, x)
+    | otherwise = (count, minVal)
 
 training034 :: IO ()
 training034 = do
@@ -415,12 +436,12 @@ training032Adv = do
 
 calculateTime :: [Int] -> Int
 calculateTime dishes = go 0 dishes
-  where
-    go currentTime [] = currentTime
-    go currentTime (dish : rest) =
-      let nextOrderTime = ((currentTime + 9) `div` 10) * 10
-          deliveryTime = nextOrderTime + dish
-       in go deliveryTime rest
+ where
+  go currentTime [] = currentTime
+  go currentTime (dish : rest) =
+    let nextOrderTime = ((currentTime + 9) `div` 10) * 10
+        deliveryTime = nextOrderTime + dish
+     in go deliveryTime rest
 
 training032 :: IO ()
 training032 = do
