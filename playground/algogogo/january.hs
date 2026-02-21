@@ -11,7 +11,24 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training066
+  training067
+
+training067 :: IO ()
+training067 = do
+  [a, b, c, x, y] <- getIntArray
+  let maxAB = max x y * 2
+  let costs = [calcCost a b c x y k | k <- [0, 2 .. maxAB]]
+  print $ minimum costs
+
+calcCost :: Int -> Int -> Int -> Int -> Int -> Int -> Int
+calcCost a b c x y abCnt =
+  let abCost = c * abCnt
+      abPizzas = abCnt `div` 2
+      needA = max 0 (x - abPizzas)
+      needB = max 0 (y - abPizzas)
+      aCost = a * needA
+      bCost = b * needB
+   in abCost + aCost + bCost
 
 training066 :: IO ()
 training066 = do
