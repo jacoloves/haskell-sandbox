@@ -11,7 +11,16 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training067
+  training068
+
+training068 :: IO ()
+training068 = do
+  [n, k] <- getIntArray
+  hs <- replicateM n getInt
+  let sorted = sort hs
+  let arr = listArray (0, n - 1) sorted :: Array Int Int
+  let diffs = [arr ! (i + k - 1) - arr ! i | i <- [0 .. n - k]]
+  print $ minimum diffs
 
 training067 :: IO ()
 training067 = do
