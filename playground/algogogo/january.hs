@@ -11,7 +11,22 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training070
+  training071
+
+training071 :: IO ()
+training071 = do
+  n <- getInt
+  heights <- getIntArray
+  putStrLn $ if canMakeNonDecreasing heights then "Yes" else "No"
+
+canMakeNonDecreasing :: [Int] -> Bool
+canMakeNonDecreasing heights = check 0 heights
+  where
+    check _ [] = True
+    check prev (h : hs)
+      | h - 1 >= prev = check (h - 1) hs
+      | h >= prev = check h hs
+      | otherwise = False
 
 training070 :: IO ()
 training070 = do
