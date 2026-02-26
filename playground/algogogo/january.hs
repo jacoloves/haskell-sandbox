@@ -11,7 +11,27 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training071
+  training072Adv
+
+training072Adv :: IO ()
+training072Adv = do
+  [n, a, b] <- getBigIntArray
+  let ans =
+        if even (a + b)
+          then (b - a) `div` 2
+          else min (a - 1) (n - b) + 1 + (b - a - 1) `div` 2
+  print ans
+
+training072 :: IO ()
+training072 = do
+  [n, a, b] <- map read . words <$> getLine :: IO [Integer]
+  let diff = b - a
+  let ans =
+        if even diff
+          then diff `div` 2
+          else min (b - 1) (n - a)
+
+  print ans
 
 training071 :: IO ()
 training071 = do
@@ -589,6 +609,14 @@ training027 = do
 training026 :: IO ()
 training026 = do
   putStrLn "Hello"
+
+-- read big Int
+getBigInt :: IO Integer
+getBigInt = readLn :: IO Integer
+
+-- read big Int Array
+getBigIntArray :: IO [Integer]
+getBigIntArray = map read . words <$> getLine :: IO [Integer]
 
 -- read Float
 getFloat :: IO Float
