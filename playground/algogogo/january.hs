@@ -11,7 +11,18 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training073
+  training074
+
+training074 :: IO ()
+training074 = do
+  n <- getInt
+  nums <- getIntArray
+  print $ sum $ map countDiv2 nums
+
+countDiv2 :: Int -> Int
+countDiv2 n
+  | odd n = 0
+  | otherwise = 1 + countDiv2 (n `div` 2)
 
 training073 :: IO ()
 training073 = do
