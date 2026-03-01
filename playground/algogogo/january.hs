@@ -11,7 +11,20 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training074
+  training075
+
+training075 :: IO ()
+training075 = do
+  [q, h, s, d] <- getBigIntArray
+  n <- getBigInt
+
+  let price1L = minimum [q * 4, h * 2, s]
+  let price2L = min (price1L * 2) d
+
+  let (num2L, remaining) = n `divMod` 2
+  let cost = num2L * price2L + remaining * price1L
+
+  print cost
 
 training074 :: IO ()
 training074 = do
