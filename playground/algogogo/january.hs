@@ -11,7 +11,35 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training075
+  training077
+
+training077 :: IO ()
+training077 = do
+  n <- getInt
+  monsters <- getBigIntArray
+  heroes <- getBigIntArray
+
+  let (total, _) = foldl processSolve (0, monsters) heroes
+  print total
+
+processSolve :: (Integer, [Integer]) -> Integer -> (Integer, [Integer])
+processSolve (total, []) _ = (total, [])
+processSolve (total, [m]) h = (total + min m h, [])
+processSolve (total, m1 : m2 : ms) h =
+  let k1 = min m1 h
+      k2 = min m2 (h - k1)
+   in (total + k1 + k2, (m2 - k2) : ms)
+
+training076 :: IO ()
+training076 = do
+  n <- getInt
+  row1 <- getIntArray
+  row2 <- getIntArray
+
+  let sums1 = scanl1 (+) row1
+  let sums2 = reverse $ scanl1 (+) $ reverse row2
+
+  print $ maximum $ zipWith (+) sums1 sums2
 
 training075 :: IO ()
 training075 = do
