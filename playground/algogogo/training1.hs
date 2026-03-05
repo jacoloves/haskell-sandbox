@@ -11,7 +11,18 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training001
+  training002
+
+training002 :: IO ()
+training002 = do
+  s <- getStr
+  k <- getBigInt
+  let bigNum = k + 1
+      widths = map (\c -> if c == '1' then 1 else bigNum) s
+      cumulative = scanl1 (+) (map (min bigNum) widths)
+      result = fst $ head $ filter (\(_, cum) -> cum >= k) (zip s cumulative)
+  putChar result
+  putStrLn ""
 
 training001 :: IO ()
 training001 = do
