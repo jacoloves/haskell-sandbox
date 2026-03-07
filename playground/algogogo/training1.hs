@@ -11,7 +11,25 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training003
+  training004
+
+training004 :: IO ()
+training004 = do
+  n <- getInt
+  blues <- getNLines n
+  m <- getInt
+  reds <- getNLines m
+
+  let blueMap = Map.fromListWith (+) [(s, 1) | s <- blues]
+      redMap = Map.fromListWith (+) [(s, 1) | s <- reds]
+
+      scores =
+        [ Map.findWithDefault 0 s blueMap
+          - Map.findWithDefault 0 s redMap
+        | s <- Map.keys blueMap
+        ]
+
+  print $ maximum (0 : scores)
 
 training003 :: IO ()
 training003 = do
