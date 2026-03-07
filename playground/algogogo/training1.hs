@@ -11,7 +11,14 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training002
+  training003
+
+training003 :: IO ()
+training003 = do
+  _n <- getInt
+  as <- getIntArray
+
+  print $ sum $ map (\x -> x - 1) as
 
 training002 :: IO ()
 training002 = do
