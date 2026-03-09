@@ -11,7 +11,13 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training004
+  training005
+
+training005 :: IO ()
+training005 = do
+  [x, y] <- getBigIntArray
+
+  print $ length $ takeWhile (<= y) $ iterate (* 2) x
 
 training004 :: IO ()
 training004 = do
@@ -25,8 +31,8 @@ training004 = do
 
       scores =
         [ Map.findWithDefault 0 s blueMap
-          - Map.findWithDefault 0 s redMap
-        | s <- Map.keys blueMap
+            - Map.findWithDefault 0 s redMap
+          | s <- Map.keys blueMap
         ]
 
   print $ maximum (0 : scores)
