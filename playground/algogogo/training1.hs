@@ -11,7 +11,15 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training005
+  training006
+
+training006 :: IO ()
+training006 = do
+  n <- getInt
+  let modVal = 10 ^ 9 + 7
+
+  let result = foldl (\acc i -> (acc * i) `mod` modVal) 1 [1 .. n]
+  print result
 
 training005 :: IO ()
 training005 = do
@@ -31,8 +39,8 @@ training004 = do
 
       scores =
         [ Map.findWithDefault 0 s blueMap
-            - Map.findWithDefault 0 s redMap
-          | s <- Map.keys blueMap
+          - Map.findWithDefault 0 s redMap
+        | s <- Map.keys blueMap
         ]
 
   print $ maximum (0 : scores)
