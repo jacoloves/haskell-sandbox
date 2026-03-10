@@ -11,7 +11,26 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training006
+  training007
+
+training007 :: IO ()
+training007 = do
+  n <- getInt
+  coords <- replicateM n $ do
+    [x, y] <- getIntArray
+    return (fromIntegral x :: Double, fromIntegral y :: Double)
+
+  let dist (x1, y1) (x2, y2) = sqrt ((x1 - x2) ^ 2 + (y1 - y2) ^ 2)
+
+  let pathLen perm =
+        let pts = map (coords !!) perm
+         in sum $ zipWith dist pts (tail pts)
+
+  let perms = permutations [0 .. n - 1]
+      total = sum $ map pathLen perms
+      avg = total / fromIntegral (length perms)
+
+  putStrLn $ show avg
 
 training006 :: IO ()
 training006 = do
