@@ -11,7 +11,15 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training007
+  training008
+
+training008 :: IO ()
+training008 = do
+  s <- getStr
+  let zeros = length $ filter (== '0') s
+  let ones = length $ filter (== '1') s
+
+  print $ 2 * min zeros ones
 
 training007 :: IO ()
 training007 = do
