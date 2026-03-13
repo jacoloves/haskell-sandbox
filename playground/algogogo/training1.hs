@@ -11,7 +11,17 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training008
+  training009
+
+training009 :: IO ()
+training009 = do
+  _n <- getInt
+  as <- getIntArray
+
+  let totalSum = sum as
+  let prefixSums = init $ scanl1 (+) as
+  let costs = map (\p -> abs (2 * p - totalSum)) prefixSums
+  print $ minimum costs
 
 training008 :: IO ()
 training008 = do
@@ -66,8 +76,8 @@ training004 = do
 
       scores =
         [ Map.findWithDefault 0 s blueMap
-          - Map.findWithDefault 0 s redMap
-        | s <- Map.keys blueMap
+            - Map.findWithDefault 0 s redMap
+          | s <- Map.keys blueMap
         ]
 
   print $ maximum (0 : scores)
