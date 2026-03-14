@@ -11,7 +11,26 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training009
+  training010
+
+training010 :: IO ()
+training010 = do
+  s <- getStr
+  let [a, b, c, d] = map digitToInt s
+  let opCombinations = replicateM 3 "+-"
+
+  let Just ops =
+        lookup
+          True
+          [ (a + s1 * b + s2 * c + s3 * d == 7, [op1, op2, op3])
+          | [op1, op2, op3] <- opCombinations
+          , let s1 = if op1 == '+' then 1 else -1
+          , let s2 = if op2 == '+' then 1 else -1
+          , let s3 = if op3 == '+' then 1 else -1
+          ]
+
+  let [op1, op2, op3] = ops
+  putStrLn $ show a ++ [op1] ++ show b ++ [op2] ++ show c ++ [op3] ++ show d ++ "=7"
 
 training009 :: IO ()
 training009 = do
@@ -76,8 +95,8 @@ training004 = do
 
       scores =
         [ Map.findWithDefault 0 s blueMap
-            - Map.findWithDefault 0 s redMap
-          | s <- Map.keys blueMap
+          - Map.findWithDefault 0 s redMap
+        | s <- Map.keys blueMap
         ]
 
   print $ maximum (0 : scores)
