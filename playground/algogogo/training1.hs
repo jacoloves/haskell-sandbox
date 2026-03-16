@@ -11,7 +11,19 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training010
+  training011
+
+training011 :: IO ()
+training011 = do
+  [a, b, c] <- getIntArray
+  let m0 = maximum [a, b, c]
+      cost m =
+        let d = (m - a) + (m - b) + (m - c)
+         in if even d then Just (d `div` 2) else Nothing
+      candidates = [cost m | m <- [m0, m0 + 1, m0 + 2]]
+      answer = minimum [v | Just v <- candidates]
+
+  print answer
 
 training010 :: IO ()
 training010 = do
