@@ -11,7 +11,16 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training011
+  training012
+
+training012 :: IO ()
+training012 = do
+  n <- getInt
+  as <- getIntArray
+  let total = 3 ^ n
+  let oddChoices = map (\a -> if even a then 2 else 1) as
+  let allOdd = product oddChoices
+  print (total - allOdd)
 
 training011 :: IO ()
 training011 = do
@@ -35,10 +44,10 @@ training010 = do
         lookup
           True
           [ (a + s1 * b + s2 * c + s3 * d == 7, [op1, op2, op3])
-          | [op1, op2, op3] <- opCombinations
-          , let s1 = if op1 == '+' then 1 else -1
-          , let s2 = if op2 == '+' then 1 else -1
-          , let s3 = if op3 == '+' then 1 else -1
+            | [op1, op2, op3] <- opCombinations,
+              let s1 = if op1 == '+' then 1 else -1,
+              let s2 = if op2 == '+' then 1 else -1,
+              let s3 = if op3 == '+' then 1 else -1
           ]
 
   let [op1, op2, op3] = ops
@@ -107,8 +116,8 @@ training004 = do
 
       scores =
         [ Map.findWithDefault 0 s blueMap
-          - Map.findWithDefault 0 s redMap
-        | s <- Map.keys blueMap
+            - Map.findWithDefault 0 s redMap
+          | s <- Map.keys blueMap
         ]
 
   print $ maximum (0 : scores)
