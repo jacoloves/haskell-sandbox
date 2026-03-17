@@ -11,7 +11,27 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training012
+  training013
+
+training013 :: IO ()
+training013 =
+  do
+    [n, m] <- getIntArray
+    stores <- replicateM n $ do
+      [a, b] <- getIntArray
+      return (fromIntegral a :: Integer, fromIntegral b :: Integer)
+
+    let sorted = sortBy (comparing fst) stores
+    let mI = fromIntegral m :: Integer
+        (_, totalCost) = foldl buyGreedy (mI, 0) sorted
+    print totalCost
+
+buyGreedy :: (Integer, Integer) -> (Integer, Integer) -> (Integer, Integer)
+buyGreedy (remaining, cost) (a, b)
+  | remaining <= 0 = (0, cost)
+  | otherwise =
+      let bought = min remaining b
+       in (remaining - bought, cost + a * bought)
 
 training012 :: IO ()
 training012 = do
