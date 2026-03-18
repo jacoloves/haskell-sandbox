@@ -11,7 +11,17 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training013
+  training014
+
+training014 :: IO ()
+training014 = do
+  [a, b, c] <- getBigIntArray
+
+  let diffA = if even a then 0 else b * c
+      diffB = if even b then 0 else a * c
+      diffC = if even c then 0 else a * b
+
+  print $ minimum [diffA, diffB, diffC]
 
 training013 :: IO ()
 training013 =
@@ -64,10 +74,10 @@ training010 = do
         lookup
           True
           [ (a + s1 * b + s2 * c + s3 * d == 7, [op1, op2, op3])
-            | [op1, op2, op3] <- opCombinations,
-              let s1 = if op1 == '+' then 1 else -1,
-              let s2 = if op2 == '+' then 1 else -1,
-              let s3 = if op3 == '+' then 1 else -1
+          | [op1, op2, op3] <- opCombinations
+          , let s1 = if op1 == '+' then 1 else -1
+          , let s2 = if op2 == '+' then 1 else -1
+          , let s3 = if op3 == '+' then 1 else -1
           ]
 
   let [op1, op2, op3] = ops
@@ -136,8 +146,8 @@ training004 = do
 
       scores =
         [ Map.findWithDefault 0 s blueMap
-            - Map.findWithDefault 0 s redMap
-          | s <- Map.keys blueMap
+          - Map.findWithDefault 0 s redMap
+        | s <- Map.keys blueMap
         ]
 
   print $ maximum (0 : scores)
