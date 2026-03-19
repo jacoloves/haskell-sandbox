@@ -1,6 +1,6 @@
 import Control.Monad (foldM, forM_, replicateM)
 import Data.Array (Array, bounds, listArray, (!))
-import Data.Binary.Get (remaining)
+import Data.Binary.Get (getInt16be, remaining)
 import Data.Char (digitToInt, isDigit, isLower, isUpper)
 import Data.Function (on)
 import Data.List (elemIndex, group, isSuffixOf, minimumBy, nub, permutations, sort, sortBy)
@@ -11,7 +11,12 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training014
+  training015
+
+training015 :: IO ()
+training015 = do
+  [n, k] <- getIntArray
+  print $ k * (k - 1) ^ (n - 1)
 
 training014 :: IO ()
 training014 = do
