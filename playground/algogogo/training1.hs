@@ -11,7 +11,18 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training015
+  training016
+
+training016 :: IO ()
+training016 = do
+  n <- getInt
+  as <- getIntArray
+
+  let arr = listArray (0, n - 1) (map (subtract 1) as) :: Array Int Int
+  let count =
+        length
+          [i | i <- [0 .. n - 1], let j = arr ! i, j > i, arr ! j == i]
+  print count
 
 training015 :: IO ()
 training015 = do
