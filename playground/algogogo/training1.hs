@@ -11,7 +11,19 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training017
+  training018
+
+training018 :: IO ()
+training018 = do
+  _n <- getInt
+  xs <- getIntArray
+
+  let lo = minimum xs
+      hi = maximum xs
+
+  let cost p = sum $ map (\x -> (x - p) ^ 2) xs
+
+  print $ minimum $ map cost [lo .. hi]
 
 training017 :: IO ()
 training017 = do
@@ -96,10 +108,10 @@ training010 = do
         lookup
           True
           [ (a + s1 * b + s2 * c + s3 * d == 7, [op1, op2, op3])
-          | [op1, op2, op3] <- opCombinations
-          , let s1 = if op1 == '+' then 1 else -1
-          , let s2 = if op2 == '+' then 1 else -1
-          , let s3 = if op3 == '+' then 1 else -1
+            | [op1, op2, op3] <- opCombinations,
+              let s1 = if op1 == '+' then 1 else -1,
+              let s2 = if op2 == '+' then 1 else -1,
+              let s3 = if op3 == '+' then 1 else -1
           ]
 
   let [op1, op2, op3] = ops
@@ -168,8 +180,8 @@ training004 = do
 
       scores =
         [ Map.findWithDefault 0 s blueMap
-          - Map.findWithDefault 0 s redMap
-        | s <- Map.keys blueMap
+            - Map.findWithDefault 0 s redMap
+          | s <- Map.keys blueMap
         ]
 
   print $ maximum (0 : scores)
