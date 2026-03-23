@@ -11,7 +11,30 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training018
+  training019
+
+training019 :: IO ()
+training019 =
+  do
+    [_n, a, b] <- getIntArray
+    s <- getStr
+
+    let states = scanl (training019update a b) (0, 0) s
+    mapM_
+      (putStrLn . training019Judge a b)
+      (zip s states)
+
+training019update :: Int -> Int -> (Int, Int) -> Char -> (Int, Int)
+training019update a b (total, overseas) c
+  | c == 'a' && total < a + b = (total + 1, overseas)
+  | c == 'b' && total < a + b && overseas < b = (total + 1, overseas + 1)
+  | otherwise = (total, overseas)
+
+training019Judge :: Int -> Int -> (Char, (Int, Int)) -> String
+training019Judge a b (c, (total, overseas))
+  | c == 'a' && total < a + b = "Yes"
+  | c == 'b' && total < a + b && overseas < b = "Yes"
+  | otherwise = "No"
 
 training018 :: IO ()
 training018 = do
