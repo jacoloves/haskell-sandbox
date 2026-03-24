@@ -11,7 +11,15 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training019
+  training020
+
+training020 :: IO ()
+training020 = do
+  n <- getInt
+  let candidates = [x | x <- [1 .. n], x * 108 `div` 100 == n]
+  if null candidates
+    then putStrLn ":("
+    else print (head candidates)
 
 training019 :: IO ()
 training019 =
