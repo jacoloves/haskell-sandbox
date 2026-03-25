@@ -11,7 +11,15 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training020
+  training021
+
+training021 :: IO ()
+training021 = do
+  [n, _m, c] <- getIntArray
+  bs <- getIntArray
+  rows <- replicateM n getIntArray
+  let sc = [sum (zipWith (*) a bs) + c | a <- rows]
+  print $ length $ filter (> 0) sc
 
 training020 :: IO ()
 training020 = do
