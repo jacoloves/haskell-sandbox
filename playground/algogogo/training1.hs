@@ -11,7 +11,19 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training021
+  training022
+
+training022 :: IO ()
+training022 = do
+  [h, w] <- getBigIntArray
+  if h == 1 || w == 1
+    then print 1
+    else do
+      let oddH = (h + 1) `div` 2
+          evenH = h `div` 2
+          oddW = (w + 1) `div` 2
+          evenW = w `div` 2
+      print $ oddH * oddW + evenH * evenW
 
 training021 :: IO ()
 training021 = do
