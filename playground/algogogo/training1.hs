@@ -11,7 +11,25 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training022
+  training023
+
+training023 :: IO ()
+training023 = do
+  rows <- replicateM 3 getIntArray
+  n <- getInt
+  bs <- replicateM n getInt
+  let calledSet = Set.fromList bs
+  let marked = [[Set.member x calledSet | x <- row] | row <- rows]
+
+  let rowLines = [[(i, j) | j <- [0 .. 2]] | i <- [0 .. 2]]
+      colLines = [[(i, j) | i <- [0 .. 2]] | j <- [0 .. 2]]
+      diagLines = [[(0, 0), (1, 1), (2, 2)], [(0, 2), (1, 1), (2, 0)]]
+      allLines = rowLines ++ colLines ++ diagLines
+
+  let isBing line = all (\(i, j) -> (marked !! i) !! j) line
+  if any isBing allLines
+    then putStrLn "Yes"
+    else putStrLn "No"
 
 training022 :: IO ()
 training022 = do
@@ -159,10 +177,10 @@ training010 = do
         lookup
           True
           [ (a + s1 * b + s2 * c + s3 * d == 7, [op1, op2, op3])
-            | [op1, op2, op3] <- opCombinations,
-              let s1 = if op1 == '+' then 1 else -1,
-              let s2 = if op2 == '+' then 1 else -1,
-              let s3 = if op3 == '+' then 1 else -1
+          | [op1, op2, op3] <- opCombinations
+          , let s1 = if op1 == '+' then 1 else -1
+          , let s2 = if op2 == '+' then 1 else -1
+          , let s3 = if op3 == '+' then 1 else -1
           ]
 
   let [op1, op2, op3] = ops
@@ -231,8 +249,8 @@ training004 = do
 
       scores =
         [ Map.findWithDefault 0 s blueMap
-            - Map.findWithDefault 0 s redMap
-          | s <- Map.keys blueMap
+          - Map.findWithDefault 0 s redMap
+        | s <- Map.keys blueMap
         ]
 
   print $ maximum (0 : scores)
