@@ -11,7 +11,16 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training023
+  training024
+
+training024 :: IO ()
+training024 = do
+  [a, b] <- getIntArray
+  let n = read (show a ++ show b) :: Int
+  let k = floor (sqrt (fromIntegral n :: Double)) :: Int
+  if k * k == n
+    then putStrLn "Yes"
+    else putStrLn "No"
 
 training023 :: IO ()
 training023 = do
