@@ -11,7 +11,19 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training025
+  training026
+
+training026 :: IO ()
+training026 = do
+  _n <- getInt
+  arr <- getIntArray
+
+  let sorted = sortBy (comparing Down) arr
+
+  let indexed = zip [0 ..] sorted
+  let aliceScore = sum [x | (i, x) <- indexed, even i]
+  let bobScore = sum [x | (i, x) <- indexed, odd i]
+  print (aliceScore - bobScore)
 
 training025 :: IO ()
 training025 = do
