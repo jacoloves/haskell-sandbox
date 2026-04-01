@@ -11,7 +11,12 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training026
+  training027
+
+training027 :: IO ()
+training027 = do
+  n <- getInt
+  print $ last $ takeWhile (<= n) $ iterate (* 2) 1
 
 training026 :: IO ()
 training026 = do
