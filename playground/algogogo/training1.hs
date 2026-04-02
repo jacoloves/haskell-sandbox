@@ -11,7 +11,18 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training027
+  training028
+
+training028 :: IO ()
+training028 = do
+  [k, _n] <- getIntArray
+  as <- getIntArray
+
+  let consecutiveGaps = map (\(a, b) -> b - a) (zip as (tail as))
+      lastGap = k - last as + head as
+      allGaps = consecutiveGaps ++ [lastGap]
+
+  print $ k - maximum allGaps
 
 training027 :: IO ()
 training027 = do
