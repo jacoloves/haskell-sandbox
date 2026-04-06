@@ -11,7 +11,17 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  putStrLn "Hello World"
+  training01
+
+training01 :: IO ()
+training01 = do
+  [a, b] <- getIntArray
+
+  let plusAB = a + b
+      minusAB = a - b
+      multiAB = a * b
+
+  print $ maximum [plusAB, minusAB, multiAB]
 
 -- read big Int
 getBigInt :: IO Integer
