@@ -11,7 +11,24 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training01
+  training02
+
+training02 :: IO ()
+training02 = do
+  [a, b] <- getIntArray
+
+  let ans
+        | a >= 13 = b
+        | a >= 6 = b `div` 2
+        | otherwise = 0
+
+  print ans
+
+training01Improv :: IO ()
+training01Improv = do
+  [a, b] <- getIntArray
+
+  print $ maximum [a + b, a - b, a * b]
 
 training01 :: IO ()
 training01 = do
