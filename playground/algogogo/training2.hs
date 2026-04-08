@@ -11,7 +11,16 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training02
+  training03
+
+training03 :: IO ()
+training03 = do
+  [a, b] <- getIntArray
+  let ans
+        | b `mod` a == 0 = a + b
+        | otherwise = b - a
+
+  print ans
 
 training02 :: IO ()
 training02 = do
