@@ -11,7 +11,18 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training03
+  training04
+
+training04 :: IO ()
+training04 = do
+  n <- getInt
+  a <- getInt
+
+  let tmp1 = n `mod` 500
+  let ans
+        | tmp1 > a = "No"
+        | otherwise = "Yes"
+  putStrLn ans
 
 training03 :: IO ()
 training03 = do
