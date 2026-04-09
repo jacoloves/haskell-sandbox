@@ -13,6 +13,17 @@ main :: IO ()
 main = do
   training04
 
+training04Improv :: IO ()
+training04Improv = do
+  n <- getInt
+  a <- getInt
+
+  let ans
+        | n `mod` 500 > a = "No"
+        | otherwise = "Yes"
+
+  putStrLn ans
+
 training04 :: IO ()
 training04 = do
   n <- getInt
