@@ -11,7 +11,17 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training04
+  training05
+
+training05 :: IO ()
+training05 = do
+  x <- getInt
+  a <- getInt
+  b <- getInt
+
+  let ans = (x - a) `mod` b
+
+  print ans
 
 training04Improv :: IO ()
 training04Improv = do
