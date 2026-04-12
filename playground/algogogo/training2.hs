@@ -11,7 +11,18 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training05
+  training06
+
+training06 :: IO ()
+training06 = do
+  rgb <- getIntArray
+
+  let rgb_str = concatMap show rgb
+      rgb_int = read rgb_str :: Int
+
+  if rgb_int `mod` 4 == 0
+    then putStrLn "YES"
+    else putStrLn "NO"
 
 training05 :: IO ()
 training05 = do
