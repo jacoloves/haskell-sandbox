@@ -11,7 +11,17 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training08
+  training09
+
+training09 :: IO ()
+training09 = do
+  n <- getInt
+
+  let tmp1 = n `mod` 1000
+
+  if tmp1 == 0
+    then print 0
+    else print (1000 - tmp1)
 
 training08 :: IO ()
 training08 = do
