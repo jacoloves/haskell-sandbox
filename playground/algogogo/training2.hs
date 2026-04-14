@@ -11,15 +11,23 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training07
+  training08
+
+training08 :: IO ()
+training08 = do
+  [a, b, t] <- getIntArray
+
+  let ans = b * (t `div` a)
+
+  print ans
 
 training07 :: IO ()
 training07 = do
-  [a, p] <- getIntArray 
+  [a, p] <- getIntArray
 
   let pA = a * 3
       ans = (pA + p) `div` 2
-  
+
   print ans
 
 training06 :: IO ()
