@@ -11,7 +11,16 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training10
+  training11
+
+training11 :: IO ()
+training11 = do
+  [n, x, t] <- getIntArray
+  let divSeed = n `div` x
+
+  if n `mod` x /= 0
+    then print $ (divSeed + 1) * t
+    else print $ divSeed * t
 
 training10 :: IO ()
 training10 = do
