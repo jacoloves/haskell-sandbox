@@ -11,7 +11,16 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training09
+  training10
+
+training10 :: IO ()
+training10 = do
+  n <- getInt
+  let ans = n `div` 2
+
+  if even n
+    then print ans
+    else print (ans + 1)
 
 training09 :: IO ()
 training09 = do
