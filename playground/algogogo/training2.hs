@@ -11,7 +11,15 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training11
+  training12
+
+training12 :: IO ()
+training12 = do
+  n <- getBigInt
+
+  let ans = sum [x | x <- [1 .. n], x `mod` 3 /= 0, x `mod` 5 /= 0]
+
+  print ans
 
 training11 :: IO ()
 training11 = do
