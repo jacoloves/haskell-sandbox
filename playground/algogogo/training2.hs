@@ -11,7 +11,16 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training12
+  training13
+
+training13 :: IO ()
+training13 = do
+  n <- getBigInt
+
+  let savings =zip [1..] (scanl1 (+) [1..])
+      ans = fst $ head $ filter (\(_, s) -> s >= n) savings
+
+  print ans
 
 training12 :: IO ()
 training12 = do
