@@ -11,7 +11,18 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training13
+  training14
+
+
+training14 :: IO ()
+training14 = do
+  x <- getBigInt
+
+  let balances = iterate (\b -> b * 101 `div` 100) 100
+      p1 = zip [1..] (tail balances)
+      ans = fst $ head $ filter (\(_, x2) -> x2 >= x) p1
+
+  print ans
 
 training13 :: IO ()
 training13 = do
