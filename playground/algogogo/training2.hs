@@ -11,15 +11,24 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training14
+  training15
 
+training15 :: IO ()
+training15 = do
+  [n, k] <- getIntArray
+
+  let step x
+        | x `mod` 200 == 0 = x `div` 200
+        | otherwise = read (show x ++ "200")
+
+  print $ iterate step n !! k
 
 training14 :: IO ()
 training14 = do
   x <- getBigInt
 
   let balances = iterate (\b -> b * 101 `div` 100) 100
-      p1 = zip [1..] (tail balances)
+      p1 = zip [1 ..] (tail balances)
       ans = fst $ head $ filter (\(_, x2) -> x2 >= x) p1
 
   print ans
@@ -28,7 +37,7 @@ training13 :: IO ()
 training13 = do
   n <- getBigInt
 
-  let savings =zip [1..] (scanl1 (+) [1..])
+  let savings = zip [1 ..] (scanl1 (+) [1 ..])
       ans = fst $ head $ filter (\(_, s) -> s >= n) savings
 
   print ans
