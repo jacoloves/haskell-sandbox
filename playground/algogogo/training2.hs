@@ -11,7 +11,22 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training16
+  training17
+
+training17 :: IO ()
+training17 = do
+  p <- getInt
+  let factorials = map factorial [10, 9 .. 1]
+  let (_, totalCoins) = foldl (useCoins) (p, 0) factorials
+  print totalCoins
+
+useCoins :: (Int, Int) -> Int -> (Int, Int)
+useCoins (remaining, count) coin =
+  let use = min 100 (remaining `div` coin)
+  in (remaining - use * coin, count + use)
+
+factorial :: Int -> Int
+factorial n = product [1..n]
 
 training16 :: IO ()
 training16 = do
