@@ -11,7 +11,17 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training15
+  training16
+
+training16 :: IO ()
+training16 = do
+  [a, b, c, d] <- getIntArray
+  let kA = (c + b - 1) `div` b
+      kT = (a + d - 1) `div` d
+
+  if kA <= kT
+    then putStrLn "Yes"
+    else putStrLn "No"
 
 training15 :: IO ()
 training15 = do
