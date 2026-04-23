@@ -11,7 +11,16 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training16
+  training18
+
+training18 :: IO ()
+training18 = do
+  [a, b, k] <- getIntArray
+  let smallSide = [a .. min b (a + k - 1)]
+      largeSide = [max a (b - k + 1) .. b]
+  let result = sort $ nub $ smallSide ++ largeSide
+
+  mapM_ print result
 
 training16 :: IO ()
 training16 = do
