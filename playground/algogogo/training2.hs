@@ -11,7 +11,16 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training17
+  training18 ()
+
+training18 :: IO ()
+training18 = do
+  [a, b, k] <- getIntArray
+  let smallSide = [a .. min b (a + k - 1)]
+      largeSide = [max a (b - k + 1) .. b]
+  let result = sort $ nub $ smallSide ++ largeSide
+
+  mapM_ print result
 
 training17 :: IO ()
 training17 = do
@@ -23,10 +32,10 @@ training17 = do
 useCoins :: (Int, Int) -> Int -> (Int, Int)
 useCoins (remaining, count) coin =
   let use = min 100 (remaining `div` coin)
-  in (remaining - use * coin, count + use)
+   in (remaining - use * coin, count + use)
 
 factorial :: Int -> Int
-factorial n = product [1..n]
+factorial n = product [1 .. n]
 
 training16 :: IO ()
 training16 = do
