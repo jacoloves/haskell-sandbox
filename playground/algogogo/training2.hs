@@ -11,7 +11,18 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training18 ()
+  training19
+
+training19 :: IO ()
+training19 = do
+  [a, b] <- getIntArray
+  let tmp =
+        [ x | x <- [1 .. 2500], x * 8 `div` 100 == a, x * 10 `div` 100 == b
+        ]
+
+  if null tmp
+    then print (-1)
+    else print (head tmp)
 
 training18 :: IO ()
 training18 = do
