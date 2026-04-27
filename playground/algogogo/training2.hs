@@ -11,7 +11,18 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training20
+  training21
+
+training21 :: IO ()
+training21 = do
+  [a, b] <- getIntArray
+
+  print $ length $ filter isPalindrome [a .. b]
+
+isPalindrome :: Int -> Bool
+isPalindrome n = s == reverse s
+  where
+    s = show n
 
 training20 :: IO ()
 training20 = do
