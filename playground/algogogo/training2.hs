@@ -11,7 +11,15 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training22
+  training23
+
+training23 :: IO ()
+training23 = do
+  [n, d] <- getIntArray
+  p <- replicateM n getIntArray
+
+  let ans = length $ filter (\[x, y] -> x * x + y * y <= d * d) p
+  print ans
 
 training22 :: IO ()
 training22 = do
