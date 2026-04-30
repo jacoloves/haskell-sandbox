@@ -11,7 +11,18 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training23
+  training24
+
+training24 :: IO ()
+training24 = do
+  [_, x] <- getIntArray
+  ls <- getIntArray
+
+  let p = scanl (+) 0 ls
+
+  let ans = length $ filter (<= x) p
+
+  print ans
 
 training23 :: IO ()
 training23 = do
@@ -31,8 +42,8 @@ training22 = do
 
 fromBaseK :: Int -> String -> Int
 fromBaseK k str = foldl (\acc digit -> acc * k + digitToInt digit) 0 str
- where
-  digitToInt c = read [c]
+  where
+    digitToInt c = read [c]
 
 training21 :: IO ()
 training21 = do
@@ -42,8 +53,8 @@ training21 = do
 
 isPalindrome :: Int -> Bool
 isPalindrome n = s == reverse s
- where
-  s = show n
+  where
+    s = show n
 
 training20 :: IO ()
 training20 = do
