@@ -11,7 +11,19 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training24
+  training25
+
+training25 :: IO ()
+training25 = do
+  [n, x] <- getIntArray
+  m <- replicateM n getInt
+
+  let tmp1 = sum m
+  let tmp2 = x - tmp1
+  let minM = minimum m
+  let addD = tmp2 `div` minM
+
+  print (n + addD)
 
 training24 :: IO ()
 training24 = do
