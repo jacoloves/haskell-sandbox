@@ -11,7 +11,22 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training26
+  training27
+
+training27 :: IO ()
+training27 = do
+  n <- getInt
+  m <- replicateM n $ do
+    line <- getLine
+    let p = words line
+    let name = head p
+    let height = read (p !! 1) :: Int
+    return (name, height)
+
+  let sortP = sortBy (flip compare `on` snd) m
+  let ans = fst (sortP !! 1)
+
+  putStrLn ans
 
 training26 :: IO ()
 training26 = do
