@@ -11,7 +11,20 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training27
+  training28
+
+training28 :: IO ()
+training28 = do
+  n <- getInt
+  [t, a] <- getIntArray
+  hs <- getIntArray
+
+  let tmp = map (\h -> fromIntegral t - fromIntegral h * 0.006) hs
+  let tmp2 = map (\x -> abs (x - fromIntegral a)) tmp
+  let indexes = zip [1 ..] tmp2
+
+  let (ans, _) = minimumBy (compare `on` snd) indexes
+  print ans
 
 training27 :: IO ()
 training27 = do
