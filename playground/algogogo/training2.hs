@@ -11,7 +11,18 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training28
+  training29
+
+training29 :: IO ()
+training29 = do
+  n <- getInt
+  a <- getIntArray
+  if isPermutation n a
+    then putStrLn "Yes"
+    else putStrLn "No"
+
+isPermutation :: Int -> [Int] -> Bool
+isPermutation n a = sort a == [1 .. n]
 
 training28 :: IO ()
 training28 = do
