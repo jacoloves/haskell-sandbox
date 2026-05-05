@@ -11,7 +11,17 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training29
+  training30
+
+training30 :: IO ()
+training30 = do
+  [n, k] <- getIntArray
+  l <- getIntArray
+
+  let ll = descendingSort l
+  let ans = sum $ take k ll
+
+  print ans
 
 training29 :: IO ()
 training29 = do
@@ -334,6 +344,10 @@ training01 = do
       multiAB = a * b
 
   print $ maximum [plusAB, minusAB, multiAB]
+
+-- descendingSort
+descendingSort :: (Ord a) => [a] -> [a]
+descendingSort = sortBy (flip compare)
 
 -- read big Int
 getBigInt :: IO Integer
