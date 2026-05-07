@@ -11,7 +11,26 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training30
+  training31
+
+training31 :: IO ()
+training31 = do
+  n <- getInt
+  d <- getIntArray
+
+  let s = sort d
+  let halfN = n `div` 2
+  let lowerHalf = take halfN s
+  let upperHalf = drop halfN s
+  let maxLower = maximum lowerHalf
+  let minUpper = minimum upperHalf
+
+  let ans =
+        if maxLower < minUpper
+          then minUpper - maxLower
+          else 0
+
+  print ans
 
 training30 :: IO ()
 training30 = do
@@ -72,11 +91,11 @@ training26 = do
 countSeaViewHotes :: [Int] -> Int
 countSeaViewHotes [] = 0
 countSeaViewHotes (h : hs) = 1 + go h hs
- where
-  go _ [] = 0
-  go maxSoFar (x : xs)
-    | x >= maxSoFar = 1 + go x xs
-    | otherwise = go maxSoFar xs
+  where
+    go _ [] = 0
+    go maxSoFar (x : xs)
+      | x >= maxSoFar = 1 + go x xs
+      | otherwise = go maxSoFar xs
 
 training25 :: IO ()
 training25 = do
@@ -119,8 +138,8 @@ training22 = do
 
 fromBaseK :: Int -> String -> Int
 fromBaseK k str = foldl (\acc digit -> acc * k + digitToInt digit) 0 str
- where
-  digitToInt c = read [c]
+  where
+    digitToInt c = read [c]
 
 training21 :: IO ()
 training21 = do
@@ -130,8 +149,8 @@ training21 = do
 
 isPalindrome :: Int -> Bool
 isPalindrome n = s == reverse s
- where
-  s = show n
+  where
+    s = show n
 
 training20 :: IO ()
 training20 = do
