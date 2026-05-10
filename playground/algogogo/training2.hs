@@ -3,7 +3,7 @@ import Data.Array (Array, bounds, listArray, (!))
 import Data.Binary.Get (getInt16be, remaining)
 import Data.Char (digitToInt, isDigit, isLower, isUpper)
 import Data.Function (on)
-import Data.List (elemIndex, group, isSuffixOf, minimumBy, nub, permutations, sort, sortBy)
+import Data.List (elemIndex, group, groupBy, isSuffixOf, minimumBy, nub, permutations, sort, sortBy)
 import Data.Map qualified as Map
 import Data.Maybe (fromJust)
 import Data.Ord (Down (Down), comparing)
@@ -11,7 +11,39 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training33
+  training34
+
+training34 :: IO ()
+training34 = do
+  [n, m] <- getIntArray
+  cities <- replicateM m $ do
+    [p, y] <- getIntArray
+    return (p, y)
+
+  let indexed = zipWith (\i (p, y) -> (p, y, i)) [1 ..] cities
+
+  let sorted = sortBy (comparing (\(p, y, _) -> (p, y))) indexed
+
+  let grouped = groupBy (\(p1, _, _) (p2, _, _) -> p1 == p2) sorted
+
+  let withRank = concatMap rankGroup grouped
+
+  let result = sortBy (comparing (\(i, _, _) -> i)) withRank
+
+  mapM_ (\(_, p, x) -> putStrLn $ formatID p x) result
+
+rankGroup :: [(Int, Int, Int)] -> [(Int, Int, Int)]
+rankGroup grp = zipWith (\x (_, _, i) -> (i, p, x)) [1 ..] grp
+  where
+    (p, _, _) = head grp
+
+formatID :: Int -> Int -> String
+formatID p x = pad6 p ++ pad6 x
+
+pad6 :: Int -> String
+pad6 n = replicate (6 - length s) '0' ++ s
+  where
+    s = show n
 
 training33 :: IO ()
 training33 = do
@@ -119,11 +151,11 @@ training26 = do
 countSeaViewHotes :: [Int] -> Int
 countSeaViewHotes [] = 0
 countSeaViewHotes (h : hs) = 1 + go h hs
- where
-  go _ [] = 0
-  go maxSoFar (x : xs)
-    | x >= maxSoFar = 1 + go x xs
-    | otherwise = go maxSoFar xs
+  where
+    go _ [] = 0
+    go maxSoFar (x : xs)
+      | x >= maxSoFar = 1 + go x xs
+      | otherwise = go maxSoFar xs
 
 training25 :: IO ()
 training25 = do
@@ -166,8 +198,8 @@ training22 = do
 
 fromBaseK :: Int -> String -> Int
 fromBaseK k str = foldl (\acc digit -> acc * k + digitToInt digit) 0 str
- where
-  digitToInt c = read [c]
+  where
+    digitToInt c = read [c]
 
 training21 :: IO ()
 training21 = do
@@ -177,8 +209,8 @@ training21 = do
 
 isPalindrome :: Int -> Bool
 isPalindrome n = s == reverse s
- where
-  s = show n
+  where
+    s = show n
 
 training20 :: IO ()
 training20 = do
