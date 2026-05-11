@@ -11,7 +11,15 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training34
+  training35
+
+training35 :: IO ()
+training35 = do
+  s <- getStr
+
+  if s == "Hello,World!"
+    then putStrLn "AC"
+    else putStrLn "WA"
 
 training34 :: IO ()
 training34 = do
