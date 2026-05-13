@@ -11,7 +11,23 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training35
+  training36
+
+training36 :: IO ()
+training36 = do
+  [a, b] <- getIntArray
+  s <- getStr
+
+  let indexed = zip [0 ..] s
+
+  let isValid = all (checkChar a) indexed
+
+  putStrLn $ if isValid then "Yes" else "No"
+
+checkChar :: Int -> (Int, Char) -> Bool
+checkChar a (i, c)
+  | i == a = c == '-'
+  | otherwise = isDigit c
 
 training35 :: IO ()
 training35 = do
@@ -42,16 +58,16 @@ training34 = do
 
 rankGroup :: [(Int, Int, Int)] -> [(Int, Int, Int)]
 rankGroup grp = zipWith (\x (_, _, i) -> (i, p, x)) [1 ..] grp
-  where
-    (p, _, _) = head grp
+ where
+  (p, _, _) = head grp
 
 formatID :: Int -> Int -> String
 formatID p x = pad6 p ++ pad6 x
 
 pad6 :: Int -> String
 pad6 n = replicate (6 - length s) '0' ++ s
-  where
-    s = show n
+ where
+  s = show n
 
 training33 :: IO ()
 training33 = do
@@ -159,11 +175,11 @@ training26 = do
 countSeaViewHotes :: [Int] -> Int
 countSeaViewHotes [] = 0
 countSeaViewHotes (h : hs) = 1 + go h hs
-  where
-    go _ [] = 0
-    go maxSoFar (x : xs)
-      | x >= maxSoFar = 1 + go x xs
-      | otherwise = go maxSoFar xs
+ where
+  go _ [] = 0
+  go maxSoFar (x : xs)
+    | x >= maxSoFar = 1 + go x xs
+    | otherwise = go maxSoFar xs
 
 training25 :: IO ()
 training25 = do
@@ -206,8 +222,8 @@ training22 = do
 
 fromBaseK :: Int -> String -> Int
 fromBaseK k str = foldl (\acc digit -> acc * k + digitToInt digit) 0 str
-  where
-    digitToInt c = read [c]
+ where
+  digitToInt c = read [c]
 
 training21 :: IO ()
 training21 = do
@@ -217,8 +233,8 @@ training21 = do
 
 isPalindrome :: Int -> Bool
 isPalindrome n = s == reverse s
-  where
-    s = show n
+ where
+  s = show n
 
 training20 :: IO ()
 training20 = do
