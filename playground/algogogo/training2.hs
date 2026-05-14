@@ -1,7 +1,7 @@
 import Control.Monad (foldM, forM_, replicateM)
 import Data.Array (Array, bounds, listArray, (!))
 import Data.Binary.Get (getInt16be, remaining)
-import Data.Char (digitToInt, isDigit, isLower, isUpper)
+import Data.Char (chr, digitToInt, isDigit, isLower, isUpper, ord)
 import Data.Function (on)
 import Data.List (elemIndex, group, groupBy, isSuffixOf, minimumBy, nub, permutations, sort, sortBy)
 import Data.Map qualified as Map
@@ -11,7 +11,19 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training36
+  training37
+
+training37 :: IO ()
+training37 = do
+  n <- getInt
+  s <- getStr
+
+  putStrLn $ map (shiftChar n) s
+
+shiftChar :: Int -> Char -> Char
+shiftChar n c =
+  let offset = (ord c - ord 'A' + n) `mod` 26
+   in chr (offset + ord 'A')
 
 training36 :: IO ()
 training36 = do
