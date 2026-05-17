@@ -11,7 +11,19 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training39
+  training40
+
+training40 :: IO ()
+training40 = do
+  o <- getStr
+  e <- getStr
+  let z = concatMap (\(a, b) -> [a, b]) (zip o e)
+  let ans =
+        if length o > length e
+          then z ++ [last o]
+          else z
+
+  putStrLn ans
 
 training39 :: IO ()
 training39 = do
