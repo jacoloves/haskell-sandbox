@@ -3,7 +3,7 @@ import Data.Array (Array, bounds, listArray, (!))
 import Data.Binary.Get (getInt16be, remaining)
 import Data.Char (chr, digitToInt, isDigit, isLower, isUpper, ord)
 import Data.Function (on)
-import Data.List (elemIndex, group, groupBy, isSuffixOf, minimumBy, nub, permutations, sort, sortBy)
+import Data.List (elemIndex, group, groupBy, isPrefixOf, isSuffixOf, minimumBy, nub, permutations, sort, sortBy, tails)
 import Data.Map qualified as Map
 import Data.Maybe (fromJust)
 import Data.Ord (Down (Down), comparing)
@@ -11,7 +11,16 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training41
+  training42
+
+training42 :: IO ()
+training42 = do
+  s <- getStr
+  t <- getStr
+
+  let d = s ++ s
+  let ans = any (isPrefixOf t) (tails d)
+  putStrLn $ if ans then "Yes" else "No"
 
 training41 :: IO ()
 training41 = do
