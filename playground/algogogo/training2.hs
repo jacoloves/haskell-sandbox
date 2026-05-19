@@ -11,7 +11,22 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training42
+  training43
+
+training43 :: IO ()
+training43 = do
+  s <- getStr
+  t <- getStr
+  let swapped = [swapAt i s | i <- [0 .. length s - 2]]
+  let ans = s == t || any (== t) swapped
+  putStrLn $ if ans then "Yes" else "No"
+
+swapAt :: Int -> String -> String
+swapAt i s =
+  let (front, rest) = splitAt i s
+   in case rest of
+        (a : b : back) -> front ++ [b, a] ++ back
+        _ -> s
 
 training42 :: IO ()
 training42 = do
