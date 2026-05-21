@@ -11,7 +11,15 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training44
+  training45
+
+training45 :: IO ()
+training45 = do
+  s <- getStr
+  t <- getStr
+  let sMin = sort s
+  let tMax = sortBy (flip compare) t
+  putStrLn $ if sMin < tMax then "Yes" else "No"
 
 training44 :: IO ()
 training44 = do
