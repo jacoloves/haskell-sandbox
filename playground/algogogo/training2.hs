@@ -11,7 +11,14 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training45
+  training46
+
+training46 :: IO ()
+training46 = do
+  n <- getInt
+
+  let p = [i * j | i <- [1 .. 9], j <- [1 .. 9]]
+  putStrLn $ if n `elem` p then "Yes" else "No"
 
 training45 :: IO ()
 training45 = do
