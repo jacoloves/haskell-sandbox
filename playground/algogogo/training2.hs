@@ -11,7 +11,25 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training47
+  training48
+
+training48 :: IO ()
+training48 = do
+  [n, d] <- getIntArray
+  p <- replicateM n getIntArray
+
+  let pairs = [(i, j) | i <- [0 .. n - 2], j <- [i + 1 .. n - 1]]
+  let ans = length $ filter (isIntegerDist p) pairs
+  print ans
+
+isIntegerDist :: [[Int]] -> (Int, Int) -> Bool
+isIntegerDist points (i, j) =
+  let pi = points !! i
+      pj = points !! j
+
+      sumSq = sum $ zipWith (\a b -> (a - b) ^ 2) pi pj
+      r = floor (sqrt (fromIntegral sumSq) :: Double)
+   in r * r == sumSq
 
 training47 :: IO ()
 training47 = do
