@@ -11,7 +11,14 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training46
+  training47
+
+training47 :: IO ()
+training47 = do
+  n <- getInt
+
+  let ans = any (\b -> (n - 7 * b) `mod` 4 == 0) [0 .. n `div` 7]
+  putStrLn $ if ans then "Yes" else "No"
 
 training46 :: IO ()
 training46 = do
