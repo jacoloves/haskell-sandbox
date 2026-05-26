@@ -11,7 +11,22 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training48
+  training49
+
+training49 :: IO ()
+training49 = do
+  n <- getInt
+  ls <- getIntArray
+
+  let t = [(i, j, k) | i <- [0 .. n - 3], j <- [i + 1 .. n - 2], k <- [j + 1 .. n - 1]]
+  let ans = length $ filter (isValid ls) t
+
+  print ans
+
+isValid :: [Int] -> (Int, Int, Int) -> Bool
+isValid ls (i, j, k) =
+  let [a, b, c] = sort [ls !! i, ls !! j, ls !! k]
+   in a /= b && b /= c && a + b > c
 
 training48 :: IO ()
 training48 = do
@@ -180,16 +195,16 @@ training34 = do
 
 rankGroup :: [(Int, Int, Int)] -> [(Int, Int, Int)]
 rankGroup grp = zipWith (\x (_, _, i) -> (i, p, x)) [1 ..] grp
- where
-  (p, _, _) = head grp
+  where
+    (p, _, _) = head grp
 
 formatID :: Int -> Int -> String
 formatID p x = pad6 p ++ pad6 x
 
 pad6 :: Int -> String
 pad6 n = replicate (6 - length s) '0' ++ s
- where
-  s = show n
+  where
+    s = show n
 
 training33 :: IO ()
 training33 = do
@@ -297,11 +312,11 @@ training26 = do
 countSeaViewHotes :: [Int] -> Int
 countSeaViewHotes [] = 0
 countSeaViewHotes (h : hs) = 1 + go h hs
- where
-  go _ [] = 0
-  go maxSoFar (x : xs)
-    | x >= maxSoFar = 1 + go x xs
-    | otherwise = go maxSoFar xs
+  where
+    go _ [] = 0
+    go maxSoFar (x : xs)
+      | x >= maxSoFar = 1 + go x xs
+      | otherwise = go maxSoFar xs
 
 training25 :: IO ()
 training25 = do
@@ -344,8 +359,8 @@ training22 = do
 
 fromBaseK :: Int -> String -> Int
 fromBaseK k str = foldl (\acc digit -> acc * k + digitToInt digit) 0 str
- where
-  digitToInt c = read [c]
+  where
+    digitToInt c = read [c]
 
 training21 :: IO ()
 training21 = do
@@ -355,8 +370,8 @@ training21 = do
 
 isPalindrome :: Int -> Bool
 isPalindrome n = s == reverse s
- where
-  s = show n
+  where
+    s = show n
 
 training20 :: IO ()
 training20 = do
