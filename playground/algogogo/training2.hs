@@ -13,6 +13,19 @@ main :: IO ()
 main = do
   training50
 
+training51 :: IO ()
+training51 = do
+  s <- getStr
+  t <- getStr
+  let m = length t
+
+  let w = map (take m) (tails s)
+  let d = map (countDiff t) w
+  print $ minimum $ filter (const True) (take (length s - m + 1) d)
+
+countDiff :: String -> String -> Int
+countDiff t w = length $ filter id $ zipWith (/=) t w
+
 training50 :: IO ()
 training50 = do
   [s, t] <- getIntArray
@@ -203,16 +216,16 @@ training34 = do
 
 rankGroup :: [(Int, Int, Int)] -> [(Int, Int, Int)]
 rankGroup grp = zipWith (\x (_, _, i) -> (i, p, x)) [1 ..] grp
-  where
-    (p, _, _) = head grp
+ where
+  (p, _, _) = head grp
 
 formatID :: Int -> Int -> String
 formatID p x = pad6 p ++ pad6 x
 
 pad6 :: Int -> String
 pad6 n = replicate (6 - length s) '0' ++ s
-  where
-    s = show n
+ where
+  s = show n
 
 training33 :: IO ()
 training33 = do
@@ -320,11 +333,11 @@ training26 = do
 countSeaViewHotes :: [Int] -> Int
 countSeaViewHotes [] = 0
 countSeaViewHotes (h : hs) = 1 + go h hs
-  where
-    go _ [] = 0
-    go maxSoFar (x : xs)
-      | x >= maxSoFar = 1 + go x xs
-      | otherwise = go maxSoFar xs
+ where
+  go _ [] = 0
+  go maxSoFar (x : xs)
+    | x >= maxSoFar = 1 + go x xs
+    | otherwise = go maxSoFar xs
 
 training25 :: IO ()
 training25 = do
@@ -367,8 +380,8 @@ training22 = do
 
 fromBaseK :: Int -> String -> Int
 fromBaseK k str = foldl (\acc digit -> acc * k + digitToInt digit) 0 str
-  where
-    digitToInt c = read [c]
+ where
+  digitToInt c = read [c]
 
 training21 :: IO ()
 training21 = do
@@ -378,8 +391,8 @@ training21 = do
 
 isPalindrome :: Int -> Bool
 isPalindrome n = s == reverse s
-  where
-    s = show n
+ where
+  s = show n
 
 training20 :: IO ()
 training20 = do
