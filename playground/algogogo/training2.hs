@@ -11,7 +11,36 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training50
+  training52
+
+training52 :: IO ()
+training52 = do
+  r1 <- getIntArray
+  r2 <- getIntArray
+  r3 <- getIntArray
+  let c = r1 ++ r2 ++ r3
+
+  n <- getInt
+  bs <- replicateM n getInt
+  let called = Set.fromList bs
+
+  let lines =
+        [ [0, 1, 2]
+        , [3, 4, 5]
+        , [6, 7, 8]
+        , [0, 3, 6]
+        , [1, 4, 7]
+        , [2, 5, 8]
+        , [0, 4, 8]
+        , [2, 4, 6]
+        ]
+
+  let bingo = any (isLine c called) lines
+  putStrLn $ if bingo then "Yes" else "No"
+
+isLine :: [Int] -> Set.Set Int -> [Int] -> Bool
+isLine card called indices =
+  all (\i -> Set.member (card !! i) called) indices
 
 training51 :: IO ()
 training51 = do
