@@ -11,7 +11,13 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training52
+  training53
+
+training53 :: IO ()
+training53 = do
+  [h, w] <- getIntArray
+  rows <- replicateM h getStr
+  mapM_ putStrLn (concatMap (\row -> [row, row]) rows)
 
 training52 :: IO ()
 training52 = do
