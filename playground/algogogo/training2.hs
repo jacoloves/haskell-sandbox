@@ -11,7 +11,34 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training53
+  training54
+
+training54 :: IO ()
+training54 = do
+  [h, w, x, y] <- getIntArray
+  grid <- replicateM h getStr
+  let r = x - 1
+      c = y - 1
+  let up = countVisible grid r c (-1) 0
+      down = countVisible grid r c 1 0
+      left = countVisible grid r c 0 (-1)
+      right = countVisible grid r c 0 1
+  print (1 + up + down + left + right)
+
+countVisible :: [String] -> Int -> Int -> Int -> Int -> Int
+countVisible grid r c dr dc =
+  let steps = tail $ iterate (\(ri, ci) -> (ri + dr, ci + dc)) (r, c)
+      visible =
+        takeWhile
+          ( \(ri, ci) ->
+              ri >= 0
+                && ri < length grid
+                && ci >= 0
+                && ci < length (grid !! 0)
+                && (grid !! ri) !! ci /= '#'
+          )
+          steps
+   in length visible
 
 training53 :: IO ()
 training53 = do
