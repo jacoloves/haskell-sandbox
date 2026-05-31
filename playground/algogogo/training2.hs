@@ -11,7 +11,20 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training54
+  training55
+
+training55 :: IO ()
+training55 = do
+  [h, w] <- getIntArray
+  grid <- replicateM h getStr
+
+  let fr = filter (elem '#') grid
+  let colHasHash j = any (\row -> row !! j == '#') grid
+  let validCols = filter colHasHash [0 .. w - 1]
+
+  let ans = map (\row -> map (row !!) validCols) fr
+
+  mapM_ putStrLn ans
 
 training54 :: IO ()
 training54 = do
