@@ -11,7 +11,12 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training55
+  training56
+
+training56 :: IO ()
+training56 = do
+  [a, b] <- getIntArray
+  print (a * b)
 
 training55 :: IO ()
 training55 = do
