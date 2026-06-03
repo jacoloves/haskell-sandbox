@@ -11,7 +11,24 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training56
+  training58
+
+training58 :: IO ()
+training58 = do
+  [h, a] <- getIntArray
+  let ans = h `div` a
+  let tmp = h `mod` a
+
+  if tmp /= 0
+    then print (ans + 1)
+    else print ans
+
+training57 :: IO ()
+training57 = do
+  [a, b] <- getIntArray
+  if even (a * b)
+    then putStrLn "Even"
+    else putStrLn "Odd"
 
 training56 :: IO ()
 training56 = do
