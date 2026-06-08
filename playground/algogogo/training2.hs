@@ -11,7 +11,15 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training58
+  training59
+
+training59 :: IO ()
+training59 = do
+  k <- getInt
+  [a, b] <- getIntArray
+  if any (\i -> i `mod` k == 0) [a .. b]
+    then putStrLn "OK"
+    else putStrLn "NG"
 
 training58 :: IO ()
 training58 = do
