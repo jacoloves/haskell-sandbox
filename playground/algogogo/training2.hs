@@ -11,7 +11,24 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training59
+  training60
+
+training60 :: IO ()
+training60 = do
+  [n, a, b] <- getIntArray
+  let result =
+        sum
+          [ i
+          | i <- [1 .. n]
+          , let digitSum = sumOfDigits i
+          , digitSum >= a && digitSum <= b
+          ]
+
+  print result
+
+sumOfDigits :: Int -> Int
+sumOfDigits 0 = 0
+sumOfDigits n = n `mod` 10 + sumOfDigits (n `div` 10)
 
 training59 :: IO ()
 training59 = do
