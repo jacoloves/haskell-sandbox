@@ -11,7 +11,19 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training60
+  training61
+
+training61 :: IO ()
+training61 = do
+  n <- getInt
+  a <- getIntArray
+  let ans = minimum $ map countDivisions a
+  print ans
+
+countDivisions :: Int -> Int
+countDivisions n
+  | even n = 1 + countDivisions (n `div` 2)
+  | otherwise = 0
 
 training60 :: IO ()
 training60 = do
