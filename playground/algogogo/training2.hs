@@ -11,7 +11,23 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training62
+  training63
+
+training63 :: IO ()
+training63 = do
+  s <- getStr
+  let n = length s
+  let mid = [s !! i | i <- [2 .. n - 2]]
+
+  let cond1 = head s == 'A'
+  let cond2 = length (filter (== 'C') mid) == 1
+
+  let outsideMiddle = [s !! 1] ++ [s !! (n - 1)]
+  let cond3 =
+        all isLower (filter (/= 'C') (drop 1 s))
+          && all (/= 'C') outsideMiddle
+
+  putStrLn $ if cond1 && cond2 && cond3 then "AC" else "WA"
 
 training62 :: IO ()
 training62 = do
