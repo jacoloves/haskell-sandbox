@@ -11,7 +11,20 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training61
+  training62
+
+training62 :: IO ()
+training62 = do
+  n <- getInt
+  arr <- getIntArray
+
+  let s = reverse $ sort arr
+  let indexed = zip [0 ..] s
+
+  let aliceScore = sum [card | (i, card) <- indexed, even i]
+  let bobScore = sum [card | (i, card) <- indexed, odd i]
+
+  print (aliceScore - bobScore)
 
 training61 :: IO ()
 training61 = do
