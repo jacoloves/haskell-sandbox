@@ -11,7 +11,18 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training63
+  training64
+
+training64 :: IO ()
+training64 = do
+  a <- getInt
+  b <- getInt
+  c <- getInt
+  x <- getInt
+
+  let combos = [() | na <- [0 .. a], nb <- [0 .. b], nc <- [0 .. c], 500 * na + 100 * nb + 50 * nc == x]
+
+  print $ length combos
 
 training63 :: IO ()
 training63 = do
