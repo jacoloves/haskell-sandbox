@@ -11,7 +11,27 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training64
+  training65
+
+training65 :: IO ()
+training65 = do
+  [h, w] <- getIntArray
+  grid <- replicateM h getStr
+
+  let ans = [[cellChar grid h w r c | c <- [0 .. w - 1]] | r <- [0 .. h - 1]]
+
+  mapM_ putStrLn ans
+
+cellChar :: [String] -> Int -> Int -> Int -> Int -> Char
+cellChar grid h w r c
+  | (grid !! r) !! c == '#' = '#'
+  | otherwise = intToDigit (countBombs grid h w r c)
+
+countBombs :: [String] -> Int -> Int -> Int -> Int -> Int
+countBombs grid h w r c =
+  length
+    [ () | dr <- [-1, 0, 1], dc <- [-1, 0, 1], (dr, dc) /= (0, 0), let nr = r + dr, let nc = c + dc, nr >= 0 && nr < h, nc >= 0 && nc < w, (grid !! nr) !! nc == '#'
+    ]
 
 training64 :: IO ()
 training64 = do
