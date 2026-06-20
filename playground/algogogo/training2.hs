@@ -1,5 +1,5 @@
 import Control.Monad (foldM, forM_, replicateM)
-import Data.Array (Array, bounds, listArray, (!))
+import Data.Array (Array, bounds, listArray, (!), (//))
 import Data.Binary.Get (getInt16be, remaining)
 import Data.Char (chr, digitToInt, intToDigit, isDigit, isLower, isUpper, ord)
 import Data.Function (on)
@@ -12,6 +12,45 @@ import Data.Set qualified as Set
 main :: IO ()
 main = do
   training70
+
+training71 :: IO ()
+training71 = do
+  [n, m, q] <- getIntArray
+
+  edges <- replicateM m getIntArray
+  cs <- getIntArray
+
+  let adjList =
+        Map.fromListWith (++) $
+          concat [[(u, [v]), (v, [u])] | [u, v] <- edges]
+
+  let getAdj v = Map.findWithDefault [] v adjList
+
+  let initColors = listArray (1, n) cs :: Array Int Int
+
+  queries <- getNLines q
+
+  _ <- foldM (processQuery getAdj) initColors queries
+  return ()
+
+processQuery :: (Int -> [Int]) -> Array Int Int -> String -> IO (Array Int Int)
+processQuery getAdj colors line = do
+  let ws = words line
+  case ws of
+    ["1", xStr] -> do
+      let x = read xStr
+      let currentColor = colors ! x
+      print currentColor
+      let newColors = colors // [(v, currentColor) | v <- getAdj x]
+      return newColors
+    ["2", xStr, yStr] -> do
+      let x = read xStr
+      let y = read yStr
+      let currentColor = colors ! x
+      print currentColor
+      let newColors = colors // [(x, y)]
+      return newColors
+    _ -> return colors
 
 training70 :: IO ()
 training70 = do
