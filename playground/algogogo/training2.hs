@@ -11,7 +11,27 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training69
+  training70
+
+training70 :: IO ()
+training70 = do
+  s <- getStr
+
+  let upperIndices = [i | (i, c) <- zip [0 ..] s, isUpper c]
+  let p = pairUp upperIndices
+  let wordList = [take (j - i + 1) (drop i s) | (i, j) <- p]
+  let sorted = sortBy (comparing (map toLowerChar)) wordList
+
+  putStrLn $ concat sorted
+
+pairUp :: [a] -> [(a, a)]
+pairUp (x : y : rest) = (x, y) : pairUp rest
+pairUp _ = []
+
+toLowerChar :: Char -> Char
+toLowerChar c
+  | isUpper c = chr (ord c - ord 'A' + ord 'a')
+  | otherwise = c
 
 training69 :: IO ()
 training69 = do
