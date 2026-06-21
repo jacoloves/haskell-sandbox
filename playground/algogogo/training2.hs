@@ -11,7 +11,18 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training70
+  training72
+
+training72 :: IO ()
+training72 = do
+  [a, b, c, k] <- getBigIntArray
+
+  let diff = a - b
+  let result = if even k then diff else negate diff
+
+  if abs result > 10 ^ 18
+    then putStrLn "Unfair"
+    else print result
 
 training71 :: IO ()
 training71 = do
