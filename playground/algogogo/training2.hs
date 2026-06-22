@@ -11,7 +11,27 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training72
+  training73
+
+training73 :: IO ()
+training73 = do
+  n <- getInt
+  points <- replicateM n $ do
+    [t, x, y] <- getIntArray
+    return (t, x, y)
+
+  let allPoints = (0, 0, 0) : points
+
+  let p = zip allPoints (tail allPoints)
+
+  let ans = all (uncurry canReach) p
+  putStrLn $ if ans then "Yes" else "No"
+
+canReach :: (Int, Int, Int) -> (Int, Int, Int) -> Bool
+canReach (pt, px, py) (t, x, y) =
+  let dist = abs (x - px) + abs (y - py)
+      dt = t - pt
+   in dist <= dt && even (dt - dist)
 
 training72 :: IO ()
 training72 = do
@@ -90,7 +110,7 @@ training69 = do
 
   let isAC =
         [ if s !! (i - 1) == 'A' && s !! i == 'C' then 1 else 0
-        | i <- [1 .. n - 1]
+          | i <- [1 .. n - 1]
         ]
 
   let prefixList = scanl (+) 0 (isAC ++ [0])
@@ -111,8 +131,8 @@ training68 = do
   let ans =
         sum
           [ toInteger k * toInteger (k - 1) `div` 2
-          | k <- Map.elems cnts
-          , k >= 2
+            | k <- Map.elems cnts,
+              k >= 2
           ]
 
   print ans
@@ -130,14 +150,14 @@ training66 = do
 
   let solutions =
         [ (x, y', z)
-        | x <- [0 .. n]
-        , let remY1 = y - 10000 * x
-        , remY1 >= 0
-        , y' <- [0 .. n - x]
-        , let remY2 = remY1 - 5000 * y'
-        , remY2 >= 0
-        , let z = n - x - y'
-        , 1000 * z == remY2
+          | x <- [0 .. n],
+            let remY1 = y - 10000 * x,
+            remY1 >= 0,
+            y' <- [0 .. n - x],
+            let remY2 = remY1 - 5000 * y',
+            remY2 >= 0,
+            let z = n - x - y',
+            1000 * z == remY2
         ]
 
   case solutions of
@@ -222,9 +242,9 @@ training60 = do
   let result =
         sum
           [ i
-          | i <- [1 .. n]
-          , let digitSum = sumOfDigits i
-          , digitSum >= a && digitSum <= b
+            | i <- [1 .. n],
+              let digitSum = sumOfDigits i,
+              digitSum >= a && digitSum <= b
           ]
 
   print result
@@ -321,14 +341,14 @@ training52 = do
   let called = Set.fromList bs
 
   let lines =
-        [ [0, 1, 2]
-        , [3, 4, 5]
-        , [6, 7, 8]
-        , [0, 3, 6]
-        , [1, 4, 7]
-        , [2, 5, 8]
-        , [0, 4, 8]
-        , [2, 4, 6]
+        [ [0, 1, 2],
+          [3, 4, 5],
+          [6, 7, 8],
+          [0, 3, 6],
+          [1, 4, 7],
+          [2, 5, 8],
+          [0, 4, 8],
+          [2, 4, 6]
         ]
 
   let bingo = any (isLine c called) lines
@@ -541,16 +561,16 @@ training34 = do
 
 rankGroup :: [(Int, Int, Int)] -> [(Int, Int, Int)]
 rankGroup grp = zipWith (\x (_, _, i) -> (i, p, x)) [1 ..] grp
- where
-  (p, _, _) = head grp
+  where
+    (p, _, _) = head grp
 
 formatID :: Int -> Int -> String
 formatID p x = pad6 p ++ pad6 x
 
 pad6 :: Int -> String
 pad6 n = replicate (6 - length s) '0' ++ s
- where
-  s = show n
+  where
+    s = show n
 
 training33 :: IO ()
 training33 = do
@@ -658,11 +678,11 @@ training26 = do
 countSeaViewHotes :: [Int] -> Int
 countSeaViewHotes [] = 0
 countSeaViewHotes (h : hs) = 1 + go h hs
- where
-  go _ [] = 0
-  go maxSoFar (x : xs)
-    | x >= maxSoFar = 1 + go x xs
-    | otherwise = go maxSoFar xs
+  where
+    go _ [] = 0
+    go maxSoFar (x : xs)
+      | x >= maxSoFar = 1 + go x xs
+      | otherwise = go maxSoFar xs
 
 training25 :: IO ()
 training25 = do
@@ -705,8 +725,8 @@ training22 = do
 
 fromBaseK :: Int -> String -> Int
 fromBaseK k str = foldl (\acc digit -> acc * k + digitToInt digit) 0 str
- where
-  digitToInt c = read [c]
+  where
+    digitToInt c = read [c]
 
 training21 :: IO ()
 training21 = do
@@ -716,8 +736,8 @@ training21 = do
 
 isPalindrome :: Int -> Bool
 isPalindrome n = s == reverse s
- where
-  s = show n
+  where
+    s = show n
 
 training20 :: IO ()
 training20 = do
