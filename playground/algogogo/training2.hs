@@ -11,7 +11,24 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training73
+  training74
+
+training74 :: IO ()
+training74 = do
+  n <- getInt
+  as <- getBigIntArray
+
+  let absVals = map abs as
+  let totalSum = sum absVals
+  let minAbs = minimum absVals
+  let negCount = length $ filter (< 0) as
+
+  let ans =
+        if even negCount
+          then totalSum
+          else totalSum - 2 * minAbs
+
+  print ans
 
 training73 :: IO ()
 training73 = do
