@@ -11,7 +11,24 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training75
+  training76
+
+training76 :: IO ()
+training76 = do
+  n <- getInt
+  s <- getStr
+
+  let scores =
+        [ Set.size $ Set.intersection (toSet x) (toSet y)
+        | i <- [1 .. n - 1]
+        , let x = take i s
+        , let y = drop i s
+        ]
+
+  print $ maximum scores
+
+toSet :: String -> Set.Set Char
+toSet = Set.fromList
 
 training75 :: IO ()
 training75 = do
