@@ -11,7 +11,26 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training77
+  training78
+
+training78 :: IO ()
+training78 = do
+  [n, p, q] <- getIntArray
+  as <- getIntArray
+
+  let count =
+        length
+          [ ()
+          | i <- [0 .. n - 5]
+          , j <- [i + 1 .. n - 4]
+          , k <- [j + 1 .. n - 3]
+          , l <- [k + 1 .. n - 2]
+          , m <- [l + 1 .. n - 1]
+          , let prod = foldl (\acc idx -> (acc * (as !! idx)) `mod` p) 1 [i, j, k, l, m]
+          , prod == q
+          ]
+
+  print count
 
 training77 :: IO ()
 training77 = do
