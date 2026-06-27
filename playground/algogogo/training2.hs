@@ -11,7 +11,14 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training76
+  training77
+
+training77 :: IO ()
+training77 = do
+  [k, s] <- getIntArray
+
+  let count = length [() | x <- [0 .. k], y <- [0 .. min k (s - k)], let z = s - x - y, z >= 0 && z <= k]
+  print count
 
 training76 :: IO ()
 training76 = do
