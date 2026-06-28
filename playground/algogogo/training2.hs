@@ -11,7 +11,25 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training78
+  training79
+
+training79 :: IO ()
+training79 = do
+  n <- getInt
+  [a, b, c] <- getIntArray
+
+  let ans =
+        [ a' + b' + c'
+        | a' <- [0 .. min 9999 (n `div` a)]
+        , let remA = n - a * a'
+        , b' <- [0 .. min 9999 (remA `div` b)]
+        , let remB = remA - b * b'
+        , remB `mod` c == 0
+        , let c' = remB `div` c
+        , c' <= 9999
+        ]
+
+  print $ minimum ans
 
 training78 :: IO ()
 training78 = do
