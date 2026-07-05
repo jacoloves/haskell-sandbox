@@ -3,6 +3,7 @@ import Data.Array (Array, bounds, listArray, (!), (//))
 import Data.Binary.Get (getInt16be, remaining)
 import Data.Char (chr, digitToInt, intToDigit, isDigit, isLower, isUpper, ord)
 import Data.Function (on)
+import Data.List (elemIndex, find, group, groupBy, isPrefixOf, isSuffixOf, minimumBy, nub, permutations, sort, sortBy, tails)
 import Data.Map qualified as Map
 import Data.Maybe (fromJust)
 import Data.Ord (Down (Down), comparing)
@@ -10,7 +11,27 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training80
+  training82
+
+training82 :: IO ()
+training82 = do
+  s <- getStr
+  let [a, b, c, d] = map digitToInt s
+
+  let opCombos = replicateM 3 ['+', '-']
+
+  let Just ops = find (\[op1, op2, op3] -> eval a op1 b op2 c op3 d == 7) opCombos
+
+  putStrLn $ concat [show a, [ops !! 0], show b, [ops !! 1], show c, [ops !! 2], show d, "=7"]
+
+applyOp :: Int -> Char -> Int -> Int
+applyOp x '+' y = x + y
+applyOp x '-' y = x - y
+applyOp x _ y = x + y
+
+eval :: Int -> Char -> Int -> Char -> Int -> Char -> Int -> Int
+eval a op1 b op2 c op3 d =
+  applyOp (applyOp (applyOp a op1 b) op2 c) op3 d
 
 training81 :: IO ()
 training81 = do
