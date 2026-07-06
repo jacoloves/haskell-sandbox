@@ -11,7 +11,23 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training82
+  training83
+
+training83 :: IO ()
+training83 = do
+  rows <- replicateM 3 getIntArray
+  let c = rows
+
+  let valid = any (check83 c) [0 .. 100]
+  putStrLn $ if valid then "Yes" else "No"
+
+check83 :: [[Int]] -> Int -> Bool
+check83 c a1 =
+  let bs = map (\j -> (c !! 0 !! j) - a1) [0 .. 2]
+      as = map (\i -> (c !! i !! 0) - (bs !! 0)) [0 .. 2]
+   in all
+        (\(i, j) -> (as !! i) + (bs !! j) == c !! i !! j)
+        [(i, j) | i <- [0 .. 2], j <- [0 .. 2]]
 
 training82 :: IO ()
 training82 = do
