@@ -11,7 +11,20 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training83
+  training84
+
+training84 :: IO ()
+training84 = do
+  [a, b, c, x, y] <- getBigIntArray
+
+  let costs =
+        [ c * k
+          + a * max 0 (x - k `div` 2)
+          + b * max 0 (y - k `div` 2)
+        | k <- [0, 2 .. (max x y) * 2]
+        ]
+
+  print $ minimum costs
 
 training83 :: IO ()
 training83 = do
