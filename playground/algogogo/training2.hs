@@ -11,7 +11,20 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training84
+  training85
+
+training85 :: IO ()
+training85 = do
+  [n, k] <- getBigIntArray
+
+  let m = n `div` k
+
+  let h =
+        if even k
+          then n `div` (k `div` 2) - n `div` k
+          else 0
+
+  print $ m ^ 3 + h ^ 3
 
 training84 :: IO ()
 training84 = do
