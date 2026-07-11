@@ -11,7 +11,26 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training86
+  training89
+
+training89 :: IO ()
+training89 = do
+  [n, m] <- getIntArray
+
+  sets <- replicateM n $ do
+    xs <- getIntArray
+    return $ Set.fromList (tail xs)
+
+  let ans = foldl1 Set.intersection sets
+  print $ Set.size ans
+
+training88 :: IO ()
+training88 = do
+  n <- getInt
+  as <- getIntArray
+
+  let ans = Set.size (Set.fromList as) == n
+  putStrLn $ if ans then "YES" else "NO"
 
 training87 :: IO ()
 training87 = do
