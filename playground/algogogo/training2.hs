@@ -11,7 +11,24 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training89
+  training91
+
+training90 :: IO ()
+training90 = do
+  [n, k] <- getIntArray
+  as <- getIntArray
+
+  let counts = Map.fromListWith (+) [(a, 1) | a <- as]
+
+  let sortedCounts = sort $ Map.elems counts
+
+  let excessTypes = length sortedCounts - k
+  let ans =
+        if excessTypes <= 0
+          then 0
+          else sum $ take excessTypes sortedCounts
+
+  print ans
 
 training89 :: IO ()
 training89 = do
