@@ -13,6 +13,22 @@ main :: IO ()
 main = do
   training91
 
+training91 :: IO ()
+training91 = do
+  n <- getInt
+  names <- replicateM n getStr
+
+  let indexed = zip [1 ..] names
+
+  let (_, acceptedDays) = foldl process (Set.empty, []) indexed
+
+  mapM_ print (reverse acceptedDays)
+
+process :: (Set.Set String, [Int]) -> (Int, String) -> (Set.Set String, [Int])
+process (registered, days) (i, name)
+  | Set.member name registered = (registered, days)
+  | otherwise = (Set.insert name registered, i : days)
+
 training90 :: IO ()
 training90 = do
   [n, k] <- getIntArray
