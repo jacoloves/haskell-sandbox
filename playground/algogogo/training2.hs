@@ -11,7 +11,20 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training91
+  training92
+
+training92 :: IO ()
+training92 = do
+  n <- getInt
+  ss <- replicateM n getStr
+
+  let cnt = Map.fromListWith (+) [(s, 1) | s <- ss]
+
+  let maxCount = maximum $ Map.elems cnt
+
+  let ans = [a | (a, b) <- Map.toAscList cnt, b == maxCount]
+
+  mapM_ putStrLn ans
 
 training91 :: IO ()
 training91 = do
