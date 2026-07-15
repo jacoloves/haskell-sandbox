@@ -11,7 +11,20 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training92
+  training93
+
+training93 :: IO ()
+training93 = do
+  n <- getInt
+  as <- replicateM n getInt
+
+  let ans = foldl toggle Set.empty as
+  print $ Set.size ans
+
+toggle :: Set.Set Int -> Int -> Set.Set Int
+toggle s x
+  | Set.member x s = Set.delete x s
+  | otherwise = Set.insert x s
 
 training92 :: IO ()
 training92 = do
