@@ -11,7 +11,24 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training93
+  training94
+
+training94 :: IO ()
+training94 = do
+  n <- getInt
+  as <- getIntArray
+
+  let cnt = Map.fromListWith (+) [(a, 1) | a <- as]
+
+  let ans =
+        sum
+          [ if c >= x
+            then c - x
+            else c
+          | (x, c) <- Map.toList cnt
+          ]
+
+  print ans
 
 training93 :: IO ()
 training93 = do
