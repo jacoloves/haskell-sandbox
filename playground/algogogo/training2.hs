@@ -11,7 +11,23 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training94
+  training95
+
+training95 :: IO ()
+training95 = do
+  n <- getInt
+  ss <- replicateM n getStr
+
+  let countMaps = map countChars ss
+
+  let minCounts = foldl1 (Map.intersectionWith min) countMaps
+
+  let ans = concatMap (\(c, cnt) -> replicate cnt c) (Map.toAscList minCounts)
+
+  putStrLn ans
+
+countChars :: String -> Map.Map Char Int
+countChars s = Map.fromListWith (+) [(c, 1) | c <- s]
 
 training94 :: IO ()
 training94 = do
