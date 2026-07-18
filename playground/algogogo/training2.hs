@@ -11,7 +11,20 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training95
+  training96
+
+training96 :: IO ()
+training96 = do
+  n <- getInt
+  as <- getIntArray
+
+  let cnt = Map.fromListWith (+) [(a, 1) | a <- as]
+
+  let total = toInteger n * toInteger (n - 1) `div` 2
+
+  let samePairs = sum [toInteger c * toInteger (c - 1) `div` 2 | c <- Map.elems cnt]
+
+  print $ total - samePairs
 
 training95 :: IO ()
 training95 = do
