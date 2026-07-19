@@ -11,7 +11,19 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training96
+  training97
+
+training97 :: IO ()
+training97 = do
+  n <- getInt
+  as <- getIntArray
+
+  let remainders = map (`mod` 200) as
+  let cnt = Map.fromListWith (+) [(r, 1) | r <- remainders]
+
+  let ans = sum [toInteger c * toInteger (c - 1) `div` 2 | c <- Map.elems cnt]
+
+  print ans
 
 training96 :: IO ()
 training96 = do
