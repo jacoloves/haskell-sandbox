@@ -11,7 +11,36 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training97
+  training98
+
+training98 :: IO ()
+training98 = do
+  n <- getInt
+  as <- getIntArray
+  bs <- getIntArray
+  cs <- getIntArray
+
+  let countA = modCounts 46 as
+  let countB = modCounts 46 bs
+  let countC = modCounts 46 cs
+
+  let ans =
+        sum
+          [ toInteger (countA ! a)
+            * toInteger (countB ! b)
+            * toInteger (countC ! c)
+          | a <- [0 .. 45]
+          , b <- [0 .. 45]
+          , let c = (46 - a - b) `mod` 46
+          ]
+
+  print ans
+
+modCounts :: Int -> [Int] -> Array Int Int
+modCounts m xs =
+  let rems = map (`mod` m) xs
+      freq = Map.fromListWith (+) [(r, 1) | r <- rems]
+   in listArray (0, m - 1) [Map.findWithDefault 0 i freq | i <- [0 .. m - 1]]
 
 training97 :: IO ()
 training97 = do
