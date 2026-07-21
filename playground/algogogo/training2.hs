@@ -13,6 +13,13 @@ main :: IO ()
 main = do
   training98
 
+training99 :: IO ()
+training99 = do
+  n <- getInt
+  s <- getStr
+
+  print $ length $ group s
+
 training98 :: IO ()
 training98 = do
   n <- getInt
