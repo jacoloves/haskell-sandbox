@@ -11,7 +11,14 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training98
+  training100
+
+training100 :: IO ()
+training100 = do
+  s <- getStr
+  let groups = group s
+  let ans = concatMap (\g -> [head g] ++ show (length g)) groups
+  putStrLn ans
 
 training99 :: IO ()
 training99 = do
