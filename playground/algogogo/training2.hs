@@ -11,7 +11,19 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training100
+  training101
+
+training101 :: IO ()
+training101 = do
+  n <- getInt
+  hs <- getIntArray
+
+  let canMove = zipWith (>=) hs (tail hs)
+
+  let blocks = group canMove
+
+  let maxMoves = maximum $ 0 : [length b | b <- blocks, head b == True]
+  print maxMoves
 
 training100 :: IO ()
 training100 = do
