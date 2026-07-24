@@ -13,6 +13,16 @@ main :: IO ()
 main = do
   training101
 
+training102 :: IO ()
+training102 = do
+  n <- getInt
+  hs <- getIntArray
+
+  let extended = 0 : hs
+  let diffs = zipWith (-) (tail extended) extended
+
+  print $ sum $ filter (> 0) diffs
+
 training101 :: IO ()
 training101 = do
   n <- getInt
