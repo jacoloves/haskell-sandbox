@@ -11,7 +11,16 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training101
+  training103
+
+training103 :: IO ()
+training103 = do
+  n <- getInt
+  as <- getIntArray
+
+  let groups = group as
+
+  print $ sum $ map (\g -> length g `div` 2) groups
 
 training102 :: IO ()
 training102 = do
