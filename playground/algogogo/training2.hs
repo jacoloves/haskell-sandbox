@@ -11,7 +11,19 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training103
+  training104
+
+training104 :: IO ()
+training104 = do
+  s <- getStr
+  let n = length s + 1
+
+  let leftVals = scanl (\prev c -> if c == '<' then prev + 1 else 0) 0 s
+
+  let rightVals = scanr (\c next -> if c == '>' then next + 1 else 0) 0 s
+
+  let ans = sum $ zipWith max leftVals rightVals
+  print ans
 
 training103 :: IO ()
 training103 = do
