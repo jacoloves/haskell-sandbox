@@ -11,7 +11,31 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training105
+  training106
+
+training106 :: IO ()
+training106 = do
+  s <- getStr
+  k <- getInt
+
+  let g1 = group s
+  let c1 = sum $ map (\g -> length g `div` 2) g1
+
+  let headC = head s
+  let lastC = last s
+
+  let ans =
+        if headC /= lastC
+          then toInteger c1 * toInteger k
+          else
+            let ss = s ++ s
+                g2 = group ss
+                c2 = sum $ map (\g -> length g `div` 2) g2
+                extraPerJoin = c2 - 2 * c1
+             in toInteger c1 * toInteger k
+                  + toInteger extraPerJoin * toInteger (k - 1)
+
+  print ans
 
 training105 :: IO ()
 training105 = do
@@ -102,11 +126,11 @@ training98 = do
   let ans =
         sum
           [ toInteger (countA ! a)
-              * toInteger (countB ! b)
-              * toInteger (countC ! c)
-            | a <- [0 .. 45],
-              b <- [0 .. 45],
-              let c = (46 - a - b) `mod` 46
+            * toInteger (countB ! b)
+            * toInteger (countC ! c)
+          | a <- [0 .. 45]
+          , b <- [0 .. 45]
+          , let c = (46 - a - b) `mod` 46
           ]
 
   print ans
@@ -168,9 +192,9 @@ training94 = do
   let ans =
         sum
           [ if c >= x
-              then c - x
-              else c
-            | (x, c) <- Map.toList cnt
+            then c - x
+            else c
+          | (x, c) <- Map.toList cnt
           ]
 
   print ans
@@ -269,14 +293,14 @@ training86 = do
 
   let candidates =
         [ (cx, cy, h)
-          | cx <- [0 .. 100],
-            cy <- [0 .. 100],
-            let hCands = [hi + abs (xi - cx) + abs (yi - cy) | (xi, yi, hi) <- points, hi > 0],
-            not (null hCands),
-            let h = head hCands,
-            all (== h) hCands,
-            h >= 1,
-            all (\(xi, yi, hi) -> max 0 (h - abs (xi - cx) - abs (yi - cy)) == hi) points
+        | cx <- [0 .. 100]
+        , cy <- [0 .. 100]
+        , let hCands = [hi + abs (xi - cx) + abs (yi - cy) | (xi, yi, hi) <- points, hi > 0]
+        , not (null hCands)
+        , let h = head hCands
+        , all (== h) hCands
+        , h >= 1
+        , all (\(xi, yi, hi) -> max 0 (h - abs (xi - cx) - abs (yi - cy)) == hi) points
         ]
 
   let (cx, cy, h) = head candidates
@@ -301,9 +325,9 @@ training84 = do
 
   let costs =
         [ c * k
-            + a * max 0 (x - k `div` 2)
-            + b * max 0 (y - k `div` 2)
-          | k <- [0, 2 .. (max x y) * 2]
+          + a * max 0 (x - k `div` 2)
+          + b * max 0 (y - k `div` 2)
+        | k <- [0, 2 .. (max x y) * 2]
         ]
 
   print $ minimum costs
@@ -388,13 +412,13 @@ training79 = do
 
   let ans =
         [ a' + b' + c'
-          | a' <- [0 .. min 9999 (n `div` a)],
-            let remA = n - a * a',
-            b' <- [0 .. min 9999 (remA `div` b)],
-            let remB = remA - b * b',
-            remB `mod` c == 0,
-            let c' = remB `div` c,
-            c' <= 9999
+        | a' <- [0 .. min 9999 (n `div` a)]
+        , let remA = n - a * a'
+        , b' <- [0 .. min 9999 (remA `div` b)]
+        , let remB = remA - b * b'
+        , remB `mod` c == 0
+        , let c' = remB `div` c
+        , c' <= 9999
         ]
 
   print $ minimum ans
@@ -407,13 +431,13 @@ training78 = do
   let count =
         length
           [ ()
-            | i <- [0 .. n - 5],
-              j <- [i + 1 .. n - 4],
-              k <- [j + 1 .. n - 3],
-              l <- [k + 1 .. n - 2],
-              m <- [l + 1 .. n - 1],
-              let prod = foldl (\acc idx -> (acc * (as !! idx)) `mod` p) 1 [i, j, k, l, m],
-              prod == q
+          | i <- [0 .. n - 5]
+          , j <- [i + 1 .. n - 4]
+          , k <- [j + 1 .. n - 3]
+          , l <- [k + 1 .. n - 2]
+          , m <- [l + 1 .. n - 1]
+          , let prod = foldl (\acc idx -> (acc * (as !! idx)) `mod` p) 1 [i, j, k, l, m]
+          , prod == q
           ]
 
   print count
@@ -432,9 +456,9 @@ training76 = do
 
   let scores =
         [ Set.size $ Set.intersection (toSet x) (toSet y)
-          | i <- [1 .. n - 1],
-            let x = take i s,
-            let y = drop i s
+        | i <- [1 .. n - 1]
+        , let x = take i s
+        , let y = drop i s
         ]
 
   print $ maximum scores
@@ -563,7 +587,7 @@ training69 = do
 
   let isAC =
         [ if s !! (i - 1) == 'A' && s !! i == 'C' then 1 else 0
-          | i <- [1 .. n - 1]
+        | i <- [1 .. n - 1]
         ]
 
   let prefixList = scanl (+) 0 (isAC ++ [0])
@@ -584,8 +608,8 @@ training68 = do
   let ans =
         sum
           [ toInteger k * toInteger (k - 1) `div` 2
-            | k <- Map.elems cnts,
-              k >= 2
+          | k <- Map.elems cnts
+          , k >= 2
           ]
 
   print ans
@@ -603,14 +627,14 @@ training66 = do
 
   let solutions =
         [ (x, y', z)
-          | x <- [0 .. n],
-            let remY1 = y - 10000 * x,
-            remY1 >= 0,
-            y' <- [0 .. n - x],
-            let remY2 = remY1 - 5000 * y',
-            remY2 >= 0,
-            let z = n - x - y',
-            1000 * z == remY2
+        | x <- [0 .. n]
+        , let remY1 = y - 10000 * x
+        , remY1 >= 0
+        , y' <- [0 .. n - x]
+        , let remY2 = remY1 - 5000 * y'
+        , remY2 >= 0
+        , let z = n - x - y'
+        , 1000 * z == remY2
         ]
 
   case solutions of
@@ -695,9 +719,9 @@ training60 = do
   let result =
         sum
           [ i
-            | i <- [1 .. n],
-              let digitSum = sumOfDigits i,
-              digitSum >= a && digitSum <= b
+          | i <- [1 .. n]
+          , let digitSum = sumOfDigits i
+          , digitSum >= a && digitSum <= b
           ]
 
   print result
@@ -794,14 +818,14 @@ training52 = do
   let called = Set.fromList bs
 
   let lines =
-        [ [0, 1, 2],
-          [3, 4, 5],
-          [6, 7, 8],
-          [0, 3, 6],
-          [1, 4, 7],
-          [2, 5, 8],
-          [0, 4, 8],
-          [2, 4, 6]
+        [ [0, 1, 2]
+        , [3, 4, 5]
+        , [6, 7, 8]
+        , [0, 3, 6]
+        , [1, 4, 7]
+        , [2, 5, 8]
+        , [0, 4, 8]
+        , [2, 4, 6]
         ]
 
   let bingo = any (isLine c called) lines
@@ -1014,16 +1038,16 @@ training34 = do
 
 rankGroup :: [(Int, Int, Int)] -> [(Int, Int, Int)]
 rankGroup grp = zipWith (\x (_, _, i) -> (i, p, x)) [1 ..] grp
-  where
-    (p, _, _) = head grp
+ where
+  (p, _, _) = head grp
 
 formatID :: Int -> Int -> String
 formatID p x = pad6 p ++ pad6 x
 
 pad6 :: Int -> String
 pad6 n = replicate (6 - length s) '0' ++ s
-  where
-    s = show n
+ where
+  s = show n
 
 training33 :: IO ()
 training33 = do
@@ -1131,11 +1155,11 @@ training26 = do
 countSeaViewHotes :: [Int] -> Int
 countSeaViewHotes [] = 0
 countSeaViewHotes (h : hs) = 1 + go h hs
-  where
-    go _ [] = 0
-    go maxSoFar (x : xs)
-      | x >= maxSoFar = 1 + go x xs
-      | otherwise = go maxSoFar xs
+ where
+  go _ [] = 0
+  go maxSoFar (x : xs)
+    | x >= maxSoFar = 1 + go x xs
+    | otherwise = go maxSoFar xs
 
 training25 :: IO ()
 training25 = do
@@ -1178,8 +1202,8 @@ training22 = do
 
 fromBaseK :: Int -> String -> Int
 fromBaseK k str = foldl (\acc digit -> acc * k + digitToInt digit) 0 str
-  where
-    digitToInt c = read [c]
+ where
+  digitToInt c = read [c]
 
 training21 :: IO ()
 training21 = do
@@ -1189,8 +1213,8 @@ training21 = do
 
 isPalindrome :: Int -> Bool
 isPalindrome n = s == reverse s
-  where
-    s = show n
+ where
+  s = show n
 
 training20 :: IO ()
 training20 = do
