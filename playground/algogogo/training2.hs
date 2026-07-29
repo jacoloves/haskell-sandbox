@@ -11,7 +11,35 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training106
+  training107
+
+training107 :: IO ()
+training107 = do
+  s <- getStr
+  let n = length s
+
+  let leftR = scanl (\acc c -> if c == 'R' then acc + 1 else 0) 0 s
+  let rightL = scanr (\c acc -> if c == 'L' then acc + 1 else 0) 0 s
+
+  let arr0 = listArray (0, n - 1) (repeat 0) :: Array Int Int
+
+  let boundaries = [i | i <- [0 .. n - 2], s !! i == 'R', s !! (i + 1) == 'L']
+
+  let arr1 =
+        foldl
+          ( \arr i ->
+              let r = leftR !! (i + 1)
+                  l = rightL !! (i + 1)
+                  rLeft = (r + 1) `div` 2
+                  rRight = r `div` 2
+                  lRight = (l + 1) `div` 2
+                  lLeft = l `div` 2
+               in arr // [(i, arr ! i + rLeft + lLeft), (i + 1, arr ! (i + 1) + rRight + lRight)]
+          )
+          arr0
+          boundaries
+
+  putStrLn $ unwords $ map (show . (arr1 !)) [0 .. n - 1]
 
 training106 :: IO ()
 training106 = do
