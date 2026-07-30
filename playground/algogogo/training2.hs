@@ -11,7 +11,27 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training107
+  training108
+
+training108 :: IO ()
+training108 = do
+  s <- getStr
+  let n = length s
+
+  let ans = minimum [costFor s n c | c <- ['a' .. 'z']]
+  print ans
+
+costFor :: String -> Int -> Char -> Int
+costFor s n c =
+  let p = [i | (i, ch) <- zip [0 ..] s, ch == c]
+   in if null p
+        then n - 1
+        else
+          let gaps =
+                head p
+                  : zipWith (\a b -> b - a - 1) p (tail p)
+                  ++ [n - 1 - last p]
+           in maximum gaps
 
 training107 :: IO ()
 training107 = do
