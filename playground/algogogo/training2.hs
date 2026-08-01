@@ -11,7 +11,25 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training108
+  training109
+
+training109 :: IO ()
+training109 = do
+  n <- getInt
+  s <- getStr
+
+  let gs = group s
+  let sizes = map length gs
+
+  let samePairs =
+        sum
+          [ toInteger k * toInteger (k + 1 `div` 2)
+          | k <- sizes
+          ]
+
+  let total = toInteger n * toInteger (n + 1) `div` 2
+
+  print $ total - samePairs
 
 training108 :: IO ()
 training108 = do
