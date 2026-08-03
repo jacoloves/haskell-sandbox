@@ -11,7 +11,17 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training109
+  training110
+
+training110 :: IO ()
+training110 = do
+  [n, m] <- getIntArray
+  edges <- replicateM m getIntArray
+
+  let f = concatMap (\[a, b] -> [a, b]) edges
+  let c = Map.fromListWith (+) [(v, 1) | v <- f]
+
+  mapM_ (\i -> print $ Map.findWithDefault 0 i c) [1 .. n]
 
 training109 :: IO ()
 training109 = do
