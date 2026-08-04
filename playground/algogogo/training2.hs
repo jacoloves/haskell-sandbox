@@ -11,7 +11,30 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training111
+  training112
+
+training112 :: IO ()
+training112 = do
+  [n, m] <- getIntArray
+  hs <- getIntArray
+
+  let hArr = listArray (1, n) hs :: Array Int Int
+
+  edges <- replicateM m getIntArray
+
+  let badSet =
+        foldl
+          ( \s [a, b] ->
+              let ha = hArr ! a
+                  hb = hArr ! b
+                  s' = if ha >= hb then Set.insert b s else s
+                  s'' = if hb >= ha then Set.insert a s' else s'
+               in s''
+          )
+          Set.empty
+          edges
+
+  print $ n - Set.size badSet
 
 training111 :: IO ()
 training111 = do
