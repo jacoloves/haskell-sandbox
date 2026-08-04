@@ -11,7 +11,16 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training110
+  training111
+
+training111 :: IO ()
+training111 = do
+  n <- getInt
+  as <- getIntArray
+
+  let cnt = Map.fromListWith (+) [(a, 1) | a <- as]
+
+  mapM_ (\i -> print $ Map.findWithDefault 0 i cnt) [1 .. n]
 
 training110 :: IO ()
 training110 = do
