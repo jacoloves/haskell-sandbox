@@ -11,7 +11,25 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training112
+  training113
+
+training113 :: IO ()
+training113 = do
+  [n, m] <- getIntArray
+  edges <- replicateM m getIntArray
+
+  let neighbors v =
+        Set.fromList
+          [ if a == v then b else a
+          | [a, b] <- edges
+          , a == v || b == v
+          ]
+
+  let adj1 = neighbors 1
+  let adjN = neighbors n
+
+  let ans = not $ Set.null $ Set.intersection adj1 adjN
+  putStrLn $ if ans then "POSSIBLE" else "IMPOSSIBLE"
 
 training112 :: IO ()
 training112 = do
