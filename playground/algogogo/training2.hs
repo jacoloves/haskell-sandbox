@@ -11,7 +11,17 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training113
+  training114
+
+training114 :: IO ()
+training114 = do
+  [n, m] <- getIntArray
+  edges <- replicateM m getIntArray
+
+  let p = [(max a b, 1) | [a, b] <- edges]
+  let cnt = Map.fromListWith (+) p
+
+  print $ Map.size $ Map.filter (== 1) cnt
 
 training113 :: IO ()
 training113 = do
