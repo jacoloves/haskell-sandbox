@@ -11,7 +11,38 @@ import Data.Set qualified as Set
 
 main :: IO ()
 main = do
-  training114
+  training115
+
+training115 :: IO ()
+training115 = do
+  [n, q] <- getIntArray
+  ops <- getNLines q
+
+  let iF = listArray ((1, 1), (n, n)) (repeat False) :: Array (Int, Int) Bool
+
+  finalF <- foldM (applyOp2 n) iF ops
+
+  mapM_ (\i -> putStrLn [if finalF ! (i, j) then 'Y' else 'N' | j <- [1 .. n]]) [1 .. n]
+
+applyOp2 :: Int -> Array (Int, Int) Bool -> String -> IO (Array (Int, Int) Bool)
+applyOp2 n follow line = do
+  let ws = words line
+  return $ case ws of
+    ["1", a', b'] ->
+      let a = read a'; b = read b'
+       in follow // [((a, b), True)]
+    ["2", a'] ->
+      let a = read a'
+          followers = [i | i <- [1 .. n], follow ! (i, a)]
+          updates = [((a, i), True) | i <- followers]
+       in follow // updates
+    ["3", a'] ->
+      let a = read a'
+          followees = [x | x <- [1 .. n], follow ! (a, x)]
+          updates =
+            [((a, z), True) | x <- followees, z <- [1 .. n], z /= a, follow ! (x, z)]
+       in follow // updates
+    _ -> follow
 
 training114 :: IO ()
 training114 = do
